@@ -37,22 +37,6 @@ client.on("guildMemberAdd", member => {
 }).catch(console.error)
 })
 
-client.on('message', message => {
-    var args = message.content.split(/[ ]+/)
-    if(message.content.includes('discord.gg')){
-        message.delete()
-      message.channel.sendMessage("", {embed: {
-        title: "لا تنشر",
-        color: 0x06DF00,
-        description: "يمنع النشر في هذا السيرفر",
-        footer: {
-          text: "By A7med"
-        }
-      }}).then(msg => {msg.delete(3000)});
-                          }
-
-     
-}); 
 
 
 client.on('message', message => {
@@ -98,35 +82,6 @@ client.on('message', message =>{
     }
 });
 
-client.on('message', message => {
-     if(message.content.startsWith(prefix + "clear")) {
-         var args = message.content.split(" ").slice(1);
- if (!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply('You need MANAGE_MESSAGES permission noob');
-  if (!args[0]) return message.channel.send('You didn\'t provide any number!!!');
-
-  message.channel.bulkDelete(args[0]).then(() => {
-    const embed = new Discord.RichEmbed()
-      .setColor(0xF16104)
-      .setDescription(`Cleared ${args[0]} messages.`);
-    message.channel.send({ embed });
-
-    const actionlog = message.guild.channels.find('name', 'log');
-
-    if (!actionlog) return message.channel.send('Can\'t find action-log channel. Are you sure that this channel exists and I have permission to view it? **CANNOT POST LOG.**');
-    const embedlog = new Discord.RichEmbed()
-      .setDescription('~Purge~')
-      .setColor(0xF16104)
-      .addField('Purged By', `<@${message.author.id}> with ID ${message.author.id}`)
-      .addField('Purged in', message.channel)
-      .addField('Time', message.createdAt);
-    actionlog.send(embedlog);
-   
-  });
-};
-
-});
-
-
 
 
 
@@ -156,13 +111,58 @@ client.on('message', (message) => {
     }
 })
 
+var temp = {
 
-client.on("ready", () => {
-let channel =     client.channels.get("495603889958289418")
-setInterval(function() {
-channel.send(`S!اذكار`);
-}, 3600000)
-})
+};
+var prefix = "S!";
+client.on("message",(message) => {
+    if (message.channel.type !== "text") return;
+    if (!message.content.startsWith(prefix)) return;
+    switch(message.content.split(" ")[0].slice(prefix.length)) {
+        case "tempon" :
+            if (!message.member.hasPermission("MANAGE_CHANNELS")) return message.reply("** You Don't Have Permission `Manage channels` To Do This Command");
+            temp[message.guild.id] = {
+                work : true,
+                channel : "Not Yet"
+            };
+            message.guild.createChannel("اضغط لصنع روم مؤقت").then(c => {
+                c.setPosition(1);
+                temp[message.guild.id].channel = c.id
+                message.channel.send("** Done.**");
+            });
+        break;
+        case "tempof" :
+        if (!message.member.hasPermission("MANAGE_CHANNELS")) return message.reply("** You Don't Have Permission `Manage channels` To Do This Command");
+        message.guild.channels.get(temp[message.guild.id]).delete();
+            temp[message.guild.id] = {
+                work : false,
+                channel : "Not Yet"
+            };
+        message.channel.send("** Done.**");
+    };
+});
+client.on("voiceStateUpdate", (o,n) => {
+    if (!temp[n.guild.id]) return;
+    if (temp[n.guild.id].work == false) return;
+    if (n.voiceChannelID == temp[n.guild.id].channel) {
+        n.guild.createChannel(n.user.username, 'voice').then(c => {
+            n.setVoiceChannel(c);
+            c.overwritePermissions(n.user.id, {
+                CONNECT:true,
+                SPEAK:true,
+                MANAGE_CHANNEL:true,
+                MUTE_MEMBERS:true,
+                DEAFEN_MEMBERS:true,
+                MOVE_MEMBERS:true,
+                VIEW_CHANNEL:true  
+            });
+        })
+    };
+    if (!o.voiceChannel) return;
+    if (o.voiceChannel.name == o.user.username) {
+        o.voiceChannel.delete();
+    };
+});
 
 
 
