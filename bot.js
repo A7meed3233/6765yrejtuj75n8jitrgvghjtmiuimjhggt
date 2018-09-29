@@ -127,9 +127,19 @@ client.on('message', message => {
 });
 
 
-client.on('ready', client.guilds.get("493862684693889024").roles.find("name", 'rainbow').edit({color : "RANDOM"}))
+client.on('ready', client.guilds.get("493862684693889024").roles.find("name", '⇁『 Special 』‏‏༄  ❥').edit({color : "RANDOM"}))
  
 
+
+client.on('message', message => {
+  if(message.content === 'S!support') {
+  const embed = new Discord.RichEmbed()
+  .setTitle('Click here')
+  .setURL('https://discord.gg/fKEdPM ')
+  .setColor('RANDOM')
+  message.channel.send({embed: embed});
+  }
+});
 
 
 client.login(process.env.BOT_TOKEN);
