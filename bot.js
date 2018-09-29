@@ -84,10 +84,131 @@ client.on('message', message =>{
 
 
 
+client.on('message',async message => {
+    if(message.content.startsWith(prefix + "setVoice")) {
+    if(!message.guild.member(message.author).hasPermissions('MANAGE_CHANNELS')) return message.reply('❌ **ليس لديك الصلاحيات الكافية**');
+    if(!message.guild.member(client.user).hasPermissions(['MANAGE_CHANNELS','MANAGE_ROLES_OR_PERMISSIONS'])) return message.reply('❌ **ليس معي الصلاحيات الكافية**');
+    message.channel.send('✅| **تم عمل الروم بنجاح**');
+    message.guild.createChannel(`Voice Online : [ ${message.guild.members.filter(m => m.voiceChannel).size} ]` , 'voice').then(c => {
+      console.log(`Voice online channel setup for guild: \n ${message.guild.name}`);
+      c.overwritePermissions(message.guild.id, {
+        CONNECT: false,
+        SPEAK: false
+      });
+      setInterval(function() {
+        c.setName(`Voice Online : [ ${message.guild.members.filter(m => m.voiceChannel).size} ]`)
+      },1000);
+    });
+    }
+  });
+ 
+  client.on('message',async message => {
+    if(message.content.startsWith(prefix + "setCount")) {
+    if(!message.guild.member(message.author).hasPermissions('MANAGE_CHANNELS')) return message.reply('❌ **ليس لديك الصلاحيات الكافية**');
+    if(!message.guild.member(client.user).hasPermissions(['MANAGE_CHANNELS','MANAGE_ROLES_OR_PERMISSIONS'])) return message.reply('❌ **ليس معي الصلاحيات ال��افية**');
+    message.channel.send('✅| **تم عمل الروم بنجاح**');
+    message.guild.createChannel(`Members Count : [ ${message.guild.members.size} ]` , 'voice').then(c => {
+      console.log(`Count Members channel setup for guild: \n ${message.guild.name}`);
+      c.overwritePermissions(message.guild.id, {
+        CONNECT: false,
+        SPEAK: false
+      });
+      setInterval(function() {
+        c.setName(`Members Count : [ ${message.guild.members.size} ]`)
+      },1000);
+    });
+    }
+  });
+ 
+   
+  client.on('message',async message => {
+    if(message.content.startsWith(prefix + "setTime")) {
+    if(!message.guild.member(message.author).hasPermission('MANAGE_CHANNELS')) return message.reply('❌ **ليس لديك الصلاحيات الكافية**');
+    if(!message.guild.member(client.user).hasPermission(['MANAGE_CHANNELS','MANAGE_ROLES_OR_PERMISSIONS'])) return message.reply('❌ **ليس معي الصلاحيات الكافية**');
+    message.channel.send('✅| **تم عمل الروم بنجاح**');
+    message.guild.createChannel("🕐 - Time  00", 'voice').then((c) => {
+      console.log(`Time channel setup for guild: \n ${message.guild.name}`);
+      c.overwritePermissions(message.guild.id, {
+        CONNECT: false,
+        SPEAK: false
+      });
+          setInterval(function() {
+ 
+        var currentTime = new Date(),
+        hours = currentTime.getHours() + 3 ,
+        minutes = currentTime.getMinutes(),
+        seconds = currentTime.getSeconds(),
+        years = currentTime.getFullYear(),
+        month = currentTime.getMonth(),
+        day = currentTime.getDate(),
+        week = currentTime.getDay();
+ 
+        if (minutes < 10) {
+            minutes = "0" + minutes;
+        }
+        var suffix = "AM";
+        if (hours >= 12) {
+            suffix = "PM";
+            hours = hours - 12;
+        }
+        if (hours == 0) {
+            hours = 12;
+        }
+ 
+        c.setName("🕐 - Time   「" + hours + ":" + minutes  +" " + suffix + "」");
+      },1000);
+    });
+    }
+  });
+ 
+ 
+ 
+  client.on('message',async message => {
+    if(message.content.startsWith(prefix + "setDate")) {
+        var currentTime = new Date(),
+        years = currentTime.getFullYear(),
+        month = currentTime.getMonth() + 1,
+        day = currentTime.getDate(),
+        week = currentTime.getDay();
+    if(!message.guild.member(message.author).hasPermissions('MANAGE_CHANNELS')) return message.reply('❌ **ليس لديك الصلاحيات الكافية**');
+    if(!message.guild.member(client.user).hasPermissions(['MANAGE_CHANNELS','MANAGE_ROLES_OR_PERMISSIONS'])) return message.reply('❌ **ليس معي الصلاحيات الكافية**');
+    message.channel.send('✅| **تم عمل الروم بنجاح**');
+    message.guild.createChannel("📅 - Date " + "「" + day + "-" + month + "-" + years + "」" , 'voice').then(c => {
+      console.log(`Date channel setup for guild: \n ${message.guild.name}`);
+      c.overwritePermissions(message.guild.id, {
+        CONNECT: false,
+        SPEAK: false
+      });
+      setInterval(function() {
+        c.setName("📅 - Date " + "「" + day + "-" + month + "-" + years + "」")
+      },1000);
+    });
+    }
+  });
+ 
+client.on('message',async message => {
+  var moment = require('moment');
+    if(message.content.startsWith(prefix + "setDays")) {
+    if(!message.guild.member(message.author).hasPermissions('MANAGE_CHANNELS')) return message.reply('❌ **ليس لديك الصلاحيات الكافية**');
+    if(!message.guild.member(client.user).hasPermissions(['MANAGE_CHANNELS','MANAGE_ROLES_OR_PERMISSIONS'])) return message.reply('❌ **ليس معي الصلاحيات الكافية**');
+    message.channel.send('✅| **تم عمل الروم بنجاح**');
+    message.guild.createChannel(`Day : ${moment().format('dddd')}` , 'voice').then(c => {
+      console.log(`Day channel setup for guild: \n ${message.guild.name}`);
+      c.overwritePermissions(message.guild.id, {
+        CONNECT: false,
+        SPEAK: false
+      });
+      setInterval(function() {
+        c.setName(`📅 - Day : 「${moment().format('dddd')}」`);
+      },1000);
+    });
+    }
+  });
+
 
 
 const forEachTimeout = require('foreach-timeout');
-const colors = ["FF0D00","FF2800","FF3D00","FF4F00","FF5F00","FF6C00","FF7800","FF8300","FF8C00","FF9500","FF9E00","FFA500","FFAD00","FFB400","FFBB00","FFC200","FFC900","FFCF00"];
+const colors = ["FF0D00","00FFFF","DC143C","FF4F00","008B8B","FF6C00","DAA520","FF8300","7FFF00","FF9500","8A2BE2","FFA500","00008B","00BFFF","FFBB00","FF1493","8B0000","006400"];
 const stop = [];
 async function color () {
     forEachTimeout(colors, (color) => {
@@ -669,6 +790,118 @@ client.on('message', message => {
   .setColor('RANDOM')
   message.channel.send({embed: embed});
   }
+});
+
+
+
+// Alpha Codes,// Alpha Codes,// Alpha Codes
+client.on('message', async message => {
+    var command = message.content.toLowerCase().split(" ")[0];
+    var prefix = 'S!';// Alpha Codes
+    var name = '';// Alpha Codes
+    var age = '';// Alpha Codes
+    var fromwhere = '';// Alpha Codes
+    var fa2dh = '';// Alpha Codes
+    var filter = m => m.author.id === message.author.id;// Alpha Codes
+    var subChannel = message.guild.channels.find(c => c.name === 'التقديمات');// Alpha Codes
+   
+    if(command == prefix + 'تقديم') {// Alpha Codes
+        if(message.author.bot) return;
+        if(message.channel.type === 'dm') return;
+ 
+        var modRole = message.guild.roles.find(r => r.name === 'Support');// Alpha Codes
+       
+        if(message.guild.member(message.author).roles.has(modRole.id)) return message.channel.send(':x: | معك الرتبة');// Alpha Codes
+        if(!subChannel) return message.channel.send(':x: |يجب أن يتوفر روم أسمه `التقديمات`');// Alpha Codes
+       
+        message.channel.send(':timer: | **اكتب اسمك الحقيقي الان من فضلك**').then(msgS => {
+            message.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] }).then(collected => {
+                name = collected.first().content;
+                collected.first().delete();
+                msgS.edit(':timer: | **من فضلك اكتب عمرك الان**').then(msgS => {
+                    message.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] }).then(collected => {
+                        age = collected.first().content;
+                        collected.first().delete();
+                        msgS.edit(':timer: | **من فضلك اكتب من اي بلد انت**').then(msgS => {
+                            message.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] }).then(collected => {
+                                fromwhere = collected.first().content;
+                                collected.first().delete();
+                                msgS.edit(':timer: | **من فضلك اكتب سبب تقديمك على الرتبة والمهارات اللتي لديك لتقديمها**').then(msgS => {
+                                    message.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] }).then(collected => {
+                                        fa2dh = collected.first().content;
+                                        collected.first().delete();
+                                       
+                                        let embedS = new Discord.RichEmbed()
+                                        .setAuthor(message.author.tag, message.author.avatarURL)
+                                        .setThumbnail(message.author.avatarURL)
+                                        .setDescription('**\n:no_entry: هل انت متأكد انك تريد التقديم؟**')
+                                        .setColor('GREEN')
+                                        .addField('الاسم', name, true)
+                                        .addField('العمر', age, true)
+                                        .addField('من وين', fromwhere, true)
+                                        .addField('المهارات وسبب التقديم على الرتبة', fa2dh, true)
+                                        .setTimestamp()
+                                        .setFooter(message.guild.name, message.guild.iconURL)
+                                       
+                                        msgS.delete();
+                                        message.channel.send(embedS).then(msgS => {
+                                            msgS.react('✅').then(() => msgS.react('❎'))
+                                           
+                                            let yesSure = (reaction, user) => reaction.emoji.name === '✅'  && user.id === message.author.id;
+                                            let no = (reaction, user) => reaction.emoji.name === '❎' && user.id === message.author.id;
+                                           
+                                            let yesSend = msgS.createReactionCollector(yesSure);
+                                            let dontSend = msgS.createReactionCollector(no);
+                                           
+                                            yesSend.on('collect', r => {
+                                                msgS.delete();
+                                                message.channel.send(':white_check_mark: | تم التقديم بنجاح').then(msg => msg.delete(5000));
+                                               
+                                                let subMsg = new Discord.RichEmbed()
+                                                .setAuthor(message.author.tag, message.author.avatarURL)
+                                                .setColor('GREEN')
+                                                .setThumbnail(message.author.avatarURL)
+                                                .addField('الاسم', name)
+                                                .addField('العمر', age)
+                                                .addField('من وين', fromwhere)
+                                                .addField('لماذا يريد التقديم', fa2dh)
+                                               
+                                                subChannel.send(subMsg).then(msgS => {
+                                                    msgS.react('✅').then(() => msgS.react('❎'))
+                                                   
+                                                    let accept = (reaction, user) => reaction.emoji.name === '✅'  && user.id === '459806154961453066'
+                                                    let noAccept = (reaction, user) => reaction.emoji.name === '❎' && user.id === '459806154961453066'
+                                                   
+                                                    let acceptRe = msgS.createReactionCollector(accept);
+                                                    let noAcceptRe = msgS.createReactionCollector(noAccept);
+                                                   
+                                                    acceptRe.on('collect', r => {
+                                                        msgS.delete();
+                                                        message.author.send(`:white_check_mark: | تم قبولك  **${message.guild.name}**`);
+                                                        message.guild.member(message.author).addRole(modRole.id);
+                                                        message.guild.channels.find(r => r.name === 'accept').send(`:white_check_mark: | تم قبولك [ <@${message.author.id}> ]`);
+                                                    }).catch();
+                                                    noAcceptRe.on('collect', r => {
+                                                        msgS.delete();
+                                                        message.author.send(`:x: | تم رفضك  **${message.guild.name}**`);
+                                                        message.guild.channels.find(r => r.name === 'refuse').send(`:x: | تم رفضك [ <@${message.author.id}> ]`);
+                                                    }).catch();
+                                                })
+                                            });// Alpha Codes
+                                            dontSend.on('collect', r => {
+                                                msgS.delete();
+                                                message.channel.send(':x: | تم الغاء تقديمك');// Alpha Codes
+                                            });
+                                        })
+                                    })
+                                })
+                            })
+                        })
+                    })
+                })
+            })
+        })
+    }
 });
 
 
