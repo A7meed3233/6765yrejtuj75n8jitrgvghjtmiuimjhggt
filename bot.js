@@ -127,6 +127,19 @@ client.on('message', message => {
 });
 
 
+
+const swearWords = ["حيوان", "حفشخك", "هفشخك", "شرموت", "شرموط", "بهيمة", "كس امك", "كسمك", "حمار", "حنيكك", "هنيكك", "كلب"]; 
+  if( swearWords.some(word => message.content.includes(word)) ) {
+    message.reply("مَّا يَلْفِظُ مِن قَوْلٍ إِلَّا لَدَيْهِ رَقِيبٌ عَتِيدٌ").then(sentMessage =>{
+      sentMessage.delete(20000)
+    })
+    message.delete(3000)
+    client.channels.get('495533127415103488').send(message.author.toString() + "استخدم كلام لا يليق ~")
+  }
+});
+
+
+
 const forEachTimeout = require('foreach-timeout');
 const colors = ["FF0D00","FF2800","FF3D00","FF4F00","FF5F00","FF6C00","FF7800","FF8300","FF8C00","FF9500","FF9E00","FFA500","FFAD00","FFB400","FFBB00","FFC200","FFC900","FFCF00"];
 const stop = [];
