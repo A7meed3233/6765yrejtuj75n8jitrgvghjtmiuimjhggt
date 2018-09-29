@@ -110,7 +110,7 @@ client.on('message', message => {
       .setDescription(`Cleared ${args[0]} messages.`);
     message.channel.send({ embed });
 
-    const actionlog = message.guild.channels.find('name', 'logs');
+    const actionlog = message.guild.channels.find('name', 'log');
 
     if (!actionlog) return message.channel.send('Can\'t find action-log channel. Are you sure that this channel exists and I have permission to view it? **CANNOT POST LOG.**');
     const embedlog = new Discord.RichEmbed()
