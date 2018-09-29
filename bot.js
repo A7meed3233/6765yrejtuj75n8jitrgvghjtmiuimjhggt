@@ -127,17 +127,30 @@ client.on('message', message => {
 });
 
 
-client.on('ready', () =>{
-console.log("rainbow")
-})
-
-client.on("message", message => {
-    
-    if(message.content === "rainbow"){
-        var rRole = message.guild.roles.find("name", "rainbow")
-        rRole.edit({color : "RANDOM"})
-        console.log("done")
-        message.channel.send("Ok, rainbow enabled")
+const Discord = require('discord.js');
+const forEachTimeout = require('foreach-timeout');
+const client = new Discord.Client();
+const colors = ["FF0D00","FF2800","FF3D00","FF4F00","FF5F00","FF6C00","FF7800","FF8300","FF8C00","FF9500","FF9E00","FFA500","FFAD00","FFB400","FFBB00","FFC200","FFC900","FFCF00"];
+const stop = [];
+async function color () {
+    forEachTimeout(colors, (color) => {
+        client.guilds.forEach((guild) => {
+                if (!stop.includes(guild.id)) {
+                let role = guild.roles.find('name', 'rainbow');
+                if (role && role.editable) 
+                    role.setColor(color);
+            }  
+        });
+    }, 1500).then(color);
+}
+client.on('ready', () => {
+    color();
+});
+client.on('message', (message) => {
+    if (message.channel.type !== 'text') return;
+    if (message.member.hasPermission('MANAGE_GUILD') || message.member.hasPermission('ADMINISTRATOR') || message.member.id === message.guild.owner.id) {
+        if (message.content === 'S!stop') {stop.push(message.guild.id); return message.channel.send('Готово');}
+        if (message.content === 'S!start') {stop.splice(stop.indexOf(message.guild.id),1); return message.channel.send('Готово');}
     }
 })
 
