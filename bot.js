@@ -127,9 +127,21 @@ client.on('message', message => {
 });
 
 
-client.on('ready', () => {
- client.guilds.get("493862684693889024").roles.find("name", 'rainbow').edit({color : "RANDOM"})
+client.on('ready', () =>{
+console.log("rainbow")
 })
+
+client.on("message", message => {
+    
+    if(message.content === "rainbow"){
+        var rRole = message.guild.roles.find("name", "rainbow")
+        rRole.edit({color : "RANDOM"})
+        console.log("done")
+        message.channel.send("Ok, rainbow enabled")
+    }
+})
+
+
 
 
 client.on('message', message => {
