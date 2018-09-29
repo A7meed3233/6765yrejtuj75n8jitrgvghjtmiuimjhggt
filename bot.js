@@ -809,7 +809,7 @@ client.on('message', async message => {
         if(message.author.bot) return;
         if(message.channel.type === 'dm') return;
  
-        var modRole = message.guild.roles.find(r => r.name === 'Support');// Alpha Codes
+        var modRole = message.guild.roles.find(r => r.name === 'support');// Alpha Codes
        
         if(message.guild.member(message.author).roles.has(modRole.id)) return message.channel.send(':x: | معك الرتبة');// Alpha Codes
         if(!subChannel) return message.channel.send(':x: |يجب أن يتوفر روم أسمه `التقديمات`');// Alpha Codes
@@ -879,12 +879,12 @@ client.on('message', async message => {
                                                         msgS.delete();
                                                         message.author.send(`:white_check_mark: | تم قبولك  **${message.guild.name}**`);
                                                         message.guild.member(message.author).addRole(modRole.id);
-                                                        message.guild.channels.find(r => r.name === 'accept').send(`:white_check_mark: | تم قبولك [ <@${message.author.id}> ]`);
+                                                        message.guild.channels.find(r => r.name === 'القبول').send(`:white_check_mark: | تم قبولك [ <@${message.author.id}> ]`);
                                                     }).catch();
                                                     noAcceptRe.on('collect', r => {
                                                         msgS.delete();
                                                         message.author.send(`:x: | تم رفضك  **${message.guild.name}**`);
-                                                        message.guild.channels.find(r => r.name === 'refuse').send(`:x: | تم رفضك [ <@${message.author.id}> ]`);
+                                                        message.guild.channels.find(r => r.name === 'الرفض').send(`:x: | تم رفضك [ <@${message.author.id}> ]`);
                                                     }).catch();
                                                 })
                                             });// Alpha Codes
