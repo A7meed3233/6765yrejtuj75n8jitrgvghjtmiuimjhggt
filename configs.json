@@ -1,14 +1,8 @@
+ 
 {
-    "servers": [
-       "493862684693889024" //يمديك ضيق سرفرات..
-     
-      
-      
-
-    
-    ],
-      "roleName": "rainbow", 
-    "colors": 12,//لا تغيره
-    "speed": 60.000,//لا تغيره
-    "logging": true
+  "token" : "Bot token goes here", //لا تلعب بيها بقيه ثابته
+  "ms" : 1500,
+  "roleToDisco" : ["rainbow"], // اسم رتبه انت اختارها
+  "prefix" : "S!",// تقدر تبدلها
+  "allowedUsers" : ["459806154961453066"] ///ايدي حقك
 }
