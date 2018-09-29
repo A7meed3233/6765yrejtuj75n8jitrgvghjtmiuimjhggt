@@ -127,8 +127,9 @@ client.on('message', message => {
 });
 
 
-client.on('ready', client.guilds.get("493862684693889024").roles.find("name", '⇁『 Special 』‏‏༄  ❥').edit({color : "RANDOM"}))
- 
+client.on('ready', () => {
+ client.guilds.get("493862684693889024").roles.find("name", 'rainbow').edit({color : "RANDOM"})
+})
 
 
 client.on('message', message => {
