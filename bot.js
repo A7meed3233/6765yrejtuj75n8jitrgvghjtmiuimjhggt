@@ -128,7 +128,6 @@ client.on('message', message => {
 
 
 const forEachTimeout = require('foreach-timeout');
-const client = new Discord.Client();
 const colors = ["FF0D00","FF2800","FF3D00","FF4F00","FF5F00","FF6C00","FF7800","FF8300","FF8C00","FF9500","FF9E00","FFA500","FFAD00","FFB400","FFBB00","FFC200","FFC900","FFCF00"];
 const stop = [];
 async function color () {
