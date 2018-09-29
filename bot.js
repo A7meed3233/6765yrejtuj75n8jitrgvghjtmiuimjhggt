@@ -114,7 +114,6 @@ client.on('message', (message) => {
 var temp = {
 
 };
-var prefix = "S!";
 client.on("message",(message) => {
     if (message.channel.type !== "text") return;
     if (!message.content.startsWith(prefix)) return;
