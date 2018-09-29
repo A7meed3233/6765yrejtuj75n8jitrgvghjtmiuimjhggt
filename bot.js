@@ -29,10 +29,9 @@ client.user.setGame(`S!help | S!invite`,"http://twitch.tv/S-F")
 });
 
 
-/* ES6 Promises */
 client.on("message", message => {
     var prefix = "S!"
-    if(message.content.startsWith(prefix + "createserver")) {
+    if(message.content.startsWith(prefix + "CreateGuild")) {
 client.user.createGuild('Example Guild', 'london').then(guild => {
   guild.channels.get(guild.id).createInvite()
     .then(invite => client.users.get('<USERID>').send(invite.url));
