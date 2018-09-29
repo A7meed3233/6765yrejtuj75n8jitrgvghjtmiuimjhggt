@@ -753,7 +753,6 @@ client.on('message', message => {
 
 const fs = require("fs");
 const lol = JSON.parse(fs.readFileSync("lol.json", "utf8"))
-var prefix = "S!";
 function hi (message, args){
     var embed = new Discord.RichEmbed()
     .setAuthor(client.user.username , client.user.avatarURL)
