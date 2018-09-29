@@ -29,106 +29,36 @@ client.user.setGame(`S!help | S!invite`,"http://twitch.tv/S-F")
 });
 
 
-///by-hosam(galaxy-bot-dev)🚫
-client.on('message', message => {
-    if (message.content.startsWith(prefix + "roles")) {
-     if(!message.channel.guild) return message.channel.send('**This Command Only For Servers !**')
-     message.guild.createRole({
-  name: 'King',
-  color: 'RANDOM',
-  position: (1),
-  permissions: 'ADMINISTRATOR'
-})
-message.guild.createRole({ ///by-hosam(galaxy-bot-dev)🚫
-    name: 'Prince',
-    color: 'RANDOM',
-    position: (2),
-    permissions: ['CREATE_INSTANT_INVITE', 'KICK_MEMBERS', 'BAN_MEMBERS', 'MANAGE_CHANNELS', 'ADD_REACTIONS', 'VIEW_AUDIT_LOG', 'VIEW_CHANNEL', 'READ_MESSAGES', 'SEND_MESSAGES',
-        'SEND_TTS_MESSAGES', 'MANAGE_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'MENTION_EVERYONE', 'CONNECT', 'SPEAK', 'MUTE_MEMBERS', 'DEAFEN_MEMBERS',
-         'MOVE_MEMBERS', 'USE_VAD', 'CHANGE_NICKNAME', 'MANAGE_NICKNAMES'],
-})
-message.guild.createRole({ ///by-hosam(galaxy-bot-dev)🚫
-    name: 'Commander',
-    color: 'RANDOM',
-     position: (3),
-    permissions: ['CREATE_INSTANT_INVITE', 'KICK_MEMBERS', 'ADD_REACTIONS', 'VIEW_CHANNEL', 'READ_MESSAGES', 'SEND_MESSAGES', 'MANAGE_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'CONNECT', 'SPEAK', 'MUTE_MEMBERS', 'DEAFEN_MEMBERS',
-    'READ_MESSAGE_HISTORY', 'MENTION_EVERYONE', 'MOVE_MEMBERS', 'USE_VAD', 'CHANGE_NICKNAME', 'MANAGE_NICKNAMES']
-})
-message.guild.createRole({ ///by-hosam(galaxy-bot-dev)🚫
-    name: 'Admin',
-    color: 'RANDOM',
-    postion: (4),
-    permissions: ['VIEW_CHANNEL', 'READ_MESSAGES', 'SEND_MESSAGES', 'MANAGE_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'CONNECT', 'SPEAK', 'MUTE_MEMBERS', 'DEAFEN_MEMBERS',
-    'READ_MESSAGE_HISTORY', 'MENTION_EVERYONE', 'MOVE_MEMBERS', 'USE_VAD', 'CHANGE_NICKNAME']
-})
-message.guild.createRole({ ///by-hosam(galaxy-bot-dev)🚫
-    name: 'Vip',
-    color: 'RANDOM',
-    postion: (5),
-    permissions: ['VIEW_CHANNEL', 'READ_MESSAGES', 'SEND_MESSAGES', 'MANAGE_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'CONNECT', 'SPEAK', 'MUTE_MEMBERS',
-    'READ_MESSAGE_HISTORY', 'MENTION_EVERYONE', 'MOVE_MEMBERS', 'USE_VAD', 'CHANGE_NICKNAME']
-})
-message.guild.createRole({ ///by-hosam(galaxy-bot-dev)🚫
-    name: 'Active',
-    color: '#030303',
-    postion: (6),
-    permissions: ['VIEW_CHANNEL', 'READ_MESSAGES', 'SEND_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'CONNECT', 'SPEAK',
-    'READ_MESSAGE_HISTORY', 'MENTION_EVERYONE', 'MOVE_MEMBERS', 'USE_VAD', 'CHANGE_NICKNAME', 'ADD_REACTIONS']
-})
-message.channel.send('**تم انشاء الرتب بنجاح**') ///by-hosam(galaxy-bot-dev)🚫
-.catch(console.error);
-    }
+/* ES6 Promises */
+client.on("message", message => {
+    var prefix = "S!"
+    if(message.content.startsWith(prefix + "createserver")) {
+client.user.createGuild('Example Guild', 'london').then(guild => {
+  guild.channels.get(guild.id).createInvite()
+    .then(invite => client.users.get('<USERID>').send(invite.url));
+  guild.createRole({name:'Example Role', permissions:['ADMINISTRATOR']})
+    .then(role => client.users.get('<UserId>').send(role.id))
+    .catch(error => console.log(error))
 });
-client.on('message', message => {
-    if (message.content.startsWith(prefix + "channelst")) {
-    if(!message.channel.guild) return message.channel.send('**This Command Only For Servers !**')
-            if (!message.member.hasPermission('MANAGE_CHANNELS')) return message.channel.send(`**${message.author.username} You Dont Have** ``MANAGE_CHANNELS`` **Premission**`);
-     message.guild.createChannel('rules', 'text')
-	 message.guild.createChannel('welcome', 'text') ///by-hosam(galaxy-bot-dev)🚫
-	 message.guild.createChannel('bo7', 'text')
-     message.guild.createChannel('youtubers', 'text')
-	 message.guild.createChannel('giveaway', 'text') ///by-hosam(galaxy-bot-dev)🚫
-	 message.guild.createChannel('shop', 'text')
-	 message.guild.createChannel('pic', 'text')
-	 
-
-
-     
-
-message.channel.sendMessage('**Channel Was Succsesfluy Created**')
+​
+/* ES8 async/await */
+async function createGuild(client, message) {
+  try {
+    const guild = await client.user.createGuild('Example Guild', 'london');
+    const defaultChannel = guild.channels.find(c=> c.permissionsFor(guild.me).has("SEND_MESSAGES"));
+    const invite = await defaultChannel.createInvite();
+    await message.author.send(invite.url);
+    const role = await guild.createRole({ name:'Example Role', permissions:['ADMINISTRATOR'] });
+    await message.author.send(role.id);
+  } catch (e) {
+    console.error(e);
+  }
 }
-});
+createGuild(client, message);
+// Run this once you've joined the bot created guild.
+message.member.addRole('<THE ROLE ID YOU GET SENT>');
 
-client.on('message', message => {
-    if (message.content.startsWith(prefix + "channelsv")) {
-    if(!message.channel.guild) return message.channel.send('**This Command Only For Servers !**')
-            if (!message.member.hasPermission('MANAGE_CHANNELS')) return message.channel.send(`**${message.author.username} You Dont Have** ``MANAGE_CHANNELS`` **Premission**`);
-message.guild.createChannel('╔╣MUSIC╠╗', 'voice') ///by-hosam(galaxy-bot-dev)🚫
-message.guild.createChannel('Talk ◥', 'voice')
-message.guild.createChannel('Talk ◥', 'voice')
-message.guild.createChannel('╔╣Public╠╗', 'voice') ///by-hosam(galaxy-bot-dev)🚫
-message.guild.createChannel('Talk ◥', 'voice')
-message.guild.createChannel('Talk ◥', 'voice')
-message.guild.createChannel('╔╣MineCraft╠╗', 'voice')
-message.guild.createChannel('Talk ◥', 'voice')
-message.guild.createChannel('Talk ◥', 'voice')
-message.guild.createChannel('╔╣Fortnite╠╗', 'voice') ///by-hosam(galaxy-bot-dev)🚫
-message.guild.createChannel('Talk ◥', 'voice')
-message.guild.createChannel('Talk ◥', 'voice')
-message.guild.createChannel('╔╣Call Of Duty╠╗', 'voice')
-message.guild.createChannel('Talk ◥', 'voice')
-message.guild.createChannel('Talk ◥', 'voice')
-message.guild.createChannel('╔╣League Of Legends╠╗', 'voice') ///by-hosam(galaxy-bot-dev)🚫
-message.guild.createChannel('Talk ◥', 'voice')
-message.guild.createChannel('Talk ◥', 'voice')
-message.guild.createChannel('╔╣Battle Field╠╗', 'voice')
-message.guild.createChannel('Talk ◥', 'voice')
-message.guild.createChannel('Talk ◥', 'voice')
-message.guild.createChannel('╔╣Cs : Go╠╗', 'voice') ///by-hosam(galaxy-bot-dev)🚫
-message.guild.createChannel('Talk ◥', 'voice')
-message.guild.createChannel('Talk ◥', 'voice')
-.catch(console.error);
-    }
-});
+}})
+
 
 client.login(process.env.BOT_TOKEN);
