@@ -29,6 +29,42 @@ client.user.setGame(`S!help | S!invite`,"http://twitch.tv/S-F")
 });
 
 
+client.on("guildMemberAdd", member => {
+  member.createDM().then(function (channel) {
+  return channel.send(`:rose:  ولكم نورت السيرفر:rose: 
+:crown:اسم العضو  ${member}:crown:  
+انت العضو رقم ${member.guild.memberCount} `) 
+}).catch(console.error)
+})
+
+
+
+client.on('message', message => {
+
+     if (message.author.bot) return;
+    if (!message.channel.guild) return;
+    if (message.content.startsWith(prefix + 'ms')) {
+        if (!message.channel.guild) return;
+        let embed = new Discord.RichEmbed()
+            .setColor('RANDOM')
+            .setThumbnail(message.author.avatarURL)
+            .setFooter(message.author.username, message.author.avatarURL)
+
+        .setDescription(`**:battery: حالة اعضاء السيرفر**
+    
+**:green_heart: Online**  **[ ${message.guild.members.filter(m=>m.presence.status == 'online').size} ]**
+**:yellow_heart: Idle**       **[ ${message.guild.members.filter(m=>m.presence.status == 'idle').size} ]**  
+**:heart: DND**     **[ ${message.guild.members.filter(m=>m.presence.status == 'dnd').size} ]**
+**:black_heart: Offline** **[ ${message.guild.members.filter(m=>m.presence.status == 'offline').size} ]** `)
+
+        message.channel.send()
+
+        message.channel.sendEmbed(embed)
+    }
+});
+
+
+
 var AsciiTable = require('ascii-data-table').default
 client.on('message', message =>{
 
