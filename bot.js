@@ -29,6 +29,256 @@ client.user.setGame(`Nothing..`,"http://twitch.tv/S-F")
 });
 
 
+
+
+client.on("message", message => {
+    var prefix = "S!";
+ if (message.content === "S!help") {
+  const embed = new Discord.RichEmbed()  
+      .setColor("RANDOM")
+      .setDescription(`
+     
+             Please Select Your Language
+${prefix}help-ar
+${prefix}help-en
+             
+      `)
+   message.channel.sendEmbed(embed)
+   
+   }
+   });
+ 
+   client.on("message", message => {
+ if (message.content === "S!help-ar") {
+  const embed = new Discord.RichEmbed()  
+      .setColor("RANDOM")
+      .setDescription(`
+     
+            اختر:
+ 
+S!help-gn-ar ⇏ اوامر عامة
+S!help-ad-ar ⇏ اوامر ادارة السيرفر
+             
+S!help-mu-ar ⇏ اوامر الموسيقى
+`)
+message.channel.sendEmbed(embed)
+ 
+}
+});
+ 
+client.on("message", message => {
+    if (message.content === "S!help-en") {
+     const embed = new Discord.RichEmbed()  
+         .setColor("RANDOM")
+         .setDescription(`
+         
+              Chose:
+               
+   S!help-gn-en ⇏ General commands
+   
+   S!help-ad-en ⇏ Server management commands
+               
+   S!help-mu-en ⇏ Music commands
+   
+   
+   `)
+   message.channel.sendEmbed(embed)
+   
+   }
+   });
+ 
+   client.on("message", message => {
+    var prefix = "S!";
+ if (message.content === "S!help-gn-ar") {
+     message.channel.send('**تم ارسال رسالة في الخاص** :mailbox_with_mail: ');
+  const embed = new Discord.RichEmbed()
+      .setColor("RANDOM")
+      .setDescription(`
+             
+===================== اوامر عامة =====================
+S!id ➾ معلومات عن حسابك
+S!ping ➾ سرعة اتصالك بالانترنت
+S!avatar ➾ يظهر صورة بروفابلك
+S!server ➾ معلومات عن السيرفر
+S!bot ➾ معلومات عن البوت
+S!credit ➾ يظهرلك الكردت حقق
+S!daily ➾ يومية
+S!trans [@someone] [number] ➾ لتحويل كردت لشخص اخر
+S!count ➾ يعرضلك عدد الاشخاص الي بالسيرفر
+S!short ➾ يختصرلك الروابط
+S!say ➾ يكرر كلامك
+S!image ➾ صورة السيرفر
+S!contact ➾ لمراسله صاحب البوت
+S!invites ➾ يعرضلك عدد انفايتاتك بالسيرفر
+S!inv ➾ رابط اذخال البوت
+S!support ➾ سيرفر الدعم
+=========================================================
+وقريباً المزيد من الاكواد
+`)
+   message.author.sendEmbed(embed)
+   
+   }
+   });
+ 
+ 
+ 
+ 
+ 
+   client.on("message", message => {
+    var prefix = "S!";
+ if (message.content === "S!help-gn-en") {
+     message.channel.send('**Check your dm** :mailbox_with_mail: ');
+  const embed = new Discord.RichEmbed()
+      .setColor("RANDOM")
+      .setDescription(`
+             
+==================== General commands =====================
+S!id ➾ your informations
+S!ping ➾ your ping
+S!avatar ➾ your profile avatar
+S!server ➾ server informations
+S!bot ➾ bot informations
+S!credit ➾ your credits
+S!daily ➾ your daily credits
+S!trans [@mention] [number] ➾ to transfer credits for someone
+S!count ➾ server members without bots
+S!short ➾ shorten links
+S!say ➾ repeat your words
+S!image ➾ server image
+S!contact ➾ send text to bot owner
+S!invites ➾ to see your invites
+S!inv ➾ bot invite link
+S!support ➾ support server
+=========================================================
+More commands soon
+`)
+   message.author.sendEmbed(embed)
+   
+   }
+   });
+ 
+   client.on("message", message => {
+    var prefix = "S!";
+ if (message.content === "S!help-ad-ar") {
+     message.channel.send('**تم ارسال رسالة بالخاص** :mailbox_with_mail: ');
+  const embed = new Discord.RichEmbed()
+      .setColor("RANDOM")
+      .setDescription(`
+             
+==================== اوامر ادارية =====================
+S!bc ➾ لارسال رساله لجميع الاعضاء
+S!ban [@mention] [reason] ➾  لحظر شخص من السيرفر
+S!kick [@mention] [reason] ➾ لطرد شخص من السيرفر
+S!mute [@mention] [reason] ➾ لاعطاء ميوت لعضو
+S!unmute [@mention] ➾ لفك الميوت عن عضو
+S!move [@mention] ➾ لنقل عضو لرومك الصوتي
+S!ccolors [number] ➾ لصنع عدد من الالوان
+S!mutechannel ➾ لاقفال الشات
+S!unmutechannel ➾ لفتح الشات
+S!clear ➾ لمسح الشات
+S!role humans [role name] ➾ لعطاء رتبة للاشخاص فقط
+S!role bots [role name] ➾ لاعطاء رتبة للبوتات فقط
+S!role [@mention] [role name] ➾ لاعطاء رتبة لعضو
+S!hchannel ➾ لاخفاء الشات
+S!schannel ➾ لاظهار الشات
+=========================================================
+وقريباً المزيد من الاكواد
+`)
+   message.author.sendEmbed(embed)
+   
+}
+});
+ 
+client.on("message", message => {
+ var prefix = "S!";
+if (message.content === "S!help-ad-en") {
+  message.channel.send('**Check your dm** :mailbox_with_mail: ');
+const embed = new Discord.RichEmbed()
+   .setColor("RANDOM")
+   .setDescription(`
+         
+==================== Management commands =====================
+S!bc ➾ for massage send message to server members
+S!ban [@mention] [reason] ➾ to ban someone from the server
+S!kick [@mention] [reason] ➾ to kick someone from the server
+S!mute [@mention] [reason] ➾ to mute someone
+S!unmute [@mention] ➾ to umnute someone
+S!move [@mention] ➾ to move someone to your channel
+S!ccolors [number] ➾ to create colors
+S!mutechannel ➾ to mute chat
+S!unmutechannel ➾ to ummute chat
+S!clear ➾ to clear chat
+S!role humans [role name] ➾ to give role for humans only
+S!role bots [role name] ➾ to give role for bots only
+S!role [@mention] [role name] ➾ to give role fo someone
+S!hchannel ➾ to hide chat
+S!schannel ➾ to show chat
+=========================================================
+More commands soon
+`)
+message.author.sendEmbed(embed)
+ 
+}
+});
+ 
+ 
+client.on("message", message => {
+    var prefix = "S!";
+ if (message.content === "S!help-mu-ar") {
+     message.channel.send('**تم ارسال رسالة بالخاص** :mailbox_with_mail: ');
+  const embed = new Discord.RichEmbed()
+      .setColor("RANDOM")
+      .setDescription(`
+             
+==================== اوامر الميوزك =====================
+S!play ➾ لتشغيل اغنية
+S!skip ➾ لتخطي اغنية
+S!pause ➾ لإيقآف الأغنية مؤقتا
+S!resume ➾ لتشغيل الاغننية
+S!vol ➾ لتغير مستوى الصوت 0 - 100
+S!stop ➾ لاخراج البوت من الروم
+S!np ➾ لمعرفة الاغنية مشغلة
+S!queue ➾ قائمة الاغاني
+ 
+=========================================================
+وقريباً المزيد من الاكواد
+`)
+   message.author.sendEmbed(embed)
+   
+}
+});
+ 
+ 
+client.on("message", message => {
+    var prefix = "S!";
+ if (message.content === "S!help-mu-en") {
+     message.channel.send('**Check your dm** :mailbox_with_mail: ');
+  const embed = new Discord.RichEmbed()
+      .setColor("RANDOM")
+      .setDescription(`
+             
+==================== Music commands =====================
+S!play ➾ to play song
+S!skip ➾ to skip song
+S!pause ➾ to pause the song
+S!resume ➾ To resume the song
+S!vol ➾ to change the volume 0 - 100
+S!stop ➾ top remove the bot from room
+S!np ➾ to show the song that is currently playing
+S!queue ➾ to see the song list
+ 
+=========================================================
+More codes soon
+`)
+   message.author.sendEmbed(embed)
+   
+}
+});
+
+
+
+
+
 client.on("guildMemberAdd", member => {
   member.createDM().then(function (channel) {
   return channel.send(`:rose:  ولكم نورت السيرفر:rose: 
