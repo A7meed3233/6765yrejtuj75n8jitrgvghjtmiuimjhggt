@@ -58,6 +58,21 @@ client.on('message', message => {
 
 
 
+client.on('message', message => {
+let perm = message.guild.member(message.author).hasPermission('ADMINISTRATOR') || message.guild.member(message.author).hasPermission('BAN_MEMBERS')
+if (!perm) return message.reply(':x: | **You don\'t have `BAN_MEMBERS` permission to use this command**.')
+if(message.content.startsWith(prefix + 'hackban')) {
+  let nourid = message.content.split(" ").slice(3).join(" ");
+  client.fetchUser(nourid).then(id => {
+    message.guild.ban(id).catch(err => {
+      message.channel.send("Error 404, failed to ban this user :( -> " +id)
+      console.log(err)
+    })
+    message.channel.send(`I banned the user ${id} successfully.`)
+  }).catch(() => {
+    message.channel.send(`Theres no user with the ID of ${nourid}, please try again. :face_palm:`)
+  })
+  }});
 
 
 
