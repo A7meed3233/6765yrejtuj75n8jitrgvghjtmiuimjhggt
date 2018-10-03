@@ -183,6 +183,22 @@ return;
 
 
 
+client.on('message', message => {
+var prefix = "S!";
+      if(message.content === prefix + "hchannel") {
+      if(!message.channel.guild) return;
+      if(!message.member.hasPermission('ADMINISTRATOR')) return message.reply('You Dont Have Perms ❌');
+             message.channel.overwritePermissions(message.guild.id, {
+             READ_MESSAGES: false
+ })
+              message.channel.send('Channel Hided Successfully ! ✅  ')
+ }
+});
+
+
+
+
+
 client.on("message", async message => {
         if(!message.channel.guild) return;
  var prefix= "S!";
