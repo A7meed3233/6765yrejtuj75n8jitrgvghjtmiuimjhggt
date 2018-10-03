@@ -100,6 +100,18 @@ if(message.content.startsWith(prefix + 'unhackban')) {
 
 
 client.on('message', message => {
+    if (message.content.startsWith("S!bans")) {
+        message.guild.fetchBans()
+        .then(bans => message.channel.send(`${bans.size} عدد اشخاص المبندة من السيرفر `))
+  .catch(console.error);
+}
+});
+
+
+
+
+
+client.on('message', message => {
     if (message.author.id === client.user.id) return;
     if (message.guild) {
    let embed = new Discord.RichEmbed()
