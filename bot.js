@@ -199,6 +199,22 @@ var prefix = "S!";
 
 
 
+
+client.on('message', message => {
+var prefix = "S!";
+      if(message.content === prefix + "schannel") {
+      if(!message.channel.guild) return;
+      if(!message.member.hasPermission('ADMINISTRATOR')) return message.reply('❌');
+             message.channel.overwritePermissions(message.guild.id, {
+             READ_MESSAGES: true
+ })
+              message.channel.send('Done  ')
+ }
+});
+
+
+
+
 client.on("message", async message => {
         if(!message.channel.guild) return;
  var prefix= "S!";
