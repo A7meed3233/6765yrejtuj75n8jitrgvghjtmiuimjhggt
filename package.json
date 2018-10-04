@@ -31,7 +31,7 @@
     "ytdl-core": "^0.20.3",
     "giphy-api": "^1.2.7",
     "goo.gl": "^0.1.4",
-    "googl-translate-api": "^2.3.0"
+    "google-translate-api": "^2.3.0"
   },
   "engines": {
     "node": "8.4.0"
