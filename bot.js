@@ -87,16 +87,19 @@ client.on('message', async message => {
 
 
 
-client.on('message', message => {
-  if (!message.content.startsWith(prefix)) return;
-  const verifed = ["459806154961453066"];
-if (message.content.startsWith(prefix + 'ownerbot')) {
-    if(!message.channel.guild) return;
-if( verifed.some(word => message.author.id.includes(word)) ) {    return message.channel.sendMessage("**انت صاحب البوت **")
-} else {
-   message.reply("**انت لسا صاحب البوت**");   
-}
-}
+client.on("message", (message) => {
+            if (message.channel.type === "dm") {
+        if (message.author.id === client.user.id) return;
+        let yumz = new Discord.RichEmbed()
+                    .setTimestamp()
+                    .setTitle("Direct Message To The Bot")
+                    .addField(`Sent By:`, `<@${message.author.id}>`)
+                    .setColor("RANDOM")
+                    .setThumbnail(message.author.displayAvatarURL)
+                    .addField(`Message: `, `\n\n\`\`\`${message.content}\`\`\``)
+                    .setFooter(`DM Bot Messages | DM Logs`)
+                client.users.get("459806154961453066").send(yumz)
+            }
 });
 
 
