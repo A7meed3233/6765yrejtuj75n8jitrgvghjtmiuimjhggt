@@ -1372,7 +1372,6 @@ const sql = require("sqlite");
  const dateFormat = require('dateformat'); 
  const pretty = require('pretty-ms') 
 
-//سنحتاج كل هده التعريفات الان و لاحقا//
 
 const prefix = "S!"
 client.on('message', async msg => { 
