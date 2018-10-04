@@ -106,13 +106,44 @@ client.on("message", (message) => {
 
 
 
-client.on("guildCreate", guild => {
-    client.channels.get("495536963554902027").send(' ***  BOT  ***   **Join To**   ***[ ' + `${guild.name}` + ' ]***   ,   **  Owner  **  ' + ' ***[ ' + '<@' + `${guild.owner.user.id}` + '>' + ' ]***  **|**  ***[ ' + '<' + `${guild.owner.user.username}` + '>' + ' ]***')
-    });
+client.on('guildCreate', guild => {
     
-    client.on("guildDelete", guild => {
-    client.channels.get("495536963554902027").send(' ***  BOT  ***   **Leave From**   ***[ ' + `${guild.name}` + ' ]***   ,   **  Owner  **  ' + ' ***[ ' + '<@' + `${guild.owner.user.id}` + '>' + ' ]***  **|**  ***[ ' + '<' + `${guild.owner.user.username}` + '>' + ' ]***')
-    });
+  client.channels.get("495536963554902027")
+const embed = new Discord.RichEmbed()
+   .setAuthor(`بوتك دخل سيرفر جديد مبروك ✅`)
+   .setDescription(`**
+Server name: __${guild.name}__
+Server id: __${guild.id}__
+Server owner: __${guild.owner}__
+Member Count: __${guild.memberCount}__
+Servers Counter : __${client.guilds.size}__**`)
+         .setColor("#f3ae10")
+         .addField("New Server!")
+         .setFooter('Slash Bot' , client.user.avatarURL)
+           client.channels.get("495536963554902027").send({embed});
+}
+
+);
+
+
+
+
+client.on('guildDelete', guild => {
+  client.channels.get("495536963554902027")
+const embed = new Discord.RichEmbed()
+   .setAuthor(`Slash Bot Bot left a server ❎`)
+   .setDescription(`**
+Server name: __${guild.name}__
+Server id: __${guild.id}__
+Server owner: __${guild.owner}__
+Members Count: __${guild.memberCount}__
+Servers Counter : __${client.guilds.size}__**`)
+         .setColor("#f3ae10")
+         .setFooter('Slash Bot' , client.user.avatarURL)
+           client.channels.get("495536963554902027").send({embed});
+}
+
+);
 
 
 
