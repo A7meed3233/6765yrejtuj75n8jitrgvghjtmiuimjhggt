@@ -31,7 +31,8 @@
     "ytdl-core": "^0.20.3",
     "giphy-api": "^1.2.7",
     "goo.gl": "^0.1.4",
-    "google-translate-api": "^2.3.0"
+    "google-translate-api": "^2.3.0",
+    "math-expression-evaluator": "^1.2.17"
   },
   "engines": {
     "node": "8.4.0"
