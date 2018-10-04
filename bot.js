@@ -32,6 +32,33 @@ client.user.setGame(`I will be ready soon`,"http://twitch.tv/S-F")
 
 
 
+client.on('message', message => {
+    var name1 = message.mentions.users.first();
+    var reason = message.content.split(' ').slice(2).join(' ');
+    if(message.content.startsWith(prefix + 'report')) {
+        if(message.author.bot) return;
+        if(!message.guild.channels.find('name', 'reports')) return message.channel.send('**الرجاء صنع روم باسم ``reports`` لارسال الريبوتات اليه**').then(msg => msg.delete(5000));
+    if(!name1) return message.reply('**منشن اسم الشخص الي تبي تبلغ عليه**').then(msg => msg.delete(3000))
+        message.delete();
+    if(!reason) return message.reply('**اكتب وش سوى**').then(msg => msg.delete(3000))
+        message.delete();
+    var abod = new Discord.RichEmbed()
+    .setTitle(`:page_with_curl: **[REPORT]** By: ${message.author.tag}`)
+    .addField('**Report For:**', `${name1}`, true)
+    .addField('**In Channel:**', `${message.channel.name}`, true)
+    .addField('**Reason:**', `${reason}`, true)
+    .setFooter(`${message.author.username}#${message.author.discriminator}`, message.author.avatarURL)
+    .setTimestamp()
+        message.guild.channels.find('name', 'reports').sendEmbed(abod)
+    message.reply('**شكرا على تبليغك**').then(msg => msg.delete(3000));
+    }
+});
+
+
+
+
+
+
 
 client.on("message", (message) => {
 if (message.content.startsWith("S!cv")) {
