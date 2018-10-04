@@ -31,6 +31,8 @@ client.user.setGame(`Nothing..`,"http://twitch.tv/S-F")
 
 
 
+
+
 const credits = JSON.parse(fs.readFileSync("./creditsCode.json", "utf8"));
 const coolDown = new Set();
  
