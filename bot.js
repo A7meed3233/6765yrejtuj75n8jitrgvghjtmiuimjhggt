@@ -66,6 +66,36 @@ client.on('message', message => {
 
 
 
+
+client.on('message', message =>{
+    let messageArray = message.content.split(" ");
+    let cmd = messageArray[0];
+    let args = messageArray.slice(1);
+    let prefix = 'S!';
+
+if(cmd === `${prefix}suggest`) {
+    var suggestMessage = message.content.substring(8)
+    let suggestEMBED = new Discord.RichEmbed()
+    .setColor(3447003)
+    .setTitle("New suggest just added!!")
+    .setDescription(`**${suggestMessage}**`)
+    .setFooter(`Suggested By : ${message.author.tag}`);
+    message.delete().catch(O_o=>{}) 
+    let suggests = message.guild.channels.find(`name`, "suggestions");
+    if (!suggests) return message.channel.send("You should make A **suggestions** channel!")
+    suggests.send(suggestEMBED);
+}
+
+});
+
+
+
+
+
+
+
+
+
 client.on('message', message => {
     var name1 = message.mentions.users.first();
     var reason = message.content.split(' ').slice(2).join(' ');
