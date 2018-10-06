@@ -104,55 +104,65 @@ client.on('message', message => {
 
 
 
-client.on('message', msg => {
-  if (msg.author.bot) return;
-  if (!msg.content.startsWith(prefix)) return;
-  let command = msg.content.split(" ")[0];
-  command = command.slice(prefix.length);
-  let args = msg.content.split(" ").slice(1);
 
-    if(command === "clear") {
-        const emoji = client.emojis.find("name", "wastebasket")
-    let textxt = args.slice(0).join("");
-    if(msg.member.hasPermission("MANAGE_MESSAGES")) {
-    if (textxt == "") {
-        msg.delete().then
-    msg.channel.send("***```ضع عدد الرسائل التي تريد مسحها 👌```***").then(m => m.delete(3000));
-} else {
-    msg.delete().then
-    msg.delete().then
-    msg.channel.bulkDelete(textxt);
-        msg.channel.send("```php\nعدد الرسائل التي تم مسحها: " + textxt + "\n```").then(m => m.delete(3000));
-        }    
+client.on('message', message => {
+    if (message.content.startsWith(prefix + 'clear')) {
+      if (!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply(`ماعندك هذا البرمشن[*MANAGE_MESSAGES*] `).catch(console.error);
+  message.delete()
+  if(!message.channel.guild) return;
+  let args = message.content.split(" ").slice(1);
+  
+  const messagecount = parseInt(args.join(' '));
+  
+  message.channel.fetchMessages({
+  
+  limit: messagecount
+  
+  }).then(messages => message.channel.bulkDelete(messages));
+  message.channel.sendMessage("", {embed: {
+    title: "``✏️✅ تــم مسح الشات ``",
+    color: 0x06DF00,
+    footer: {
+    
     }
-}
-});
+    }}).then(msg => {msg.delete(3000)});
+  };
+  
+  });
+
+
 
 
 
 
 client.on('message', message => {
-    if (message.author.id === client.user.id) return;
-    if (message.guild) {
-   let embed = new Discord.RichEmbed()
-    let args = message.content.split(' ').slice(1).join(' ');
-if(message.content.split(' ')[0] == prefix + 'bc') {
-    if (!args[1]) {
-return;
-}
-        message.guild.members.forEach(m => {
-   if(!message.member.hasPermission('ADMINISTRATOR')) return;
-            var bc = new Discord.RichEmbed()
-            .addField(' » الرسالة : ', args)
-            .setColor('#ff0000')
-            // m.send(`[${m}]`);
-            m.send(`${m}`,{embed: bc});
-        });
+    var prefix = "S!";
+    
+        if (message.author.id === client.user.id) return;
+        if (message.guild) {
+       let embed = new Discord.RichEmbed()
+        let args = message.content.split(' ').slice(1).join(' ');
+    if(message.content.split(' ')[0] == prefix + 'bc') {
+        if (!args[1]) {
+    message.channel.send("**S!bc <message>**");
+    return;
     }
-    } else {
-        return;
-    }
-});
+            message.guild.members.forEach(m => {
+       if(!message.member.hasPermission('ADMINISTRATOR')) return;
+                var bc = new Discord.RichEmbed()
+                .addField('» السيرفر :', `${message.guild.name}`)
+                .addField('» المرسل : ', `${message.author.username}#${message.author.discriminator}`)
+                .addField('» الرسالة : ', args)
+                .setColor('#ff0000')
+                // m.send(`[${m}]`);
+                m.send(`${m}`,{embed: bc});
+            });
+        }
+        } else {
+            return;
+        }
+    });
+    
 
 
 
@@ -192,6 +202,9 @@ client.on('message', async msg => {
   msg.channel.send({file: { attachment:body.message, name: 'changemymind.png'}}).then(()=> { searchMessage.delete(); msg.channel.stopTyping(); });
 };
 });
+
+
+
 
 
 client.on('message', message =>{
@@ -258,6 +271,8 @@ client.on('message', message => {
 
 
 
+
+
 client.on('message', message => {
     if (message.content.startsWith("S!avatar")) {
         if (message.author.bot) return
@@ -316,53 +331,6 @@ client.on('message', message => {
 
 
 
-const translate = require('google-translate-api'); //npm i google-translate-api
- 
-client.on("message", message => {
- 
-if(message.content.startsWith("S!translate")) {
-if(message.author.bot) return;
-if(!message.channel.guild)return;
- 
-let args = message.content.split(' ').slice(1);
- 
-    if (args[0]) {
-        let from_language = "auto"
-        let to_language = "en"
-        let tobe_translated = message.content.slice(prefix.length + command.length + 1)
-        if (args[0].startsWith("from:")) {
-            from_language = args[0].slice(5)
-            tobe_translated = tobe_translated.slice(args[0].length + 1)
-            if (args[1].startsWith("to:")) {
-                to_language = args[1].slice(3)
-                tobe_translated = tobe_translated.slice(args[1].length + 1)
-            }
-        } else if (args[0].startsWith("to:")) {
-            to_language = args[0].slice(3)
-            tobe_translated = tobe_translated.slice(args[0].length + 1)
-            if (args[1].startsWith("from:")) {
-                from_language = args[1].slice(5)
-                tobe_translated = tobe_translated.slice(args[1].length + 1)
-            }
-        }
-        translate(tobe_translated, {
-            from: from_language,
-            to: to_language
-        }).then(res => {
-            from_language = res.from.language.iso
-            if (res.from.text.value) tobe_translated = res.from.text.value
-            final_text = res.text
-            message.channel.send(`:u7981: | **Translated**.
-**- From**: \`${from_language}\` **|** ${tobe_translated}
-**- To**: \`${to_language}\` **|** ${final_text}`)
-        }).catch(err => {
-            message.channel.send(":x: Usage: `" + prefix + "translate [from:iso] [to:iso] <some text>` \nThe from: and to: are optional, you can check out <http://bit.ly/ISO_codesWiki> for the iso codes\nExample: ```" + prefix + "translate from:ro to:fr Salut, ce mai faci?```")
-        });
-    } else {
-        message.channel.send(":x: Usage: `" + prefix + "translate [from:iso] [to:iso] <some text>` \nThe from: and to: are optional, you can check out <http://bit.ly/ISO_codesWiki> for the iso codes\nExample: ```" + prefix + "translate from:ro to:fr Salut, ce mai faci?```")
-    }
-}
-})
 
 
 
@@ -651,29 +619,7 @@ client.on('message', message => {
 
 
 
-function errormsg(message, err, cmd) {
-    message.channel.send(errmsg) 
-    client.channels.get("497885210176782353").send(`**:warning: Error**`, {embed: {
-    description: `\`\`\`${err}\`\`\` `,
-    fields: [
-        {
-        name: "**server**",
-        value: message.guild.name,
-        inline: true
-        }, 
-        {
-        name: "**user**",
-        value: message.author.username,
-        inline: true
-        }, 
-        {
-        name: "**command**",
-        value: cmd,
-        inline: true
-        }
-    ]}})
-    return; 
-}
+
 
 
 
@@ -752,37 +698,6 @@ client.on('guildMemberAdd', Sal => { //By Salto7#4595
 
 
 
-client.on('message', message => {
-    var prefix = "S!";
-if(!message.channel.guild) return;
-if(message.content.startsWith(prefix + 'move')) {
- if (message.member.hasPermission("MOVE_MEMBERS")) {
- if (message.mentions.users.size === 0) {
- return message.channel.send("``لاستخدام الأمر اكتب هذه الأمر : " +prefix+ "move [USER]``")
-}
-if (message.member.voiceChannel != null) {
- if (message.mentions.members.first().voiceChannel != null) {
- var authorchannel = message.member.voiceChannelID;
- var usermentioned = message.mentions.members.first().id;
-var embed = new Discord.RichEmbed()
- .setTitle("Succes!")
- .setColor("#000000")
- .setDescription(`لقد قمت بسحب <@${usermentioned}> الى الروم الصوتي الخاص بك✅ `)
-var embed = new Discord.RichEmbed()
-.setTitle(`You are Moved in ${message.guild.name}`)
- .setColor("RANDOM")
-.setDescription(`**<@${message.author.id}> Moved You To His Channel!\nServer --> ${message.guild.name}**`)
- message.guild.members.get(usermentioned).setVoiceChannel(authorchannel).then(m => message.channel.send(embed))
-message.guild.members.get(usermentioned).send(embed)
-} else {
-message.channel.send("``لا تستطيع سحب "+ message.mentions.members.first() +" `يجب ان يكون هذه العضو في روم صوتي`")
-}
-} else {
- message.channel.send("**``يجب ان تكون في روم صوتي لكي تقوم بسحب العضو أليك``**")
-}
-} else {
-message.react("❌")
- }}});
 
 
 
@@ -1021,7 +936,6 @@ S!ping ➾ سرعة اتصالك بالانترنت
 S!avatar ➾ يظهر صورة بروفابلك
 S!server ➾ معلومات عن السيرفر
 S!botinfo ➾ معلومات عن البوت
-S!translate [language] [anything] ➾ لترجمة أي شيئ
 S!count ➾ يعرضلك عدد الاشخاص الي بالسيرفر
 S!short ➾ يختصرلك الروابط
 S!say ➾ يكرر كلامك
@@ -1055,7 +969,6 @@ S!ping ➾ your ping
 S!avatar ➾ your profile avatar
 S!server ➾ server informations
 S!botinfo ➾ bot informations
-S!translate [language] [anything] ➾ to translate any thing
 S!count ➾ server members without bots
 S!short ➾ shorten links
 S!say ➾ repeat your words
@@ -1089,9 +1002,6 @@ S!move [@mention] ➾ لنقل عضو لرومك الصوتي
 S!mutechannel ➾ لاقفال الشات
 S!unmutechannel ➾ لفتح الشات
 S!clear ➾ لمسح الشات
-S!role humans [role name] ➾ لعطاء رتبة للاشخاص فقط
-S!role bots [role name] ➾ لاعطاء رتبة للبوتات فقط
-S!role [@mention] [role name] ➾ لاعطاء رتبة لعضو
 S!hchannel ➾ لاخفاء الشات
 S!schannel ➾ لاظهار الشات
 =========================================================
@@ -1120,9 +1030,6 @@ S!move [@mention] ➾ to move someone to your channel
 S!mutechannel ➾ to mute chat
 S!unmutechannel ➾ to ummute chat
 S!clear ➾ to clear chat
-S!role humans [role name] ➾ to give role for humans only
-S!role bots [role name] ➾ to give role for bots only
-S!role [@mention] [role name] ➾ to give role fo someone
 S!hchannel ➾ to hide chat
 S!schannel ➾ to show chat
 =========================================================
@@ -1203,9 +1110,6 @@ client.on("guildMemberAdd", member => {
 
 
 
-
-
- 
  
  
 
@@ -1721,7 +1625,7 @@ client.on('message', message => {
 client.on('message', message => {
   if (true) {
 if (message.content === 'S!invite') {
-      message.author.send('  https://discordapp.com/oauth2/authorize?client_id=487211103819137036&scope=bot&permissions=8  |  تفضل ربط البوت     ').catch(e => console.log(e.stack));
+      message.author.send('  https://discordapp.com/oauth2/authorize?client_id=487211103819137036&scope=bot&permissions=8  |  تفضل رابط البوت     ').catch(e => console.log(e.stack));
  
     }
    }
@@ -1955,119 +1859,6 @@ function play(guild, song) {
 
 
 
-
-
-// Alpha Codes,// Alpha Codes,// Alpha Codes
-client.on('message', async message => {
-    var command = message.content.toLowerCase().split(" ")[0];
-    var prefix = 'S!';// Alpha Codes
-    var name = '';// Alpha Codes
-    var age = '';// Alpha Codes
-    var fromwhere = '';// Alpha Codes
-    var fa2dh = '';// Alpha Codes
-    var filter = m => m.author.id === message.author.id;// Alpha Codes
-    var subChannel = message.guild.channels.find(c => c.name === 'support-join');// Alpha Codes
-   
-    if(command == prefix + 'join-support') {// Alpha Codes
-        if(message.author.bot) return;
-        if(message.channel.type === 'dm') return;
- 
-        var modRole = message.guild.roles.find(r => r.name === '⇁『 Support 』‏‏༄  ❥');// Alpha Codes
-       
-        if(message.guild.member(message.author).roles.has(modRole.id)) return message.channel.send(':x: | معك الرتبة');// Alpha Codes
-        if(!subChannel) return message.channel.send(':x: | يجب ان يتوفر روم اسمه `support-join`');// Alpha Codes
-       
-        message.channel.send(':timer: | **اكتب اسمك الحقيقي الان من فضلك**').then(msgS => {
-            message.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] }).then(collected => {
-                name = collected.first().content;
-                collected.first().delete();
-                msgS.edit(':timer: | **من فضلك اكتب عمرك الان**').then(msgS => {
-                    message.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] }).then(collected => {
-                        age = collected.first().content;
-                        collected.first().delete();
-                        msgS.edit(':timer: | **من فضلك اكتب من اي بلد انت**').then(msgS => {
-                            message.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] }).then(collected => {
-                                fromwhere = collected.first().content;
-                                collected.first().delete();
-                                msgS.edit(':timer: | **من فضلك اكتب سبب تقديمك على الرتبة والمهارات اللتي لديك لتقديمها**').then(msgS => {
-                                    message.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] }).then(collected => {
-                                        fa2dh = collected.first().content;
-                                        collected.first().delete();
-                                       
-                                        let embedS = new Discord.RichEmbed()
-                                        .setAuthor(message.author.tag, message.author.avatarURL)
-                                        .setThumbnail(message.author.avatarURL)
-                                        .setDescription('**\n:no_entry: هل انت متأكد انك تريد التقديم؟**')
-                                        .setColor('GREEN')
-                                        .addField('الاسم', name, true)
-                                        .addField('العمر', age, true)
-                                        .addField('من وين', fromwhere, true)
-                                        .addField('المهارات وسبب التقديم على الرتبة', fa2dh, true)
-                                        .setTimestamp()
-                                        .setFooter(message.guild.name, message.guild.iconURL)
-                                       
-                                        msgS.delete();
-                                        message.channel.send(embedS).then(msgS => {
-                                            msgS.react('✅').then(() => msgS.react('❎'))
-                                           
-                                            let yesSure = (reaction, user) => reaction.emoji.name === '✅'  && user.id === message.author.id;
-                                            let no = (reaction, user) => reaction.emoji.name === '❎' && user.id === message.author.id;
-                                           
-                                            let yesSend = msgS.createReactionCollector(yesSure);
-                                            let dontSend = msgS.createReactionCollector(no);
-                                           
-                                            yesSend.on('collect', r => {
-                                                msgS.delete();
-                                                message.channel.send(':white_check_mark: | تم تقديم طلبك بنجاح انتظر النتيجة في روم support-accept').then(msg => msg.delete(5000));
-                                               
-                                                let subMsg = new Discord.RichEmbed()
-                                                .setAuthor(message.author.tag, message.author.avatarURL)
-                                                .setColor('GREEN')
-                                                .setThumbnail(message.author.avatarURL)
-                                                .addField('الاسم', name)
-                                                .addField('العمر', age)
-                                                .addField('من وين', fromwhere)
-                                                .addField('لماذا يريد التقديم', fa2dh)
-                                                .addField('حسابه', message.author)
-                                                .addField('ايدي حسابه', message.author.id, true)
-                                               
-                                                subChannel.send(subMsg).then(msgS => {
-                                                    msgS.react('✅').then(() => msgS.react('❎'))
-                                                   
-                                                    let accept = (reaction, user) => reaction.emoji.name === '✅'  && user.id === '459806154961453066'
-                                                    let noAccept = (reaction, user) => reaction.emoji.name === '❎' && user.id === '459806154961453066'
-                                                   
-                                                    let acceptRe = msgS.createReactionCollector(accept);
-                                                    let noAcceptRe = msgS.createReactionCollector(noAccept);
-                                                   
-                                                    acceptRe.on('collect', r => {
-                                                        msgS.delete();
-                                                        message.author.send(`:white_check_mark: | تم قبولك سبورت بالسيرفر **${message.guild.name}**`);
-                                                        message.guild.member(message.author).addRole(modRole.id);
-                                                        message.guild.channels.find(r => r.name === 'support-accept').send(`:white_check_mark: | تم قبولك [ <@${message.author.id}> ]`);
-                                                    }).catch();
-                                                    noAcceptRe.on('collect', r => {
-                                                        msgS.delete();
-                                                        message.author.send(`:x: | تم رفضك بسيرفر **${message.guild.name}**`);
-                                                        message.guild.channels.find(r => r.name === 'support-accept').send(`:x: | تم رفضك [ <@${message.author.id}> ]`);
-                                                    }).catch();
-                                                })
-                                            });// Alpha Codes
-                                            dontSend.on('collect', r => {
-                                                msgS.delete();
-                                                message.channel.send(':x: | تم الغاء تقديمك');// Alpha Codes
-                                            });
-                                        })
-                                    })
-                                })
-                            })
-                        })
-                    })
-                })
-            })
-        })
-    }
-});
 
 
 
