@@ -2003,7 +2003,7 @@ function play(guild, song) {
 
 
 
- 
+ const daily= JSON.parse(fs.readFileSync("./daily.json", "utf8"));
 client.on("message", message => {
 if(!daily[message.author.id]) {
     daily[message.author.id] = {
