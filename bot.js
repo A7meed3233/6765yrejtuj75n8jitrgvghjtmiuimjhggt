@@ -70,111 +70,6 @@ client.on('message', message => {
 
 
 
-client.on("message", message => {
-    var args = message.content.split(' ').slice(1);
-    var msg = message.content.toLowerCase();
-    if( !message.guild ) return;
-    if( !msg.startsWith('S!role')) return;
-    if( msg.toLowerCase().startsWith('S!roleremove' )){
-        if( !args[0] ) return message.reply( '**:x: Please Put The Person Who **' );
-        if( !args[1] ) return message.reply( '**:x: يرجى وضع الرتبة المراد سحبها من الشخص**' );
-        var role = msg.split(' ').slice(2).join(" ").toLowerCase();
-        var role1 = message.guild.roles.filter( r=>r.name.toLowerCase().indexOf(role)>-1 ).first();
-        if( !role1 ) return message.reply( '**:x: يرجى وضع الرتبة المراد سحبها من الشخص**' );if( message.mentions.members.first() ){
-            message.mentions.members.first().removeRole( role1 );
-            return message.reply('**:white_check_mark: [ '+role1.name+' ] رتبة [ '+args[0]+' ] تم سحب من **');
-        }
-        if( args[0].toLowerCase() == "all" ){
-            message.guild.members.forEach(m=>m.removeRole( role1 ))
-            return  message.reply('**:white_check_mark: [ '+role1.name+' ] تم سحب من الكل رتبة**');
-        } else if( args[0].toLowerCase() == "bots" ){
-            message.guild.members.filter(m=>m.user.bot).forEach(m=>m.removeRole(role1))
-            return  message.reply('**:white_check_mark: [ '+role1.name+' ] تم سحب من البوتات رتبة**');
-        } else if( args[0].toLowerCase() == "humans" ){
-            message.guild.members.filter(m=>!m.user.bot).forEach(m=>m.removeRole(role1))
-            return  message.reply('**:white_check_mark: [ '+role1.name+' ] تم سحب من البشريين رتبة**');
-        }  
-    } else {
-        if( !args[0] ) return message.reply( '**:x: Please Write the Person that will be given the role**' );
-        if( !args[1] ) return message.reply( '**:x: Please Write thr Role that will be give to person**' );
-        var role = msg.split(' ').slice(2).join(" ").toLowerCase();
-        var role1 = message.guild.roles.filter( r=>r.name.toLowerCase().indexOf(role)>-1 ).first();
-        if( !role1 ) return message.reply( '**:x: Please Write thr Role that will be give to person**' );if( message.mentions.members.first() ){
-            message.mentions.members.first().addRole( role1 );
-            return message.reply('**:white_check_mark: [ '+role1.name+' ] Role [ '+args[0]+' ] Given **');
-        }
-        if( args[0].toLowerCase() == "all" ){
-            message.guild.members.forEach(m=>m.addRole( role1 ))
-            return  message.reply('**:white_check_mark: [ '+role1.name+' ] تم اعطاء الكل رتبة**');
-        } else if( args[0].toLowerCase() == "bots" ){
-            message.guild.members.filter(m=>m.user.bot).forEach(m=>m.addRole(role1))
-            return  message.reply('**:white_check_mark: [ '+role1.name+' ] تم اعطاء البوتات رتبة**');
-        } else if( args[0].toLowerCase() == "humans" ){
-            message.guild.members.filter(m=>!m.user.bot).forEach(m=>m.addRole(role1))
-            return  message.reply('**:white_check_mark: [ '+role1.name+' ] تم اعطاء البشريين رتبة**');
-        }
-    }
-});
-
-
-
-   
-client.on("message", (message) => {
-    /// ALPHA CODES
-   if (message.content.startsWith("S!ticket")) {     /// ALPHA CODES
-        const reason = message.content.split(" ").slice(1).join(" ");     /// ALPHA CODES
-        if (!message.guild.roles.exists("name", "⇁『 Founder 』‏‏༄  ❥")) return message.channel.send(`This server doesn't have a \`⇁『 Founder 』‏‏༄  ❥\` role made, so the ticket won't be opened.\nIf you are an administrator, make one with that name exactly and give it to users that should be able to see tickets.`);
-        if (message.guild.channels.exists("name", "tickets{message.author.id}" + message.author.id)) return message.channel.send(`You already have a ticket open.`);    /// ALPHA CODES
-        message.guild.createChannel(`ticket-${message.author.username}`, "text").then(c => {
-            let role = message.guild.roles.find("name", "⇁『 Founder 』‏‏༄  ❥");
-            let role2 = message.guild.roles.find("name", "@everyone");
-            c.overwritePermissions(role, {
-                SEND_MESSAGES: true,
-                READ_MESSAGES: true
-            });    /// ALPHA CODES
-            c.overwritePermissions(role2, {
-                SEND_MESSAGES: false,
-                READ_MESSAGES: false
-            });
-            c.overwritePermissions(message.author, {
-                SEND_MESSAGES: true,
-                READ_MESSAGES: true
-            });
-            message.channel.send(`:white_check_mark: Your ticket has been created, #${c.name}.`);
-            const embed = new Discord.RichEmbed()
-                .setColor(0xCF40FA)
-                .addField(`Hey ${message.author.username}!`, `Please try explain why you opened this ticket with as much detail as possible. Our **Support Staff** will be here soon to help.`)
-                .setTimestamp();
-            c.send({
-                embed: embed
-            });
-        }).catch(console.error);
-    }
- 
- 
-  if (message.content.startsWith("S!close")) {
-        if (!message.channel.name.startsWith(`tickets`)) return message.channel.send(`You can't use the close command outside of a ticket channel.`);
- 
-       message.channel.send(`Are you sure? Once confirmed, you cannot reverse this action!\nTo confirm, type \`#confirm\`. This will time out in 10 seconds and be cancelled.`)
-           .then((m) => {
-               message.channel.awaitMessages(response => response.content === 'S!confirm', {
-                       max: 1,
-                       time: 10000,
-                       errors: ['time'],
-                   })    /// ALPHA CODES
-                   .then((collected) => {
-                       message.channel.delete();
-                   })    /// ALPHA CODES
-                   .catch(() => {
-                       m.edit('Ticket close timed out, the ticket was not closed.').then(m2 => {
-                           m2.delete();
-                       }, 3000);
-                   });
-           });
-   }
- 
-});
-   /// ALPHA CODES
 
 
 
@@ -208,6 +103,56 @@ client.on('message', message => {
 });
 
 
+
+client.on('message', msg => {
+  if (msg.author.bot) return;
+  if (!msg.content.startsWith(prefix)) return;
+  let command = msg.content.split(" ")[0];
+  command = command.slice(prefix.length);
+  let args = msg.content.split(" ").slice(1);
+
+    if(command === "clear") {
+        const emoji = client.emojis.find("name", "wastebasket")
+    let textxt = args.slice(0).join("");
+    if(msg.member.hasPermission("MANAGE_MESSAGES")) {
+    if (textxt == "") {
+        msg.delete().then
+    msg.channel.send("***```ضع عدد الرسائل التي تريد مسحها 👌```***").then(m => m.delete(3000));
+} else {
+    msg.delete().then
+    msg.delete().then
+    msg.channel.bulkDelete(textxt);
+        msg.channel.send("```php\nعدد الرسائل التي تم مسحها: " + textxt + "\n```").then(m => m.delete(3000));
+        }    
+    }
+}
+});
+
+
+
+
+client.on('message', message => {
+    if (message.author.id === client.user.id) return;
+    if (message.guild) {
+   let embed = new Discord.RichEmbed()
+    let args = message.content.split(' ').slice(1).join(' ');
+if(message.content.split(' ')[0] == prefix + 'bc') {
+    if (!args[1]) {
+return;
+}
+        message.guild.members.forEach(m => {
+   if(!message.member.hasPermission('ADMINISTRATOR')) return;
+            var bc = new Discord.RichEmbed()
+            .addField(' » الرسالة : ', args)
+            .setColor('#ff0000')
+            // m.send(`[${m}]`);
+            m.send(`${m}`,{embed: bc});
+        });
+    }
+    } else {
+        return;
+    }
+});
 
 
 
@@ -654,33 +599,6 @@ client.on('message', message => {
 
 
 
-client.on('message',message =>{
-    var prefix = "S!";
-    if(message.content.startsWith(prefix + 'topinv')) {
-  message.guild.fetchInvites().then(i =>{
-  var invites = [];
-   
-  i.forEach(inv =>{
-    var [invs,i]=[{},null];
-     
-    if(inv.maxUses){
-        invs[inv.code] =+ inv.uses+"/"+inv.maxUses;
-    }else{
-        invs[inv.code] =+ inv.uses;
-    }
-        invites.push(`invite: ${inv.url} inviter: ${inv.inviter} \`${invs[inv.code]}\`;`);
-   
-  });
-  var embed = new Discord.RichEmbed()
-  .setColor("#000000")
-  .setDescription(`${invites.join(`\n`)+'\n\n**By:** '+message.author}`)
-  .setThumbnail("https://media.discordapp.net/attachments/477570106755383307/479229377037598720/22713057_151850495552450_709700562_o.jpg?width=201&height=201")
-           message.channel.send({ embed: embed });
-   
-  });
-   
-    }
-  });
 
 
 
@@ -1054,16 +972,13 @@ S!id ➾ معلومات عن حسابك
 S!ping ➾ سرعة اتصالك بالانترنت
 S!avatar ➾ يظهر صورة بروفابلك
 S!server ➾ معلومات عن السيرفر
-S!bot ➾ معلومات عن البوت
-S!credit ➾ يظهرلك الكردت حقق
-S!daily ➾ يومية
+S!botinfo ➾ معلومات عن البوت
 S!translate [language] [anything] ➾ لترجمة أي شيئ
 S!count ➾ يعرضلك عدد الاشخاص الي بالسيرفر
 S!short ➾ يختصرلك الروابط
 S!say ➾ يكرر كلامك
 S!image ➾ صورة السيرفر
 S!contact ➾ لمراسله صاحب البوت
-S!invites ➾ يعرضلك عدد انفايتاتك بالسيرفر
 S!invite ➾ رابط اذخال البوت
 S!support ➾ سيرفر الدعم
 =========================================================
@@ -1092,15 +1007,12 @@ S!ping ➾ your ping
 S!avatar ➾ your profile avatar
 S!server ➾ server informations
 S!botinfo ➾ bot informations
-S!credit ➾ your credits
-S!daily ➾ your daily credits
 S!translate [language] [anything] ➾ to translate any thing
 S!count ➾ server members without bots
 S!short ➾ shorten links
 S!say ➾ repeat your words
 S!image ➾ server image
 S!contact ➾ send text to bot owner
-S!invites ➾ to see your invites
 S!inv ➾ bot invite link
 S!support ➾ support server
 =========================================================
@@ -1126,7 +1038,6 @@ S!kick [@mention] [reason] ➾ لطرد شخص من السيرفر
 S!mute [@mention] [reason] ➾ لاعطاء ميوت لعضو
 S!unmute [@mention] ➾ لفك الميوت عن عضو
 S!move [@mention] ➾ لنقل عضو لرومك الصوتي
-S!ccolors [number] ➾ لصنع عدد من الالوان
 S!mutechannel ➾ لاقفال الشات
 S!unmutechannel ➾ لفتح الشات
 S!clear ➾ لمسح الشات
@@ -1366,27 +1277,6 @@ client.on('roleUpdate', (oldRole, newRole) => {
             .setFooter(oldRole.guild.name, oldRole.guild.iconURL)
  
             logChannel.send(roleUpdateName);
-        }
-        if(oldRole.hexColor !== newRole.hexColor) {
-            if(oldRole.hexColor === '#000000') {
-                var oldColor = '`Default`';
-            }else {
-                var oldColor = oldRole.hexColor;
-            }
-            if(newRole.hexColor === '#000000') {
-                var newColor = '`Default`';
-            }else {
-                var newColor = newRole.hexColor;
-            }
-            let roleUpdateColor = new Discord.RichEmbed()
-            .setTitle('**[ROLE COLOR UPDATE]**')
-            .setThumbnail(userAvatar)
-            .setColor('BLUE')
-            .setDescription(`**\n**:white_check_mark: Successfully \`\`EDITED\`\` **${oldRole.name}** Role Color.\n\n**Old Color:** ${oldColor}\n**New Color:** ${newColor}\n**Role ID:** ${oldRole.id}\n**By:** <@${userID}> (ID: ${userID})`)
-            .setTimestamp()
-            .setFooter(oldRole.guild.name, oldRole.guild.iconURL)
- 
-            logChannel.send(roleUpdateColor);
         }
     })
 });
@@ -1765,39 +1655,6 @@ client.on('voiceStateUpdate', (voiceOld, voiceNew) => {
             logChannel.send(serverUndeafv);
         }
     })
-    if(voiceOld.voiceChannelID !== voiceNew.voiceChannelID && !voiceOld.voiceChannel) {
-        let voiceJoin = new Discord.RichEmbed()
-        .setTitle('**[JOIN VOICE ROOM]**')
-        .setColor('GREEN')
-        .setThumbnail(voiceOld.user.avatarURL)
-        .setDescription(`**\n**:arrow_lower_right: Successfully \`\`JOIN\`\` To Voice Channel.\n\n**Channel:** \`\`${voiceNew.voiceChannel.name}\`\` (ID: ${voiceNew.voiceChannelID})\n**User:** ${voiceOld} (ID: ${voiceOld.id})`)
-        .setTimestamp()
-        .setFooter(voiceOld.user.tag, voiceOld.user.avatarURL)
- 
-        logChannel.send(voiceJoin);
-    }
-    if(voiceOld.voiceChannelID !== voiceNew.voiceChannelID && !voiceNew.voiceChannel) {
-        let voiceLeave = new Discord.RichEmbed()
-        .setTitle('**[LEAVE VOICE ROOM]**')
-        .setColor('GREEN')
-        .setThumbnail(voiceOld.user.avatarURL)
-        .setDescription(`**\n**:arrow_upper_left: Successfully \`\`LEAVE\`\` From Voice Channel.\n\n**Channel:** \`\`${voiceOld.voiceChannel.name}\`\` (ID: ${voiceOld.voiceChannelID})\n**User:** ${voiceOld} (ID: ${voiceOld.id})`)
-        .setTimestamp()
-        .setFooter(voiceOld.user.tag, voiceOld.user.avatarURL)
- 
-        logChannel.send(voiceLeave);
-    }
-    if(voiceOld.voiceChannelID !== voiceNew.voiceChannelID && voiceNew.voiceChannel && voiceOld.voiceChannel != null) {
-        let voiceLeave = new Discord.RichEmbed()
-        .setTitle('**[CHANGED VOICE ROOM]**')
-        .setColor('GREEN')
-        .setThumbnail(voiceOld.user.avatarURL)
-        .setDescription(`**\n**:repeat: Successfully \`\`CHANGED\`\` The Voice Channel.\n\n**From:** \`\`${voiceOld.voiceChannel.name}\`\` (ID: ${voiceOld.voiceChannelID})\n**To:** \`\`${voiceNew.voiceChannel.name}\`\` (ID: ${voiceNew.voiceChannelID})\n**User:** ${voiceOld} (ID: ${voiceOld.id})`)
-        .setTimestamp()
-        .setFooter(voiceOld.user.tag, voiceOld.user.avatarURL)
- 
-        logChannel.send(voiceLeave);
-    }
 });
 
 
