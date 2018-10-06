@@ -30,6 +30,7 @@ client.user.setGame(`Sooooon..!`,"http://twitch.tv/S-F")
 });
 
 
+
 client.on('message',async message => {
     if(message.content.startsWith(prefix + "restart")) {
         if(message.author.id !== "459806154961453066") return message.reply('You aren\'t the bot owner.');
