@@ -180,7 +180,6 @@ client.on('message', message => {
 
 
 
-const bot = new Discord.Client();
 
 bot.on('ready', () => {
   console.log(`Logged in as ${bot.user.tag}!`);
