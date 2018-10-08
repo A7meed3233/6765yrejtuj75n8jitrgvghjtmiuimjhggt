@@ -41,7 +41,6 @@ const botToken = ""; /*You'll have to set this yourself; read more
                      here https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token*/
 
 //Load up the bot...
-const Discord = require('discord.js');
 const bot = new Discord.Client();
 bot.login(botToken);
 
