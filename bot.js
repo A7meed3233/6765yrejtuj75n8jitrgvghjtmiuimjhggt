@@ -32,7 +32,7 @@ client.user.setGame(`Sooooon..!`,"http://twitch.tv/S-F")
 
 
 
-const Discord = require("discord.js")
+
 const client = new Discord.Client();
 const YTDL = require('ytdl-core');
 const nodeopus = require('node-opus');
