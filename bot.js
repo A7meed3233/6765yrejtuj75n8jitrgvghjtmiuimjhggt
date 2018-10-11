@@ -282,7 +282,7 @@ client.on('message', message => {
 
 
 
-bot.on('ready', () => {
+client.on('ready', () => {
   console.log(`Logged in as ${bot.user.tag}!`);
 });
 
