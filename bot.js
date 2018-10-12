@@ -178,7 +178,6 @@ let INVITE = process.env.INVITE || "https://discord.gg/wQWzHwM", //رابط دع
     APPREDIRECT = process.env.APPREDIRECT || ""
 //End Config
  //فوق انت تسويهن
-const client = new Discord.Client({
     messageCacheMaxSize: 1, //Minimize RAM Load
     disabledEvents: ["TYPING_START"] // ^^
 })
