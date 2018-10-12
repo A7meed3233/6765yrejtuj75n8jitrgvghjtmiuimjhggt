@@ -243,70 +243,7 @@ hours = 12;
 	
 	
 	
-  var filter = m => m.author.id === message.author.id;
-  if(message.content.startsWith(prefix + "giveaway")) {
 
-    if(!message.guild.member(message.author).hasPermission('MANAGE_GUILD')) return message.channel.send(':heavy_multiplication_x:| **يجب أن يكون لديك خاصية التعديل على السيرفر**');
-    message.channel.send(`:eight_pointed_black_star:| **Send Name channel For the Giveaway**`).then(msg => {
-      message.channel.awaitMessages(filter, {
-        max: 1,
-        time: 20000,
-        errors: ['time']
-      }).then(collected => {
-        let room = message.guild.channels.find('name' , collected.first().content);
-        if(!room) return message.channel.send(':heavy_multiplication_x:| **i Found It :(**');
-        room = collected.first().content;
-        collected.first().delete();
-        msg.edit(':eight_pointed_black_star:| **Time For The Giveaway**').then(msg => {
-          message.channel.awaitMessages(filter, {
-            max: 1,
-            time: 20000,
-            errors: ['time']
-          }).then(collected => {
-            if(isNaN(collected.first().content)) return message.channel.send(':heavy_multiplication_x:| **The Time Be Nambers `` Do the Commend Agin``**');
-            duration = collected.first().content * 60000;
-            collected.first().delete();
-            msg.edit(':eight_pointed_black_star:| **Now send The Present **').then(msg => {
-              message.channel.awaitMessages(filter, {
-                max: 1,
-                time: 20000,
-                errors: ['time']
-              }).then(collected => {
-                title = collected.first().content;
-                collected.first().delete();
-                msg.delete();
-                message.delete();
-                try {
-                  let giveEmbed = new Discord.RichEmbed()
-                  .setDescription(`**${title}** \nReact With 🎉 To Enter! \nTime remaining : ${duration / 60000} **Minutes**\n **Created at :** ${hours}:${minutes}:${seconds} ${suffix}`)
-                  .setFooter(message.author.username, message.author.avatarURL);
-                  message.guild.channels.find("name" , room).send(' :heavy_check_mark: **Giveaway Created** :heavy_check_mark:' , {embed: giveEmbed}).then(m => {
-                     let re = m.react('🎉');
-                     setTimeout(() => {
-                       let users = m.reactions.get("🎉").users;
-                       let list = users.array().filter(u => u.id !== m.author.id !== client.user.id);
-                       let gFilter = list[Math.floor(Math.random() * list.length) + 0]
-                       let endEmbed = new Discord.RichEmbed()
-                       .setAuthor(message.author.username, message.author.avatarURL)
-                       .setTitle(title)
-                       .addField('Giveaway Ended !🎉',`Winners : ${gFilter} \nEnded at :`)
-                       .setTimestamp()
-					 m.edit('** 🎉 GIVEAWAY ENDED 🎉**' , {embed: endEmbed});
-					message.guild.channels.find("name" , room).send(`**Congratulations ${gFilter}! You won The \`${title}\`**` , {embed: {}})
-                     },duration);
-                   });
-                } catch(e) {
-                message.channel.send(`:heavy_multiplication_x:| **i Don't Have Prem**`);
-                  console.log(e);
-                }
-              });
-            });
-          });
-        });
-      });
-    });
-  }
-});
 
 
 
@@ -484,6 +421,9 @@ zgg.on("collect", r => {
 
 
 
+	
+	
+	
 
 client.on('message', async message => {
   let args = message.content.split(" ");
@@ -608,40 +548,7 @@ if(!message.guild.member(client.user).hasPermission("MUTE_MEMBERS")) return mess
 
 
 
-client.on('message',function(message) {
-  if(!message.channel.guild) return;
 
-const prefix = "S!";
-    if (message.content === prefix + "discrim") {
-let messageArray = message.content.split(" ");
-let args = messageArray.slice(1);
-
-if (message.author.bot) return;
-
-var discri = args[0]
-let discrim
-if(discri){
-discrim = discri;
-}else{
-discrim = message.author.discriminator;
-}
-if(discrim.length == 1){
-discrim = "000"+discrim
-}
-if(discrim.length == 2){
-discrim = "00"+discrim
-}
-if(discrim.length == 3){
-discrim = "0"+discrim
-}
-
-const users = client.users.filter(user => user.discriminator === discrim).map(user => user.username);
-return message.channel.send(`
-**Found ${users.length} users with the discriminator #${discrim}**
-${users.join('\n')}
-`);
-}
-});
 
 
 
@@ -672,7 +579,7 @@ client.on('message', message => {
             var Canvas = module.require('canvas');
             var jimp = module.require('jimp');
     
-     const w = ['https://e.top4top.net/p_1015ygqda1.png','https://f.top4top.net/p_1015manpy2.png','https://a.top4top.net/p_101577epe3.png','https://b.top4top.net/p_1015ei7y84.png','https://d.top4top.net/p_1015r9xyo5.png'];
+     const w = ['./id1.png','./id2.png','./id3.png','./id4.png','./id5.png'];
     
              let Image = Canvas.Image,
                  canvas = new Canvas(802, 404),
@@ -752,13 +659,13 @@ client.on('message', message => {
                             
                                                        let status;
      if (getvalueof.presence.status === 'online') {
-         status = 'Online';
+         status = 'اون لاين';
      } else if (getvalueof.presence.status === 'dnd') {
-         status = 'dnd';
+         status = 'مشغول';
      } else if (getvalueof.presence.status === 'idle') {
-         status = 'idle';
+         status = 'خارج النطاق';
      } else if (getvalueof.presence.status === 'offline') {
-         status = 'offline';
+         status = 'اوف لاين';
      }
      
      
@@ -770,7 +677,7 @@ client.on('message', message => {
                                                                    ctx.font = 'regular 30px Cairo';
                                                                    ctx.fontSize = '30px';
                                                                    ctx.fillStyle = '#ffffff'
-                                                         ctx.fillText(`${h.presence.game === null ? "No playing" : h.presence.game.name}`,390,390);
+                                                         ctx.fillText(`${h.presence.game === null ? "لا يلعب" : h.presence.game.name}`,390,390);
                             
                                ctx.font = '35px Arial';
                                                                    ctx.fontSize = '30px';
@@ -789,7 +696,6 @@ client.on('message', message => {
                              })
  }
  });
-
 
 
 
@@ -1001,7 +907,7 @@ if (message.content.startsWith(prefix + "uptime")) {
 
     }
 
-    message.channel.send("`" + `${days} days, ${hours} hrs, ${minutes} , ${seconds} sec` + "`");
+    message.channel.send("`" + `${days} day, ${hours} hrs, ${minutes} min, ${seconds} sec` + "`");
 
 }
 });
@@ -1080,7 +986,7 @@ client.on('ready', () => {
        .addField('Message | الرسالة', args)
        .setImage("https://cdn.discordapp.com/icons/414742520908480522/0db95178a4b5bc2842ac4ce9585c80fa.jpg?size=128")
        .setThumbnail(message.author.avatarURL)
-       .setFooter(copy, bot.user.avatarURL);
+       .setFooter(copy, client.user.avatarURL);
     m.send({ embed: bc })
     msg.delete();
     })
