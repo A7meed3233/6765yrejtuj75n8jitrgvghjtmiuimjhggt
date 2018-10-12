@@ -2468,7 +2468,6 @@ const googl = require('goo.gl');
 const getYoutubeID = require('get-youtube-id'); 
 const { Client, Util } = require('discord.js');  
 const UserBlocked = new Set(); 
-const jimp = require('jimp');   
 const stripIndents = require('common-tags').stripIndents;
 const figlet = require('figlet');
 const google = require('google-it'); 
