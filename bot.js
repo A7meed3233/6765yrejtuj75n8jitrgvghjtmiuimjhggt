@@ -2466,7 +2466,6 @@ const db = require('quick.db');
 const giphy = require('giphy-api')();    
 const googl = require('goo.gl');  
 const getYoutubeID = require('get-youtube-id'); 
-const moment = require("moment");  
 const { Client, Util } = require('discord.js');  
 const UserBlocked = new Set(); 
 const jimp = require('jimp');   
