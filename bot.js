@@ -341,7 +341,7 @@ let INVITE = process.env.INVITE || "https://discord.gg/wQWzHwM", //رابط دع
 //End Config
  //فوق انت تسويهن
     messageCacheMaxSize: 1, //Minimize RAM Load
-    disabledEvents: ["TYPING_START"] // ^^
+    disabledEvents: ["TYPING_START"]
 })
  
 let loop24H = () => { //The bot will leave then join the guild every 24 hours
