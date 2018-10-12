@@ -30,6 +30,9 @@ client.user.setGame(`Sooooon..!`,"http://twitch.tv/S-F")
 });
 
 
+
+
+
 client.on('message',async msg => {
   var p = "S!";
   if(msg.content.startsWith(p + "setmembers")) {
