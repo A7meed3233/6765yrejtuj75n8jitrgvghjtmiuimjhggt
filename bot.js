@@ -30,6 +30,30 @@ client.user.setGame(`Sooooon..!`,"http://twitch.tv/S-F")
 });
 
 
+client.on('message',async msg => {
+  var p = "S!";
+  if(msg.content.startsWith(p + "setmembers")) {
+  if(!msg.guild.member(msg.author).hasPermissions('MANAGE_CHANNELS')) return msg.reply('❌ **go play minecraft**');
+  if(!msg.guild.member(client.user).hasPermissions(['MANAGE_CHANNELS'])) return msg.reply('❌ **البوت لا يمتلك صلاحية**');
+  msg.guild.createChannel(`يتم تحضير الروم :[]` , 'voice').then(time => {
+    time.overwritePermissions(msg.guild.id, {
+      CONNECT: false,
+      SPEAK: false
+    });
+  setInterval(() => {
+      var currentTime = new Date(),
+Year = currentTime.getFullYear(),
+Month = currentTime.getMonth() + 1,
+Dat = currentTime.getDate()
+      time.setName(`Members : ◤ → ${client.users.size} ← ◢`);
+ },1000);
+  });
+  }
+ 
+});
+
+
+
  client.on('guildMemberAdd', member=> {
     member.addRole(member.guild.roles.find("name","Member"));
     }); 
@@ -2320,7 +2344,6 @@ const moment = require("moment");
 const { Client, Util } = require('discord.js');  
 const UserBlocked = new Set(); 
 const jimp = require('jimp');   
-const math = require('math-expression-evaluator'); 
 const stripIndents = require('common-tags').stripIndents;
 const figlet = require('figlet');
 const google = require('google-it'); 
