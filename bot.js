@@ -217,7 +217,6 @@ Dat = currentTime.getDate()
 
 
 
-var prefix = "S!"
 const moment = require('moment');
 client.on('message',async message => {
   var time = moment().format('Do MMMM YYYY , hh:mm');
