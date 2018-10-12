@@ -217,7 +217,6 @@ Dat = currentTime.getDate()
 
 
 
-const moment = require('moment');
 client.on('message',async message => {
   var time = moment().format('Do MMMM YYYY , hh:mm');
   var room;
