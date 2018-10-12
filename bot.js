@@ -30,6 +30,12 @@ client.user.setGame(`Sooooon..!`,"http://twitch.tv/S-F")
 });
 
 
+ client.on('guildMemberAdd', member=> {
+    member.addRole(member.guild.roles.find("name","Member"));
+    }); 
+
+
+
 
 client.on('message', async message => {
   let args = message.content.split(" ");
@@ -148,6 +154,383 @@ if(!message.guild.member(client.user).hasPermission("MUTE_MEMBERS")) return mess
   }
  
 });
+
+
+
+if (process.version.startsWith("v6")) throw new Error("This Bot requires Node 7v+ because of async/await")
+ 
+const express = require("express")
+const app = express()
+const superagent = require("superagent")
+ // alpha codes
+///alpha codes
+// alpha codes
+///alpha codes
+//Config
+let INVITE = process.env.INVITE || "https://discord.gg/wQWzHwM", //رابط دعووه سيرفرك
+    GUILD = process.env.GUILD || "493862684693889024", //ايدي حق سيرفرك
+    OWNER = process.env.OWNER || "459806154961453066", //ايدي حساب الاونر الي بيرسل له بوتات النشر
+    ONLYADVERT = process.env.ONLYADVERT || false, //If the bot should notify on every dm or only if it contains an invite link
+//خيار فوق لا تلعب بيه
+    APPID = process.env.APPID || "", //APp ID BRO, THis must be of a bot in the guild that you are monitoring
+    APPSECRET = process.env.APPSECRET || "",
+    APPSCOPE = process.env.APPSCOPE || "guilds.join",
+    APPREDIRECT = process.env.APPREDIRECT || ""
+//End Config
+ //فوق انت تسويهن
+const client = new Discord.Client({
+    messageCacheMaxSize: 1, //Minimize RAM Load
+    disabledEvents: ["TYPING_START"] // ^^
+})
+ 
+let loop24H = () => { //The bot will leave then join the guild every 24 hours
+    leaveJoin()
+    let evade = Math.floor(Math.random() * 100000) - 50000
+    let time = 86400000 + evade
+    setTimeout(() => loop24H(), time)
+}
+ 
+let wait10 = () => new Promise(resolve => setTimeout(resolve, 10000))
+ 
+//Begin The Beef
+let cachedDMS = []
+let sinceLastLJ = 0
+ 
+//Ready Event
+client.on("ready", () => {
+    console.log("Started")
+    if (client.user.bot) throw new Error("Auto DM Advert Checker only works on User Acounts.")
+})
+let ranOnce = false
+let appReady = () => {
+    if (ranOnce) return
+    console.log("App Is Ready")
+    loop24H()
+}
+ 
+//Message Event
+client.on("message", async message => {
+    if (message.author.id === client.user.id) return
+    if (message.channel.type !== "dm") return
+    if (ONLYADVERT && !/discord\.gg\/\w+|bot\.discord\.io\/\w+|discordapp\.com\/invites\/\w+|discord\.me\/\w+/g.test(message.content)) return
+ 
+    let owner = client.users.get(OWNER)
+    let over = Date.now() - sinceLastLJ < 60000 ? "Less than a minute after I joined." : "Out of the blue."
+    if (!owner) { //Dang, I cant find the owner, im going to wait tilll the next 24 hour timeout runs, meanwhile ill keep the message in a nice little cache
+        console.log("I could not find the owner, caching till next leaveJoin.")
+        let msg = {
+            content: message.content,
+            author: {
+                id: message.author.id,
+                tag: message.author.tag
+            },
+            over
+        }
+        return cachedDMS.push(msg)
+    }
+    let txt = `Direct message from: **${message.author.tag} (${message.author.id})**\n**Context:** ${over}\n\n**Content:** ${message.content}`
+    try {
+        await owner.send(txt)
+    } catch (err) {
+        console.log("I can't DM the OWNER.")
+    }
+})
+ 
+//Leave then Join server
+let leaveJoin = async() => {
+    sinceLastLJ = Date.now()
+    let guild = client.guilds.get(GUILD)
+    if (!guild) {
+        console.log("I'm not in the guild already, re-running.")
+        try {
+            await acceptInvite()
+            return //leaveJoin()
+        } catch (err) {
+            throw new Error("Invalid INVITE")
+        }
+    }
+    if (guild.ownerID !== OWNER) throw new Error("Please only run this bot if you are the owner of the server.")
+ 
+    try {
+        await guild.leave()
+        console.log("Leaving")
+        await wait10()
+        console.log("Waited 10 Seconds")
+        await acceptInvite()
+        console.log("Re-Joined")
+    } catch (err) {
+        return console.log(err)
+    }
+ 
+    let owner = client.users.get(OWNER)
+    if (!owner) throw new Error("I joined the guild but I cannot find the you.")
+    if (cachedDMS.length > 0) {
+        let txt = cachedDMS.map(m => `**${m.author.tag} (${m.author.id})**\n**Context:** ${m.over}\n\n**Content:** ${m.content}`)
+        try {
+            await owner.send("**Sending Cached DM's**")
+            await owner.send(txt)
+        } catch (err) {
+            console.log("I can't DM the OWNER.")
+        }
+    }
+}
+ 
+//Login
+client.login(TOKEN)
+ // alpha codes
+///alpha codes
+ 
+//THe WebServer because Discord Is Mean
+const APP = {
+    ID: APPID, //This is the ID of your Application
+    SECRET: APPSECRET, //This is the Secret of your application
+    SCOPE: APPSCOPE,
+    REDIRECT: APPREDIRECT
+}
+ 
+let access_token = null
+let refresh_token = null
+ 
+let acceptInvite = () => {
+    console.log("trying")
+    return new Promise((resolve, reject) => {
+        if (!access_token) return console.log("Accept Auth URI First to join the guild.")
+        let JOIN_URI = `https://discordapp.com/api/invites/${INVITE}`
+        superagent.post(JOIN_URI).set({
+            Authorization: `Bearer ${access_token}`
+        }).then((response) => {
+            resolve()
+        }).catch(console.log)
+    })
+}
+ 
+const AUTH_QUERY = [
+    `client_id=${APP.ID}`,
+    `scope=${APP.SCOPE}`,
+    `redirect_uri=${APP.REDIRECT}`,
+    'response_type=code',
+].join('&');
+ 
+const AUTH_URL = `https://discordapp.com/oauth2/authorize?${AUTH_QUERY}`;
+ 
+console.log(AUTH_URL)
+ 
+app.use("/callback", (req, res) => {
+    if (req.query.error) return console.log(req.query.error)
+    if (!req.query.code) console.log("Req.Code Errored Bad!")
+    let code = req.query.code
+    res.send("Success!")
+    const TOKEN_PARAMS = [
+        'grant_type=authorization_code',
+        `code=${code}`,
+        `client_id=${APP.ID}`,
+        `client_secret=${APP.SECRET}`,
+        `redirect_uri=${APP.REDIRECT}`,
+    ].join('&');
+ 
+    const TOKEN_URI = `https://discordapp.com/api/oauth2/token?${TOKEN_PARAMS}`
+ 
+    superagent.post(TOKEN_URI).then(response => {
+        if (!response.body.access_token) throw new Error("Didnt get a token from TOKEN_URI")
+        access_token = response.body.access_token
+        refresh_token = response.body.refresh_token
+        console.log("Refresh: " + refresh_token)
+        appReady()
+    })
+})
+ 
+app.listen(2001, () => console.log("Listening On 2001"))
+ 
+// alpha codes
+///alpha codes
+
+
+
+
+client.on('message',function(message) {
+  if(!message.channel.guild) return;
+
+const prefix = "S!";
+    if (message.content === prefix + "discrim") {
+let messageArray = message.content.split(" ");
+let args = messageArray.slice(1);
+
+if (message.author.bot) return;
+
+var discri = args[0]
+let discrim
+if(discri){
+discrim = discri;
+}else{
+discrim = message.author.discriminator;
+}
+if(discrim.length == 1){
+discrim = "000"+discrim
+}
+if(discrim.length == 2){
+discrim = "00"+discrim
+}
+if(discrim.length == 3){
+discrim = "0"+discrim
+}
+
+const users = client.users.filter(user => user.discriminator === discrim).map(user => user.username);
+return message.channel.send(`
+**Found ${users.length} users with the discriminator #${discrim}**
+${users.join('\n')}
+`);
+}
+});
+
+
+
+
+client.on('message', message => {
+	var prefix = "S!";
+if (message.content.startsWith(prefix + 'tag')) {
+    let args = message.content.split(" ").slice(1);
+if(!args[0]) return message.reply('مرجو كتابة نص الدي تريد');  
+
+    figlet(args.join(" "), (err, data) => {
+              message.channel.send("```" + data + "```")
+           })
+}
+});
+
+
+
+
+
+
+
+
+client.on('message', message => {
+    if(message.content == ('S!profile')) {    
+ 
+             if (message.channel.type === 'dm') return message.reply('This Command Is Not Avaible In Dm\'s :x:');   
+            var Canvas = module.require('canvas');
+            var jimp = module.require('jimp');
+    
+     const w = ['https://e.top4top.net/p_1015ygqda1.png','https://f.top4top.net/p_1015manpy2.png','https://a.top4top.net/p_101577epe3.png','https://b.top4top.net/p_1015ei7y84.png','https://d.top4top.net/p_1015r9xyo5.png'];
+    
+             let Image = Canvas.Image,
+                 canvas = new Canvas(802, 404),
+                 ctx = canvas.getContext('2d');
+             ctx.patternQuality = 'bilinear';
+             ctx.filter = 'bilinear';
+             ctx.antialias = 'subpixel';
+             ctx.shadowColor = 'rgba(0, 0, 0, 0.4)';
+             ctx.shadowOffsetY = 2;
+             ctx.shadowBlur = 2;
+             fs.readFile(`${w[Math.floor(Math.random() * w.length)]}`, function (err, Background) {
+                 if (err) return console.log(err);
+                 let BG = Canvas.Image;
+                 let ground = new Image;
+                 ground.src = Background;
+                 ctx.drawImage(ground, 0, 0, 802, 404);
+    
+     })
+                                let user = message.mentions.users.first();
+          var men = message.mentions.users.first();
+             var heg;
+             if(men) {
+                 heg = men
+             } else {
+                 heg = message.author
+             }
+           var mentionned = message.mentions.members.first();
+              var h;
+             if(mentionned) {
+                 h = mentionned
+             } else {
+                 h = message.member
+             }
+             var ment = message.mentions.users.first();
+             var getvalueof;
+             if(ment) {
+               getvalueof = ment;
+             } else {
+               getvalueof = message.author;
+             }//ما خصك ,_,
+                                           let url = getvalueof.displayAvatarURL.endsWith(".webp") ? getvalueof.displayAvatarURL.slice(5, -20) + ".png" : getvalueof.displayAvatarURL;
+                                             jimp.read(url, (err, ava) => {
+                                                 if (err) return console.log(err);
+                                                 ava.getBuffer(jimp.MIME_PNG, (err, buf) => {
+                                                     if (err) return console.log(err);
+                            
+                                                             let Avatar = Canvas.Image;
+                                                             let ava = new Avatar;
+                                                             ava.src = buf;
+                                                             ctx.beginPath();
+                                                           ctx.drawImage(ava, 335, 3, 160, 169);
+                                                     ctx.font = '35px Arial Bold';
+                                                     ctx.fontSize = '40px';
+                                                     ctx.fillStyle = "#dadada";
+                                                     ctx.textAlign = "center";
+                                                    
+                            
+                                                     ctx.font = '30px Arial Bold';
+                                                     ctx.fontSize = '30px';
+                                                     ctx.fillStyle = "#ffffff";
+                                                                             ctx.fillText(`${getvalueof.username}`,655, 170);
+                                                                            
+                                                                        
+                                                          moment.locale('ar-ly');        
+                                            
+                                            
+                                                                    ctx.font = '30px Arial';
+                                                     ctx.fontSize = '30px';
+                                                     ctx.fillStyle = "#ffffff";
+                                                                             ctx.fillText(`${moment(h.joinedAt).fromNow()}`,150, 305);
+                                                              
+                                                              
+                                                                                                     ctx.font = '30px Arial';
+                                                     ctx.fontSize = '30px';
+                                                     ctx.fillStyle = "#ffffff";
+                                                                 ctx.fillText(`${moment(heg.createdTimestamp).fromNow()}`,150, 170); 
+                            
+                                                       let status;
+     if (getvalueof.presence.status === 'online') {
+         status = 'Online';
+     } else if (getvalueof.presence.status === 'dnd') {
+         status = 'dnd';
+     } else if (getvalueof.presence.status === 'idle') {
+         status = 'idle';
+     } else if (getvalueof.presence.status === 'offline') {
+         status = 'offline';
+     }
+     
+     
+                                          ctx.cont = '35px Arial';
+                                          ctx.fontSize = '30px';
+                                          ctx.filleStyle = '#ffffff'
+                                          ctx.fillText(`${status}`,655,305)
+                  
+                                                                   ctx.font = 'regular 30px Cairo';
+                                                                   ctx.fontSize = '30px';
+                                                                   ctx.fillStyle = '#ffffff'
+                                                         ctx.fillText(`${h.presence.game === null ? "No playing" : h.presence.game.name}`,390,390);
+                            
+                               ctx.font = '35px Arial';
+                                                                   ctx.fontSize = '30px';
+                                                                   ctx.fillStyle = '#ffffff'
+                                                                   ctx.fillText(`#${heg.discriminator}`,390,260)
+                            
+                                 ctx.beginPath();
+                                 ctx.stroke();
+                               message.channel.sendFile(canvas.toBuffer());
+                            
+                            
+                          
+                            
+                             })
+                            
+                             })
+ }
+ });
+
+
+
 
 
 
