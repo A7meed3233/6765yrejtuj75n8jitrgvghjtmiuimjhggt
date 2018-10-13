@@ -37,31 +37,173 @@ client.user.setGame(`Sooooon..!`,"http://twitch.tv/S-F")
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+client.on('message', message => {
+    if(message.content == ('S!profile')) {    
  
+             if (message.channel.type === 'dm') return message.reply('This Command Is Not Avaible In Dm\'s :x:');   
+            var Canvas = module.require('canvas');
+            var jimp = module.require('jimp');
+    
+     const w = ['./id1.png','./id2.png','./id3.png','./id4.png','./id5.png'];
+    
+             let Image = Canvas.Image,
+                 canvas = new Canvas(802, 404),
+                 ctx = canvas.getContext('2d');
+             ctx.patternQuality = 'bilinear';
+             ctx.filter = 'bilinear';
+             ctx.antialias = 'subpixel';
+             ctx.shadowColor = 'rgba(0, 0, 0, 0.4)';
+             ctx.shadowOffsetY = 2;
+             ctx.shadowBlur = 2;
+             fs.readFile(`${w[Math.floor(Math.random() * w.length)]}`, function (err, Background) {
+                 if (err) return console.log(err);
+                 let BG = Canvas.Image;
+                 let ground = new Image;
+                 ground.src = Background;
+                 ctx.drawImage(ground, 0, 0, 802, 404);
+    
+     })
+                                let user = message.mentions.users.first();
+          var men = message.mentions.users.first();
+             var heg;
+             if(men) {
+                 heg = men
+             } else {
+                 heg = message.author
+             }
+           var mentionned = message.mentions.members.first();
+              var h;
+             if(mentionned) {
+                 h = mentionned
+             } else {
+                 h = message.member
+             }
+             var ment = message.mentions.users.first();
+             var getvalueof;
+             if(ment) {
+               getvalueof = ment;
+             } else {
+               getvalueof = message.author;
+             }//ما خصك ,_,
+                                           let url = getvalueof.displayAvatarURL.endsWith(".webp") ? getvalueof.displayAvatarURL.slice(5, -20) + ".png" : getvalueof.displayAvatarURL;
+                                             jimp.read(url, (err, ava) => {
+                                                 if (err) return console.log(err);
+                                                 ava.getBuffer(jimp.MIME_PNG, (err, buf) => {
+                                                     if (err) return console.log(err);
+                            
+                                                             let Avatar = Canvas.Image;
+                                                             let ava = new Avatar;
+                                                             ava.src = buf;
+                                                             ctx.beginPath();
+                                                           ctx.drawImage(ava, 335, 3, 160, 169);
+                                                     ctx.font = '35px Arial Bold';
+                                                     ctx.fontSize = '40px';
+                                                     ctx.fillStyle = "#dadada";
+                                                     ctx.textAlign = "center";
+                                                    
+                            
+                                                     ctx.font = '30px Arial Bold';
+                                                     ctx.fontSize = '30px';
+                                                     ctx.fillStyle = "#ffffff";
+                                                                             ctx.fillText(`${getvalueof.username}`,655, 170);
+                                                                            
+                                                                        
+                                                          moment.locale('ar-ly');        
+                                            
+                                            
+                                                                    ctx.font = '30px Arial';
+                                                     ctx.fontSize = '30px';
+                                                     ctx.fillStyle = "#ffffff";
+                                                                             ctx.fillText(`${moment(h.joinedAt).fromNow()}`,150, 305);
+                                                              
+                                                              
+                                                                                                     ctx.font = '30px Arial';
+                                                     ctx.fontSize = '30px';
+                                                     ctx.fillStyle = "#ffffff";
+                                                                 ctx.fillText(`${moment(heg.createdTimestamp).fromNow()}`,150, 170); 
+                            
+                                                       let status;
+     if (getvalueof.presence.status === 'online') {
+         status = 'اون لاين';
+     } else if (getvalueof.presence.status === 'dnd') {
+         status = 'مشغول';
+     } else if (getvalueof.presence.status === 'idle') {
+         status = 'خارج النطاق';
+     } else if (getvalueof.presence.status === 'offline') {
+         status = 'اوف لاين';
+     }
+     
+     
+                                          ctx.cont = '35px Arial';
+                                          ctx.fontSize = '30px';
+                                          ctx.filleStyle = '#ffffff'
+                                          ctx.fillText(`${status}`,655,305)
+                  
+                                                                   ctx.font = 'regular 30px Cairo';
+                                                                   ctx.fontSize = '30px';
+                                                                   ctx.fillStyle = '#ffffff'
+                                                         ctx.fillText(`${h.presence.game === null ? "لا يلعب" : h.presence.game.name}`,390,390);
+                            
+                               ctx.font = '35px Arial';
+                                                                   ctx.fontSize = '30px';
+                                                                   ctx.fillStyle = '#ffffff'
+                                                                   ctx.fillText(`#${heg.discriminator}`,390,260)
+                            
+                                 ctx.beginPath();
+                                 ctx.stroke();
+                               message.channel.sendFile(canvas.toBuffer());
+                            
+                            
+                          
+                            
+                             })
+                            
+                             })
+ }
+ });
+ 
+ var math = require('mathjs') // npm i mathjs
+client.on("message", async msg => {
+
+    if (msg.channel.type !== "text") return undefined;
+
+    //if (msg.auhtor.bot) return undefined;
+
+    var args = msg.content.split(" ")
+
+    var prefix = "S!"
+
+  if (msg.content.toLowerCase().startsWith(prefix + "cal")) {
+
+    if (!args[1]) return msg.channel.send("DiscordAPI Err : Missing args.")
+
+    if (args[1].length == 1) return msg.channel.send("JUST ONE NUMBER?????");
+
+    var count = parseInt(args[1]);
+
+    if (isNaN(count)) return msg.channel.send('No nigga');
+
+    try {
+      idk = await math.eval(args[1])
+    } catch (e) {
+      return msg.channel.send("ERRRRRRRRRRRRRRRRRRRRRRRR")
+    }
+    await msg.channel.send(idk)
+  }
+});
 
 
-
-
-
-
-
-
-	
-	
-	
-
-
+var anti_spam = require("discord-anti-spam");
+ 
+anti_spam(client, {
+  warnBuffer: 7,  //alpha codes 
+  maxBuffer: 8,  //alpha codes
+  interval: 1000,  //alpha codes
+  warningMessage: "**سيتم طردك إن لم توقف سبام**",  //alpha codes
+  banMessage: "تم الطرد بسبب السبام",  //alpha codes
+  maxDuplicatesWarning: 7, //alpha codes
+  maxDuplicatesBan: 10  //alpha codes
+});
 
 
 
