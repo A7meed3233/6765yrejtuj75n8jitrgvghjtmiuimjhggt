@@ -31,6 +31,9 @@ client.user.setGame(`Sooooon..!`,"http://twitch.tv/S-F")
 
 
 
+
+
+
 var math = require('mathjs') // npm i mathjs
 client.on("message", async msg => {
 
