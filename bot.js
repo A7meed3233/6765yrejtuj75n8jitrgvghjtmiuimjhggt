@@ -56,52 +56,6 @@ client.user.setGame(`Sooooon..!`,"http://twitch.tv/S-F")
 
 
 
-client.on('message',async msg => {
-  var p = "S!";
-  if(msg.content.startsWith(p + "setmembers")) {
-  if(!msg.guild.member(msg.author).hasPermissions('MANAGE_CHANNELS')) return msg.reply('❌ **go play minecraft**');
-  if(!msg.guild.member(client.user).hasPermissions(['MANAGE_CHANNELS'])) return msg.reply('❌ **البوت لا يمتلك صلاحية**');
-  msg.guild.createChannel(`يتم تحضير الروم :[]` , 'voice').then(time => {
-    time.overwritePermissions(msg.guild.id, {
-      CONNECT: false,
-      SPEAK: false
-    });
-  setInterval(() => {
-      var currentTime = new Date(),
-Year = currentTime.getFullYear(),
-Month = currentTime.getMonth() + 1,
-Dat = currentTime.getDate()
-      time.setName(`Members : ◤ → ${client.users.size} ← ◢`);
- },1000);
-  });
-  }
- 
-});
-
-
-
-client.on('message',async message => {
-  var time = moment().format('Do MMMM YYYY , hh:mm');
-  var room;
-  var title;
-  var duration;
-  var gMembers;
-  var currentTime = new Date(),
-hours = currentTime.getHours() + 3 ,
-minutes = currentTime.getMinutes(),
-done = currentTime.getMinutes() + duration / 60000 ,
-seconds = currentTime.getSeconds();
-if (minutes < 10) {
-minutes = "0" + minutes;
-}
-var suffix = "AM";
-if (hours >= 12) {
-suffix = "PM";
-hours = hours - 12;
-}
-if (hours == 0) {
-hours = 12;
-}
 
 	
 	
