@@ -190,7 +190,7 @@ client.on('message', async message => {
   }
  
 }
-}
+})
 
 
 client.on('message', message => {
