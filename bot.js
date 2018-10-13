@@ -696,7 +696,7 @@ if (command == "z5rf") {
 
 
 client.on('message', message =>{
-  if(message.content.startsWith('Sjoin')){
+  if(message.content.startsWith('S!join')){
     const voiceChannel = message.member.voiceChannel
     voiceChannel.join();
     message.channel.send("تم الأتصال بالروم الصوتي")
@@ -824,20 +824,7 @@ client.login(process.env.BOT_TOKEN);
 
 
 
-client.on('message', message => {
-  if (message.author.bot) return;
-  if (!message.content.startsWith(prefix)) return;
 
-  let command = message.content.split(" ")[0];
-  command = command.slice(prefix.length);
-
-  let args = message.content.split(" ").slice(1);
-
-  if (command == "say") {
-   message.channel.sendMessage(args.join("  "))
-   message.delete()
-  }
- });
 
 
 
