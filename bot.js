@@ -34,6 +34,74 @@ client.user.setGame(`Sooooon..!`,"http://twitch.tv/S-F")
 
 
 
+client.on("message", message => {
+	var args = message.content.split(' ').slice(1); 
+	var msg = message.content.toLowerCase();
+	if( !message.guild ) return;
+	if( !msg.startsWith( prefix + 'role' ) ) return;
+	if(!message.member.hasPermission('MANAGE_ROLES')) return message.channel.send(' **__ليس لديك صلاحيات__**');
+	if( msg.toLowerCase().startsWith( prefix + 'roleremove' ) ){
+		if( !args[0] ) return message.reply( '**:x: يرجى وضع الشخص المراد سحب منه الرتبة**' );
+		if( !args[1] ) return message.reply( '**:x: يرجى وضع الرتبة المراد سحبها من الشخص**' );
+		var role = msg.split(' ').slice(2).join(" ").toLowerCase(); 
+		var role1 = message.guild.roles.filter( r=>r.name.toLowerCase().indexOf(role)>-1 ).first(); 
+		if( !role1 ) return message.reply( '**:x: يرجى وضع الرتبة المراد سحبها من الشخص**' );if( message.mentions.members.first() ){
+			message.mentions.members.first().removeRole( role1 );
+			return message.reply('**:white_check_mark: [ '+role1.name+' ] رتبة [ '+args[0]+' ] تم سحب من **');
+		}
+		if( args[0].toLowerCase() == "all" ){
+			message.guild.members.forEach(m=>m.removeRole( role1 ))
+			return	message.reply('**:white_check_mark: [ '+role1.name+' ] تم سحب من الكل رتبة**');
+		} else if( args[0].toLowerCase() == "bots" ){
+			message.guild.members.filter(m=>m.user.bot).forEach(m=>m.removeRole(role1))
+			return	message.reply('**:white_check_mark: [ '+role1.name+' ] تم سحب من البوتات رتبة**');
+		} else if( args[0].toLowerCase() == "humans" ){
+			message.guild.members.filter(m=>!m.user.bot).forEach(m=>m.removeRole(role1))
+			return	message.reply('**:white_check_mark: [ '+role1.name+' ] تم سحب من البشريين رتبة**');
+		} 	
+	} else {
+		if( !args[0] ) return message.reply( '**:x: يرجى وضع الشخص المراد اعطائها الرتبة**' );
+		if( !args[1] ) return message.reply( '**:x: يرجى وضع الرتبة المراد اعطائها للشخص**' );
+		var role = msg.split(' ').slice(2).join(" ").toLowerCase(); 
+		var role1 = message.guild.roles.filter( r=>r.name.toLowerCase().indexOf(role)>-1 ).first(); 
+		if( !role1 ) return message.reply( '**:x: يرجى وضع الرتبة المراد اعطائها للشخص**' );if( message.mentions.members.first() ){
+			message.mentions.members.first().addRole( role1 );
+			return message.reply('**:white_check_mark: [ '+role1.name+' ] رتبة [ '+args[0]+' ] تم اعطاء **');
+		}
+		if( args[0].toLowerCase() == "all" ){
+			message.guild.members.forEach(m=>m.addRole( role1 ))
+			return	message.reply('**:white_check_mark: [ '+role1.name+' ] تم اعطاء الكل رتبة**');
+		} else if( args[0].toLowerCase() == "bots" ){
+			message.guild.members.filter(m=>m.user.bot).forEach(m=>m.addRole(role1))
+			return	message.reply('**:white_check_mark: [ '+role1.name+' ] تم اعطاء البوتات رتبة**');
+		} else if( args[0].toLowerCase() == "humans" ){
+			message.guild.members.filter(m=>!m.user.bot).forEach(m=>m.addRole(role1))
+			return	message.reply('**:white_check_mark: [ '+role1.name+' ] تم اعطاء البشريين رتبة**');
+		} 
+	} 
+});
+var AsciiTable = require('ascii-data-table').default
+client.on('message', message =>{
+
+    if(message.content == "S!roles"){
+        if(message.guild.member(message.author).hasPermission("ADMINISTRATOR"))
+        var 
+        ros=message.guild.roles.size,
+        data = [['Rank', 'RoleName']]
+        for(let i =0;i<ros;i++){
+            if(message.guild.roles.array()[i].id !== message.guild.id){
+         data.push([i,`${message.guild.roles.filter(r => r.position == ros-i).map(r=>r.name)}`])
+        }}
+        let res = AsciiTable.table(data)
+
+        message.channel.send(`**\`\`\`xl\n${res}\`\`\`**`);
+    }
+});
+
+
+
+
+
 
 
 
@@ -529,12 +597,12 @@ client.on('message', async message => {
     if(message.guild.member(mention).roles.find('name', 'Muted')) return message.channel.send(`**:information_source: ${mention.user.username} Already Muted**`);
  
    
-    if(mention.position >= message.guild.member(message.author).positon) return message.channel.send('You Don't Have Permission **Muted_Members** ').then(msg => {
+    if(mention.position >= message.guild.member(message.author).positon) return message.channel.send('You Dont Have Permission **Muted_Members** ').then(msg => {
       msg.delete(3500);
       message.delete(3500);
     });
    
-    if(mention.positon >= message.guild.member(client.user).positon) return message.channel.send('I Don't Have Permission **Muted_Members**').then(msg => {
+    if(mention.positon >= message.guild.member(client.user).positon) return message.channel.send('I Dont Have Permission **Muted_Members**').then(msg => {
       msg.delete(3500);
       message.delete(3500); //kinggamer حقوق الفا كودز و
     });
@@ -1535,6 +1603,7 @@ client.on("message", message => {
       .setDescription(`
      
              Please Select Your Language
+
 ${prefix}help-ar
 ${prefix}help-en
              
@@ -1557,6 +1626,8 @@ S!help-gn-ar ⇏ اوامر عامة
 S!help-ad-ar ⇏ اوامر ادارة السيرفر
              
 S!help-mu-ar ⇏ اوامر الموسيقى
+
+S!help-ga-ar ⇏ اوامر الألعاب (قريباً..) ء
 `)
 message.channel.sendEmbed(embed)
  
@@ -1577,7 +1648,9 @@ client.on("message", message => {
                
    S!help-mu-en ⇏ Music commands
    
-   
+   S!help-ga-en ⇏ games commands  (Soon..)
+
+
    `)
    message.channel.sendEmbed(embed)
    
@@ -1592,21 +1665,28 @@ client.on("message", message => {
       .setColor("RANDOM")
       .setDescription(`
              
-===================== اوامر عامة =====================
+===================== **اوامر عامة** =====================
 S!id ➾ معلومات عن حسابك
-S!ping ➾ سرعة اتصالك بالانترنت
+S!profile ➾ عرض البروفايل الخاص بك
+S!ping ➾ سرعة اتصال البوت
 S!avatar ➾ يظهر صورة بروفابلك
 S!server ➾ معلومات عن السيرفر
 S!botinfo ➾ معلومات عن البوت
+S!roleinfo ➾ معلومات عن الرتبة اللي تكتبها بعد الامر تنبيه لا تمنشن الرتبة
+S!draw ➾ اي شي تكتبه بعد الامر بيكته في صورة
 S!count ➾ يعرضلك عدد الاشخاص الي بالسيرفر
-S!short ➾ يختصرلك الروابط
+S!bans ➾ يعرضلك عدد الاشخاص المبندة من السيرفر
+S!short ➾ يختصر لك الروابط
+S!tag ➾ يعرض اي شي تكتبه بعد الامر بشكل كبير وحلو
 S!say ➾ يكرر كلامك
+S!members ➾ يعرض معلومات الأعضاء
+S!z5rf ➾ يزخرف الكلام اللي تكتبه بعد الامر
 S!image ➾ صورة السيرفر
 S!contact ➾ لمراسله صاحب البوت
-S!invite ➾ رابط اذخال البوت
-S!support ➾ سيرفر الدعم
+S!invite ➾ رابط دعوة البوت لـ سيرفرك
+S!support ➾ سيرفر الدعم الفني
+S!uptime ➾ لمعرفة مدة عمل البوت
 =========================================================
-وقريباً المزيد من الاكواد
 `)
    message.author.sendEmbed(embed)
    
@@ -1625,21 +1705,28 @@ S!support ➾ سيرفر الدعم
       .setColor("RANDOM")
       .setDescription(`
              
-==================== General commands =====================
-S!id ➾ your informations
-S!ping ➾ your ping
-S!avatar ➾ your profile avatar
-S!server ➾ server informations
-S!botinfo ➾ bot informations
-S!count ➾ server members without bots
-S!short ➾ shorten links
-S!say ➾ repeat your words
-S!image ➾ server image
-S!contact ➾ send text to bot owner
-S!inv ➾ bot invite link
-S!support ➾ support server
+==================== **General commands** =====================
+S!id ➾ Your informations
+S!profile ➾ Your profile
+S!ping ➾ Speed of bot connection
+S!avatar ➾ Your profile avatar
+S!server ➾ Server informations
+S!botinfo ➾ Bot informations
+S!roleinfo ➾ Information about the rank you write after the order
+S!draw ➾ Any thing you type after you order it in a picture
+S!count ➾ Server members without bots
+S!bans ➾ Displays the number of people who are banded from the server
+S!short ➾ Shorten links
+S!tag ➾ Displays anything you write after the command it's big and sweet order
+S!say ➾ Repeat your words
+S!members ➾ Displays members information
+S!z5rf ➾ The words that you write after the command are embellished
+S!image ➾ Server image
+S!contact ➾ Send text to bot owner
+S!invite ➾ Bot invite link
+S!support ➾ Support server
+S!uptime ➾ To know the duration of the bot
 =========================================================
-More commands soon
 `)
    message.author.sendEmbed(embed)
    
@@ -1654,20 +1741,30 @@ More commands soon
       .setColor("RANDOM")
       .setDescription(`
              
-==================== اوامر ادارية =====================
+==================== **اوامر ادارية** =====================
+S!suggest ➾ لارسال اقتراح لازم تسوي روم باسم suggetions
+S!report ➾ لارسال تبليغ عن شخص لازم تسوي روم باسم reports
 S!bc ➾ لارسال رساله لجميع الاعضاء
-S!ban [@mention] [reason] ➾  لحظر شخص من السيرفر
+S!rolebc ➾ لارسال رسالة لكل اللي معهم الرتبة اللي تمنشنها
+S!ban [@mention or id] [reason] ➾  لحظر شخص من السيرفر
+S!unban [@mention or id] ➾  لفك الحظر عن الشخص المبند
 S!kick [@mention] [reason] ➾ لطرد شخص من السيرفر
 S!mute [@mention] [reason] ➾ لاعطاء ميوت لعضو
 S!unmute [@mention] ➾ لفك الميوت عن عضو
+S!vmute [@mention]  ➾ لاعطاء ميوت صوتي للعضو
+S!vunmute [@mention] ➾ لفك الميوت الصوتي عن العضو
+S!deafen [@mention]  ➾ لإعطاء ديفن للعضو
+S!undeafen [@mention]  ➾ لفك الديفن عن العضو
 S!move [@mention] ➾ لنقل عضو لرومك الصوتي
 S!mutechannel ➾ لاقفال الشات
 S!unmutechannel ➾ لفتح الشات
 S!clear ➾ لمسح الشات
 S!hchannel ➾ لاخفاء الشات
 S!schannel ➾ لاظهار الشات
+S!cv ➾ لصنع روم صوتي
+S!ct ➾ لصنع روم كتابي
+S!delete ➾ لمسح روم صوتي او كتابي
 =========================================================
-وقريباً المزيد من الاكواد
 `)
    message.author.sendEmbed(embed)
    
@@ -1682,20 +1779,30 @@ const embed = new Discord.RichEmbed()
    .setColor("RANDOM")
    .setDescription(`
          
-==================== Management commands =====================
+==================== **Management commands** =====================
+S!suggest ➾ To Send An Suggestion You Must Make "suggestions" Channel
+S!report ➾ To Report Any Person You Must Make "reports" Channel
 S!bc ➾ for massage send message to server members
+S!rolebc ➾ To send a message to all those with whom the rank is granted
 S!ban [@mention] [reason] ➾ to ban someone from the server
+S!unban ➾ To unblock the person banded
 S!kick [@mention] [reason] ➾ to kick someone from the server
 S!mute [@mention] [reason] ➾ to mute someone
 S!unmute [@mention] ➾ to umnute someone
+S!vmute [@mention]  ➾ To give mute voice to the member
+S!vunmute [@mention] ➾ To unlock the mute voice of the member
+S!deafen [@mention]  ➾ To give deafen to the member
+S!undeafen [@mention]  ➾ To unlock deaden from the member
 S!move [@mention] ➾ to move someone to your channel
 S!mutechannel ➾ to mute chat
 S!unmutechannel ➾ to ummute chat
 S!clear ➾ to clear chat
 S!hchannel ➾ to hide chat
 S!schannel ➾ to show chat
+S!cv ➾ To Make Voice Room
+S!ct ➾ To Make Text Room
+S!delete ➾ To Delete Voice Or Text Room
 =========================================================
-More commands soon
 `)
 message.author.sendEmbed(embed)
  
@@ -1711,7 +1818,7 @@ client.on("message", message => {
       .setColor("RANDOM")
       .setDescription(`
              
-==================== اوامر الميوزك =====================
+==================== **اوامر الميوزك** =====================
 S!play ➾ لتشغيل اغنية
 S!skip ➾ لتخطي اغنية
 S!pause ➾ لإيقآف الأغنية مؤقتا
@@ -1722,7 +1829,6 @@ S!np ➾ لمعرفة الاغنية مشغلة
 S!queue ➾ قائمة الاغاني
  
 =========================================================
-وقريباً المزيد من الاكواد
 `)
    message.author.sendEmbed(embed)
    
@@ -1738,7 +1844,7 @@ client.on("message", message => {
       .setColor("RANDOM")
       .setDescription(`
              
-==================== Music commands =====================
+==================== **Music commands** =====================
 S!play ➾ to play song
 S!skip ➾ to skip song
 S!pause ➾ to pause the song
@@ -1749,7 +1855,6 @@ S!np ➾ to show the song that is currently playing
 S!queue ➾ to see the song list
  
 =========================================================
-More codes soon
 `)
    message.author.sendEmbed(embed)
    
