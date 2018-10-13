@@ -753,8 +753,7 @@ var embed = new Discord.RichEmbed()
 var embed = new Discord.RichEmbed()
 .setTitle(`You are Moved in ${message.guild.name}`)
  .setColor("RANDOM")
-.setDescription(`**${mention.user.username} ,
-<@${message.author.id}> Moved You To His Channel!**`)
+.setDescription(`**<@${message.author.id}> Moved You To His Channel!**`)
  message.guild.members.get(usermentioned).setVoiceChannel(authorchannel).then(m => message.channel.send(embed))
 message.guild.members.get(usermentioned).send(embed)
 } else {
