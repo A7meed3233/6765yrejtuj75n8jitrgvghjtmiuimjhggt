@@ -1,15 +1,12 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-client.setMaxListeners(25)
 const fs = require("fs"); 
 const moment = require('moment');
 const jimp = require('jimp');
 const Canvas = require('canvas');
-const prefix = 'S!'
-
 client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`);
-client.user.setGame(`S!help | S!invite`,"http://twitch.tv/S-F")
+console.log(`Logged in as ${client.user.tag}!`);
+client.user.setGame(`Soon`,"http://twitch.tv/S-F")
   console.log('')
   console.log('')
   console.log('╔[═════════════════════════════════════════════════════════════════]╗')
@@ -32,8 +29,6 @@ client.user.setGame(`S!help | S!invite`,"http://twitch.tv/S-F")
   console.log('')
   console.log('')
 });
-
-
 
 
 
