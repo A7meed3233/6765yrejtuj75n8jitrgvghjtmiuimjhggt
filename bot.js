@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-client.setMaxListeners(25)
+client.setMaxListeners(100)
 const fs = require("fs"); 
 const moment = require('moment');
 const jimp = require('jimp');
