@@ -40,6 +40,10 @@ client.user.setGame(`S!help | S!invite`,"http://twitch.tv/S-F")
 
 
 
+
+
+
+
 client.on('message', message => {
     var prefix = "S!";
   if (message.author.x5bz) return;
