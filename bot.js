@@ -1,5 +1,4 @@
 const convert = require("hh-mm-ss")
-const dateFormat = require('dateformat');
 const fs = require('fs');
 const pretty = require('pretty-ms');
 const rn = require('random-number');
