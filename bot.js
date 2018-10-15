@@ -1,6 +1,5 @@
-const convert = require("hh-mm-ss")
+const convert = require("hh-mm-ss");
 const fs = require('fs');
-const pretty = require('pretty-ms');
 const rn = require('random-number');
 const userData = JSON.parse(fs.readFileSync('./userData.json', 'utf8'));
 const moment = require('moment');
