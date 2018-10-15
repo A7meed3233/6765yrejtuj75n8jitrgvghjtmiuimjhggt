@@ -10,6 +10,7 @@ let done = {};
 
 const Discord = require('discord.js');
 const client = new Discord.Client();
+client.setMaxListeners(100)
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 client.user.setGame(`S!help | S!invite`,"http://twitch.tv/S-F")
