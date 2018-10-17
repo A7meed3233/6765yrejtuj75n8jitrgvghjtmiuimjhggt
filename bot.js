@@ -797,7 +797,7 @@ client.on('message' , message => {
 
 
 
-client.on('message', msg => {
+client.on('message', message => {
   if (msg.author.bot) return;
   if (!msg.content.startsWith(prefix)) return;
 	  if(!message.channel.guild) return message.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
