@@ -41,7 +41,7 @@ const verificationLevels = ['None', 'Low', 'Medium', 'Insane', 'Extreme'];
 const days = millis / 1000 / 60 / 60 / 24;
 let roles = client.guilds.get(message.guild.id).roles.map(r => r.name);
 var embed  = new Discord.RichEmbed()
-.setAuthor(uild.iconURL)
+.setAuthor(message.guild.name, message.guild.iconURL)
 .addField("**🆔 Server ID:**", message.guild.id,true)
 .addField("**📅 Created On**", message.guild.createdAt.toLocaleString(),true)
 .addField("**👑 Owned by**",`${message.guild.owner.user.username}#${message.guild.owner.user.discriminator}`)
@@ -913,7 +913,6 @@ client.on('ready', () => {
     if(!message.channel.guild) return message.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
   if(!message.member.hasPermission('ADMINISTRATOR')) return      message.channel.send('**للأسف لا تمتلك صلاحية** `ADMINISTRATOR`' );
     let args = message.content.split(" ").join(" ").slice(2 + prefix.length);
-    let copy = "${message.guild.name}";
     let request = `Requested By ${message.author.username}`;
     if (!args) return message.reply('**يجب عليك كتابة كلمة او جملة لإرسال البرودكاست**');message.channel.send(`**هل أنت متأكد من إرسالك البرودكاست؟ \nمحتوى البرودكاست:** \` ${args}\``).then(msg => {
     msg.react('✅')
@@ -934,7 +933,7 @@ client.on('ready', () => {
        .addField('Server | سيرفر', message.guild.name)
        .addField('Sender | المرسل', message.author.username)
        .addField('Message | الرسالة', args)
-       .setFooter(copy, client.user.avatarURL);
+       .setFooter(message.guild.name, message.guild.iconURL);
     m.send({ embed: bc })
     msg.delete();
     })
