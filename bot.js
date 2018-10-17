@@ -41,7 +41,7 @@ const verificationLevels = ['None', 'Low', 'Medium', 'Insane', 'Extreme'];
 const days = millis / 1000 / 60 / 60 / 24;
 let roles = client.guilds.get(message.guild.id).roles.map(r => r.name);
 var embed  = new Discord.RichEmbed()
-.setAuthor(message.guild.name, message.guild.iconURL)
+.setAuthor(uild.iconURL)
 .addField("**🆔 Server ID:**", message.guild.id,true)
 .addField("**📅 Created On**", message.guild.createdAt.toLocaleString(),true)
 .addField("**👑 Owned by**",`${message.guild.owner.user.username}#${message.guild.owner.user.discriminator}`)
