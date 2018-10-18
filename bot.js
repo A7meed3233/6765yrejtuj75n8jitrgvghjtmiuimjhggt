@@ -3,7 +3,6 @@ const client = new Discord.Client();
 const fs = require("fs")
 const moment = require ("moment")
 const prefix = 'S!'
-let message = msg
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -31,18 +30,18 @@ client.user.setGame(`Soooon`,"http://twitch.tv/S-F")
   console.log('')
 });
 
-client.on('message', msg => {
-        if (msg.content.startsWith(`S!warn`)) {
-           let args = msg.content.split(" ").slice(1);
-          if (!msg.mentions.members.first()) return msg.reply('منشن الشخص المحدد')
-          if (!args[1]) return msg.reply('``اكتب السبب``')
+client.on('message', message => {
+        if (message.content.startsWith(`S!warn`)) {
+           let args = message.content.split(" ").slice(1);
+          if (!message.mentions.members.first()) return message.reply('منشن الشخص المحدد')
+          if (!args[1]) return message.reply('``اكتب السبب``')
           //غير اسم الروم او سوي روم بذا الاسم
-          if (msg.guild.channels.find('name', 'warns')) {
+          if (message.guild.channels.find('name', 'warns')) {
             //اذا غيرت فوق غير هنا كمان
-            msg.guild.channels.find('name', 'warns').send(`
-          تم اعطائك تنبيه : ${msg.mentions.members.first()}
+            message.guild.channels.find('name', 'warns').send(`
+          تم اعطائك تنبيه : ${message.mentions.members.first()}
           لأنك قمت بما يلي
-          ${args.join(" ").split(msg.mentions.members.first()).slice(' ')}
+          ${args.join(" ").split(message.mentions.members.first()).slice(' ')}
           `)
           }
         }
@@ -869,7 +868,7 @@ if (message.content.startsWith(prefix + "uptime")) {
 
 client.on("message", msg => {
   if(msg.content === 'S!' + "id") {
-	    if(!msg.channel.guild) return message.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
+	    if(!msg.channel.guild) return msg.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
  
       const embed = new Discord.RichEmbed();
   embed.addField("🔱| اسم الحساب :", `${msg.author.username}#${msg.author.discriminator}`, true)
@@ -968,7 +967,7 @@ client.on('message', async msg => {
      client.snek = require('snekfetch');
     var p = "S!"
   if(msg.content.startsWith(p + "draw")) {
-	    if(!message.channel.guild) return message.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
+	    if(!msg.channel.guild) return msg.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
  
    let args = msg.content.split(' ').slice(1).join(' ');
 
