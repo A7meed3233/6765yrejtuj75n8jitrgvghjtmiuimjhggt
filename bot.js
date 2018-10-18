@@ -762,7 +762,7 @@ client.on('message' , message => {
 client.on('message', msg => {
   if (msg.author.bot) return;
   if (!msg.content.startsWith(prefix)) return;
-	  if(!msg.channel.guild) return message.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
+	  if(!msg.channel.guild) return msg.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
  
   let command = msg.content.split(" ")[0];
   command = command.slice(prefix.length);
