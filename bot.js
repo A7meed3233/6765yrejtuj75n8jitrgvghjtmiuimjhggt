@@ -30,6 +30,258 @@ client.user.setGame(`Soooon`,"http://twitch.tv/S-F")
   console.log('')
 });
 
+
+const Discord = require("discord.js");
+const client = new Discord.Client();
+client.on('ready', () => {
+  console.log(`Logged in as ${client.user.tag}!`);
+});
+var guilds = {};
+client.on('guildBanAdd', function(guild) {
+            const rebellog = client.channels.find("name", "log"),
+            Onumber = 10,
+  Otime = 10000
+guild.fetchAuditLogs({
+    type: 22
+}).then(audit => {
+    let banner = audit.entries.map(banner => banner.executor.id)
+    let bans = guilds[guild.id + banner].bans || 0
+    guilds[guild.id + banner] = {
+        bans: 0
+    }
+      bans[guilds.id].bans += 3;
+if(guilds[guild.id + banner].bans >= Onumber) {
+try {
+let roles = guild.members.get(banner).roles.array();
+guild.members.get(banner).removeRoles(roles);
+
+} catch (error) {
+console.log(error)
+try {
+guild.members.get(banner).removeRoles(roles);
+  rebellog.send(`<@!${banner.id}>
+حآول العبث بالسيرفر @everyone`);
+guild.owner.send(`<@!${banner.id}>
+حآول العبث بالسيرفر ${guild.name}`)
+    setTimeout(() => {
+ guilds[guild.id].bans = 0;
+  },Otime)
+} catch (error) {
+console.log(error)
+}
+}
+}
+})
+});
+ let channelc = {};
+  client.on('channelCreate', async (channel) => {
+  const rebellog = client.channels.find("name", "log"),
+  Oguild = channel.guild,
+  Onumber = 10,
+  Otime = 10000;
+  const audit = await channel.guild.fetchAuditLogs({limit: 1});
+  const channelcreate = audit.entries.first().executor;
+  console.log(` A ${channel.type} Channel called ${channel.name} was Created By ${channelcreate.tag}`);
+   if(!channelc[channelcreate.id]) {
+    channelc[channelcreate.id] = {
+    created : 0
+     }
+ }
+ channelc[channelcreate.id].created += 3;
+ if(channelc[channelcreate.id].created >= Onumber ) {
+let roles = guild.members.get(banner).roles.array();
+guild.members.get(banner).removeRoles(roles);
+rebellog.send(`<@!${channelcreate.id}>
+حآول العبث بالسيرفر @everyone`);
+channel.guild.owner.send(`<@!${channelcreate.id}>
+حآول العبث بالسيرفر ${channel.guild.name}`)
+}
+  setTimeout(() => {
+ channelc[channelcreate.id].created = 0;
+  },Otime)
+  });
+
+let channelr = {};
+  client.on('channelDelete', async (channel) => {
+  const rebellog = client.channels.find("name", "log"),
+  Oguild = channel.guild,
+  Onumber = 10,
+  Otime = 10000;
+  const audit = await channel.guild.fetchAuditLogs({limit: 1});
+  const channelremover = audit.entries.first().executor;
+  console.log(` A ${channel.type} Channel called ${channel.name} was deleted By ${channelremover.tag}`);
+   if(!channelr[channelremover.id]) {
+    channelr[channelremover.id] = {
+    deleted : 0
+     }
+ }
+ channelr[channelremover.id].deleted += 3;
+ if(channelr[channelremover.id].deleted >= Onumber ) {
+let roles = guild.members.get(banner).roles.array();
+guild.members.get(banner).removeRoles(roles);
+rebellog.send(`<@!${channelremover.id}>
+حآول العبث بالسيرفر @everyone`);
+channel.guild.owner.send(`<@!${channelremover.id}>
+حآول العبث بالسيرفر ${channel.guild.name}`)
+}
+  setTimeout(() => {
+ channelr[channelremover.id].deleted = 0;
+  },Otime)
+  });
+
+
+const Discord = require ('discord.js');
+const bot = new Discord.Client();
+console.log ("CONNECTING...");
+ 
+var gEnteredUsers = [];
+var gDeclareArray = [];
+var gTime;
+var gPrize;
+var msgID;
+var fetchedMsg;
+var fUserId;
+var Active_Giveaway = "false";
+var entryCount = 0;
+var gWinner = "no one";
+ 
+bot.on('ready', () => {
+    console.log ("CONNECTED!\n");
+    //bot.user.setActivity("Icky (Steam)");
+});
+ 
+bot.on('message', (message) => {
+ 
+      if ( (message.content.startsWith ('S!gstart')) && (Active_Giveaway == "false") && ((message.member.roles.find("name", "Moderator") ) || (message.member.roles.find("name", "Admin") ) || (message.member.roles.find("name", "Giveaways") ))  )
+      {
+        Active_Giveaway = "true";
+        gDeclareArray.push(message.content);
+        gDeclareArray = message.content.split(" ");
+        gDeclareArray.shift();
+        gTime = gDeclareArray[0];
+        gDeclareArray.shift();
+        gPrize = gDeclareArray.toString();
+        gPrize = gPrize.replace(/,/g, " ");
+        console.log(gPrize);
+ 
+        message = message.channel.send
+        ( fetchedMsg = new Discord.RichEmbed()
+           
+            //.setThumbnail("https://i.imgur.com/ii17NzC.png")
+            .setColor([151, 105, 181])
+            .setTitle("𝘞𝘪𝘯𝘯𝘦𝘳 𝘨𝘦𝘵𝘴: "+gPrize)
+            .setDescription(gTime + " Seconds")
+            .setFooter("Type S!genter to enter the giveaway")
+ 
+        ).then(message =>
+            {
+                msgID = message.id;
+                //message.react("✅");
+ 
+                var gUpdateCountInt = setInterval(function()
+                {
+ 
+                    gTime = gTime - 1;
+                    if (gTime < 1)
+                    {
+                        gWinner = gEnteredUsers[Math.floor(Math.random()*gEnteredUsers.length)];
+                        Active_Giveaway = "false";
+                        gEnteredUsers = [];
+                        clearInterval(gUpdateCountInt);
+                        clearInterval(gCountInt);
+ 
+                        message.edit
+                    (
+                        fetchedMsg
+                        .setTitle("𝘞𝘪𝘯𝘯𝘦𝘳 𝘨𝘦𝘵𝘴: "+gPrize)
+                        .setDescription("")
+                        .addField("Winner:",gWinner)
+                        .setFooter("")
+                        .setTimestamp()
+                        .setColor([0, 0, 0])
+                    )
+ 
+                    message.channel.send
+                        ( winnerMsg = new Discord.RichEmbed()
+                           
+                            .setThumbnail("https://i.imgur.com/RAAflnr.png")
+                            .setColor([90, 155, 91])
+                            .setTitle("Congratulations!")
+                            .setDescription(gWinner+" has won "+gPrize+"!")
+                            .setTimestamp()
+                        )
+ 
+                        gWinner = "no one";
+ 
+                    }
+ 
+                }, 1000);
+ 
+                var gCountInt = setInterval(function()
+                {
+                    message.edit
+                    (
+                        fetchedMsg
+                        .setTitle("𝘞𝘪𝘯𝘯𝘦𝘳 𝘨𝘦𝘵𝘴: "+gPrize)
+                        .setDescription(gTime + " Seconds\n" + "Entries: "+ entryCount)
+                    )
+ 
+                }, 5000);
+               
+            } );
+ 
+      }
+ 
+      if ((message.content == 'S!genter') && (Active_Giveaway == "true") )
+      {
+        fUserId = message.author.id;
+        var i;
+        for (i = 0; i < gEnteredUsers.length; i++) {
+            if (gEnteredUsers[i] == "<@"+fUserId+">") {
+                return false;
+            }
+        }
+        console.log(message.author.id);
+        fUserId = message.author.id;
+        gEnteredUsers.push("<@"+fUserId+">");
+        entryCount = gEnteredUsers.length;
+        message.delete(1);
+      }
+ 
+});
+
+client.on('message',async message => {
+var codes = "S!";
+var args = message.content.split(" ").slice(1);
+var title = args[1]
+          if(message.content.startsWith(codes + "start")) {
+              if(!message.guild.member(message.author).hasPermission('MANAGE_GUILD')) return message.channel.send(':heavy_multiplication_x:| **s You Dont Have Premission**');
+              if(!args) return message.channel.send(`**Use : $start  <Time> <Presentse>**`);
+              if(!title) return message.channel.send(`**Use : **\`$start ${args[0]} Minutes\`** <Presentse>**`);
+         if(!isNaN(args)) return message.channel.send(':heavy_multiplication_x:| **The Time Be Nambers `` Do the Commend Agin``**');
+                           let giveEmbed = new Discord.RichEmbed()
+                  .setAuthor(message.guild.name, message.guild.iconURL)
+                  .setDescription(`**${title}** \nReact Whit 🎉 To Enter! \n**Time remaining: Minutes :${duration / 60000}**`)
+                  .setFooter(message.author.username, message.author.avatarURL);
+
+                  message.channel.send(' :heavy_check_mark: **Giveaway Created** :heavy_check_mark:' , {embed: giveEmbed}).then(m => {
+                      message.delete();
+                      m.react('🎉');
+                     setTimeout(() => {
+                       let users = m.reactions.get("🎉").users;
+                       let list = users.array().filter(u => u.id !== client.user.id);
+                       let gFilter = list[Math.floor(Math.random() * list.length) + 0]
+                       let endEmbed = new Discord.RichEmbed()
+                       .setAuthor(message.author.username, message.author.avatarURL)
+                       .setTitle(title)
+                       .addField('Giveaway End !🎉',`Winners : ${gFilter}`)
+                     m.edit('** 🎉 GIVEAWAY ENDED 🎉**' , {embed: endEmbed});
+                     },args * 60000);
+                   });
+          }
+});
+
+
 client.on('message', message => {
         if (message.content.startsWith(`S!warn`)) {
            let args = message.content.split(" ").slice(1);
