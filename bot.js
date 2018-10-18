@@ -256,7 +256,6 @@ var fUserId;
 var Active_Giveaway = "false";
 var entryCount = 0;
 var gWinner = "no one";
-let bot = 'client';
 bot.on('ready', () => {
     console.log ("CONNECTED!\n");
     //bot.user.setActivity("Icky (Steam)");
