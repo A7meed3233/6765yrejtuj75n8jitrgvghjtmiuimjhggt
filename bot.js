@@ -384,167 +384,6 @@ client.on("guildMemberAdd", (member) => {
     }); 
 
 
-client.on('message', async msg => {
-        var user = msg.author;
-            var a = msg.guild.roles.find("name", 'Creative Distruction');
-        if(!a){
-        a = await msg.guild.createRole({
-          name: "Creative Distruction",
-          color: "#ffffff",
-          permissions:[]
-        })
- 
-        }
-        var m = msg.guild.roles.find("name", 'Minecraft');
-    if(!m){
-        m =  await msg.guild.createRole({
-          name: "Minecraft",
-          color: "#ffffff",
-          permissions:[]
-        })
-        }
-        var f = msg.guild.roles.find("name", 'Fortnite');
-        if(!f){
-        f =  await msg.guild.createRole({
-          name: "Fortnite",
-          color: "#ffffff",
-          permissions:[]
-        })
-        }
-        var b = msg.guild.roles.find("name", 'Brawlhalla');
-        if(!b){
-        b =  await msg.guild.createRole({
-          name: "Brawlhalla",
-          color: "#ffffff",
-          permissions:[]
-        })
-        }
-        var black = msg.guild.roles.find("name", 'Blacksquad');
-    if(!black){
-        black =  await msg.guild.createRole({
-          name: "Blacksquad",
-          color: "#ffffff",
-          permissions:[]
-        })
-        }
-        var le = msg.guild.roles.find("name", 'League Of Legends');
-    if(!le){
-        le =  await msg.guild.createRole({
-          name: "League Of Legends",
-          color: "#ffffff",
-          permissions:[]
-        })
-        }
-        var bn = msg.guild.roles.find("name", 'ROBLOX');
-    if(!bn){
-        bn =  await msg.guild.createRole({
-          name: "ROBLOX",
-          color: "#ffffff",
-          permissions:[]
-        })
-        }
-var prefix = "S!";
-        if (msg.content.startsWith(prefix +'crm')) {
-        if(!msg.channel.guild) return msg.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
-msg.channel.send(`**\n⚽ : \` Creative Distruction\`  \n👶 :\` Minecraft \` \n👊  :\` Fortnite \` \n👌 :\`  Brawlhalla\`  \n🍸 :\` Black Squad\` \n🥂 :\`League Of Legends\` \n🌕 :\`ROBLOX\`**`).then(res => {     res.react('⚽').then(r=>{
-     res.react('👶').then(r=>{
-     res.react('👊').then(r=>{
-     res.react('👌').then(r=>{
-     res.react('🍸').then(r=>{
-     res.react('🥂').then(r=>{
-     res.react('🌕').then(r=>{
-    let aaa = (reaction ) => reaction.emoji.name === '⚽'&&user.id
-    let mmm = (reaction ) => reaction.emoji.name === '👶'&&user.id
-    let fff = (reaction ) => reaction.emoji.name === '👊'&&user.id
-    let bbb = (reaction ) => reaction.emoji.name === '👌'&&user.id
-    let bbbb = (reaction) => reaction.emoji.name === '🍸'&& user.id
-    let cn = (reaction) => reaction.emoji.name === '🥂'&& user.id
-    let zg = (reaction) => reaction.emoji.name === '🌕'&& user.id
- 
-    let aa = res.createReactionCollector(aaa);
-    let mm = res.createReactionCollector(mmm);
-    let ff = res.createReactionCollector(fff);
-    let bb = res.createReactionCollector(bbb);
-    let bl = res.createReactionCollector(bbbb);
-    let zgg = res.createReactionCollector(zg);
-aa.on("collect", r => {
-    msg.guild.member(user.id).addRole(a);
-    msg.guild.member(user.id).removeRole(m);
-    msg.guild.member(user.id).removeRole(f);
-    msg.guild.member(user.id).removeRole(b);
-    msg.guild.member(user.id).removeRole(black);
-    msg.guild.member(user.id).removeRole(le);
-    msg.delete();
-    })
-mm.on("collect", r => {
-    msg.guild.member(user.id).addRole(m);
-    msg.guild.member(user.id).removeRole(a);
-    msg.guild.member(user.id).removeRole(f);
-    msg.guild.member(user.id).removeRole(b);
-    msg.guild.member(user.id).removeRole(black);
-    msg.guild.member(user.id).removeRole(le);
-    msg.delete();
-})
-ff.on("collect", r => {
-    msg.guild.member(user.id).addRole(f);
-    msg.guild.member(user.id).removeRole(m);
-    msg.guild.member(user.id).removeRole(a);
-    msg.guild.member(user.id).removeRole(b);
-    msg.guild.member(user.id).removeRole(black);
-    msg.guild.member(user.id).removeRole(le);
-    msg.delete();
-})
-bb.on("collect", r => {
-    msg.guild.member(user.id).addRole(b);
-    msg.guild.member(user.id).removeRole(m);
-    msg.guild.member(user.id).removeRole(f);
-    msg.guild.member(user.id).removeRole(a);
-    msg.guild.member(user.id).removeRole(black);
-    msg.guild.member(user.id).removeRole(le);
-    msg.delete();
-})
-bl.on("collect", r => {
-    msg.guild.member(user.id).addRole(black);
-    msg.guild.member(user.id).removeRole(m);
-    msg.guild.member(user.id).removeRole(f);
-    msg.guild.member(user.id).removeRole(b);
-    msg.guild.member(user.id).removeRole(a);
-    msg.guild.member(user.id).removeRole(le);
-    msg.delete();
-})
-cnn.on("collect", r => {
-    msg.guild.member(user.id).addRole(le);
-    msg.guild.member(user.id).removeRole(m);
-    msg.guild.member(user.id).removeRole(f);
-    msg.guild.member(user.id).removeRole(b);
-    msg.guild.member(user.id).removeRole(a);
-    msg.guild.member(user.id).removeRole(black);
-    msg.delete();
-})
-zgg.on("collect", r => {
-    msg.guild.member(user.id).addRole(bn);
-    msg.guild.member(user.id).removeRole(m);
-    msg.guild.member(user.id).removeRole(f);
-    msg.guild.member(user.id).removeRole(b);
-    msg.guild.member(user.id).removeRole(a);
-    msg.guild.member(user.id).removeRole(black);
-    msg.guild.member(user.id).removeRole(le);
-    msg.delete();
-})
- 
-})
-     })
-     })
-     })
-     })
-     })
-     })
-     })
-     }
-     });
-
-
-
 client.on('ready', () => {setInterval(function(){ client.guilds.get("493862684693889024").roles.find("name", '⇁『 Special 』‏‏༄  ❥').edit({color : "RANDOM"})},1000)})
 	
 	
@@ -906,7 +745,7 @@ if (message.content.startsWith(prefix + "uptime")) {
 
 client.on("message", msg => {
   if(msg.content === 'S!' + "id") {
-	    if(!message.channel.guild) return message.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
+	    if(!msg.channel.guild) return message.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
  
       const embed = new Discord.RichEmbed();
   embed.addField("🔱| اسم الحساب :", `${msg.author.username}#${msg.author.discriminator}`, true)
@@ -2179,7 +2018,6 @@ S!count ➾ يعرضلك عدد الاشخاص الي بالسيرفر
 S!bans ➾ يعرضلك عدد الاشخاص المبندة من السيرفر
 S!short ➾ يختصر لك الروابط
 S!tag ➾ يعرض اي شي تكتبه بعد الامر بشكل كبير وحلو
-S!say ➾ يكرر كلامك
 S!members ➾ يعرض معلومات الأعضاء
 S!z5rf ➾ يزخرف الكلام اللي تكتبه بعد الامر
 S!image ➾ صورة السيرفر
