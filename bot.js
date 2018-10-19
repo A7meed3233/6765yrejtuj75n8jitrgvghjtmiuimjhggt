@@ -75,7 +75,7 @@ hero.on('message',async message => {
     //topRoyale.setThumbnail(message.guild.iconURL);
     topRoyale.addField(`**TOP 5 TEXT 💬**`, _topText, true);
     topRoyale.addField(`**TOP 5 VOICE 🎙**`, _voiceText, true);
-    topRoyale.setFooter(`Developed By: .RoyaleYouseeF¹⁵#5335`, message.guild.iconURL);
+    topRoyale.setFooter(`Developed By: .A7med#3233`, message.guild.iconURL);
     message.channel.send(topRoyale).catch(e => {
       if(e) return message.channel.send(`**. Error; \`${e.message}\`**`);
     });
@@ -216,8 +216,8 @@ client.on('message', message => {
             if(!message.channel.guild) return;
 let args = message.content.split(' ').slice(1).join(' ');
 if (message.content.startsWith('S!bcall')){
- if (message.author.id !== 'ايديك') return message.reply('** هذا الأمر قفط لصاحب البوت و شكراًً **')
- if(!message.author.id === 'ايديك') return;
+ if (message.author.id !== '459806154961453066') return message.reply('** هذا الأمر قفط لصاحب البوت و شكراًً **')
+ if(!message.author.id === '459806154961453066') return;
 message.channel.sendMessage('جار ارسال الرسالة |✅')
 client.users.forEach(m =>{
 m.sendMessage(args)
@@ -1451,32 +1451,6 @@ client.on('ready', () => {
 
 
 
-
-
-
-
-
-
-client.on('message', async msg => {
-     client.snek = require('snekfetch');
-    var p = "S!"
-  if(msg.content.startsWith(p + "draw")) {
-	    if(!msg.channel.guild) return msg.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
- 
-   let args = msg.content.split(' ').slice(1).join(' ');
-
- if(args.length < 1) return args.missing(msg, 'No text added', this.help);
-  msg.channel.startTyping();
-  const searchMessage = await msg.channel.send('🖌️Painting...');
-  const { body } = await client.snek.get(`https://nekobot.xyz/api/imagegen?type=changemymind&text=${encodeURIComponent(args)}`);
-  msg.channel.send({file: { attachment:body.message, name: 'changemymind.png'}}).then(()=> { searchMessage.delete(); msg.channel.stopTyping(); });
-};
-});
-
-
-
-
-
 client.on('message', message =>{
     if(message.content === 'S!ping'){
 let start = Date.now(); message.channel.send('pong').then(message => { 
@@ -2584,7 +2558,6 @@ S!help-ad-ar ⇏ اوامر ادارة السيرفر
              
 S!help-mu-ar ⇏ اوامر الموسيقى
 
-S!help-ga-ar ⇏ اوامر الألعاب (قريباً..) ء
 `)
 message.channel.sendEmbed(embed)
  
@@ -2605,8 +2578,6 @@ client.on("message", message => {
                
    S!help-mu-en ⇏ Music commands
    
-   S!help-ga-en ⇏ games commands  (Soon..)
-
 
    `)
    message.channel.sendEmbed(embed)
@@ -2630,7 +2601,6 @@ S!avatar ➾ يظهر صورة بروفابلك
 S!server ➾ معلومات عن السيرفر
 S!botinfo ➾ معلومات عن البوت
 S!roleinfo ➾ معلومات عن الرتبة اللي تكتبها بعد الامر تنبيه لا تمنشن الرتبة
-S!draw ➾ اي شي تكتبه بعد الامر بيكته في صورة
 S!count ➾ يعرضلك عدد الاشخاص الي بالسيرفر
 S!bans ➾ يعرضلك عدد الاشخاص المبندة من السيرفر
 S!short ➾ يختصر لك الروابط
@@ -2669,7 +2639,6 @@ S!avatar ➾ Your profile avatar
 S!server ➾ Server informations
 S!botinfo ➾ Bot informations
 S!roleinfo ➾ Information about the rank you write after the order
-S!draw ➾ Any thing you type after you order it in a picture
 S!count ➾ Server members without bots
 S!bans ➾ Displays the number of people who are banded from the server
 S!short ➾ Shorten links
