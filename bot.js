@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const bot = new Discord.Client();
-const canvas = require('canvas')
+const Canvas = require('canvas')
 const fs = require("fs")
 const moment = require ("moment")
 const prefix = 'S!'
