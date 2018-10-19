@@ -484,8 +484,6 @@ client.on('message', message => {
  
  
 
-if(!prefix) var prefix = "S!" ; 
-
 var stopReacord = true;
 var reactionRoles = [];
 var definedReactionRole = null;
