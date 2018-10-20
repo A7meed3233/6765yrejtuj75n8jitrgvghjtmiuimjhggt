@@ -4,6 +4,7 @@ const bot = new Discord.Client();
 const Canvas = require('canvas')
 const fs = require("fs")
 const moment = require ("moment")
+const jimp = require ("jimp")
 const prefix = 'S!'
 
 client.on('ready', () => {
@@ -31,6 +32,8 @@ client.user.setGame(`Soooon`,"http://twitch.tv/S-F")
   console.log('')
   console.log('')
 });
+
+
 
 
 const hero = new Discord.Client({disableEveryone: true, maxMessagesCache: 1});
