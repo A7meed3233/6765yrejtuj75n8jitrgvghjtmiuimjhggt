@@ -102,6 +102,9 @@ client.on('message',async message => {
   }
 });
  
+
+
+
 client.on('voiceStateUpdate', (u, member) => {
   let author = member.user.id;
   let guild = member.guild;
@@ -615,7 +618,7 @@ client.on('message', function(message) {
 client.on('message', ( message ) => {
   if(message.author.bot) return;
 
-  if(message.channel.id !== 'Channel ID here') return;
+  if(message.channel.id !== '502140003850125322') return;
 
   let types = [
     'jpg',
@@ -1270,31 +1273,7 @@ client.on('message' , message => {
 
 
 
-client.on('message', msg => {
-  if (msg.author.bot) return;
-  if (!msg.content.startsWith(prefix)) return;
-	  if(!msg.channel.guild) return msg.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
- 
-  let command = msg.content.split(" ")[0];
-  command = command.slice(prefix.length);
-  let args = msg.content.split(" ").slice(1);
 
-    if(command === "clear") {
-        const emoji = client.emojis.find("name", "wastebasket")
-    let textxt = args.slice(0).join("");
-    if(msg.member.hasPermission("MANAGE_MESSAGES")) {
-    if (textxt == "") {
-        msg.delete().then
-    msg.channel.send("***```ضع عدد الرسائل التي تريد مسحها ??```***").then(m => m.delete(3000));
-} else {
-    msg.delete().then
-    msg.delete().then
-    msg.channel.bulkDelete(textxt);
-        msg.channel.send("```php\nعدد الرسائل التي تم مسحها: " + textxt + "\n```").then(m => m.delete(3000));
-        }    
-    }
-}
-});
 
 
 
@@ -2613,6 +2592,7 @@ client.on("message", message => {
 ===================== **اوامر عامة** =====================
 S!id ➾ معلومات عن حسابك
 S!profile ➾ عرض البروفايل الخاص بك
+S!rank ➾ عرض الرانك الخاص بك
 S!ping ➾ سرعة اتصال البوت
 S!avatar ➾ يظهر صورة بروفابلك
 S!server ➾ معلومات عن السيرفر
@@ -2651,6 +2631,7 @@ S!uptime ➾ لمعرفة مدة عمل البوت
 ==================== **General commands** =====================
 S!id ➾ Your informations
 S!profile ➾ Your profile
+S!rank ➾ show your rank
 S!ping ➾ Speed of bot connection
 S!avatar ➾ Your profile avatar
 S!server ➾ Server informations
