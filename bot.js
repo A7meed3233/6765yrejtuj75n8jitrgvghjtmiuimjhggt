@@ -58,7 +58,6 @@ client.on("guildMemberAdd", m => {
 
 
 client.on('message', async message => {
-   
     var command = message.content.toLowerCase().split(" ")[0];
     var prefix = 'S!';
     var name = '';
@@ -69,11 +68,12 @@ client.on('message', async message => {
     var subChannel = message.guild.channels.find(c => c.name === 'submites');
    
     if(command == prefix + 'submit') {
-       
         if(message.author.bot) return;
         if(message.channel.type === 'dm') return;
+ 
+        var modRole = message.guild.roles.find(r => r.name === 'Support Team');
        
-        if(message.guild.member(message.author).roles.has(message.guild.roles.find(r => r.name === 'Support Team'))) return message.channel.send(':x: | معك الرتبة');
+        if(message.guild.member(message.author).roles.has(modRole.id)) return message.channel.send(':x: | معك الرتبة');
         if(!subChannel) return message.channel.send(':x: | يجب ان يتوفر روم اسمه `submites`');
        
         message.channel.send(':timer: | **اكتب اسمك الحقيقي الان من فضلك**').then(msgS => {
@@ -84,11 +84,11 @@ client.on('message', async message => {
                     message.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] }).then(collected => {
                         age = collected.first().content;
                         collected.first().delete();
-                        msgS.edit(':timer: | **من فضلك اكتب من وين انت الان**').then(msgS => {
+                        msgS.edit(':timer: | **من فضلك اكتب من اي بلد انت**').then(msgS => {
                             message.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] }).then(collected => {
                                 fromwhere = collected.first().content;
                                 collected.first().delete();
-                                msgS.edit(':timer: | **من فضلك اكتب لماذا تريد التقديم على الرتبه الان**').then(msgS => {
+                                msgS.edit(':timer: | **من فضلك اكتب سبب تقديمك على الرتبة والمهارات اللتي لديك لتقديمها**').then(msgS => {
                                     message.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] }).then(collected => {
                                         fa2dh = collected.first().content;
                                         collected.first().delete();
@@ -101,7 +101,7 @@ client.on('message', async message => {
                                         .addField('الاسم', name, true)
                                         .addField('العمر', age, true)
                                         .addField('من وين', fromwhere, true)
-                                        .addField('لماذا تريد التقديم', fa2dh, true)
+                                        .addField('المهارات وسبب التقديم على الرتبة', fa2dh, true)
                                         .setTimestamp()
                                         .setFooter(message.guild.name, message.guild.iconURL)
                                        
@@ -117,7 +117,7 @@ client.on('message', async message => {
                                            
                                             yesSend.on('collect', r => {
                                                 msgS.delete();
-                                                message.channel.send(':white_check_mark: | تم تقديم طلبك بنجاح! انتظر الرد بالخاص').then(msg => msg.delete(5000));
+                                                message.channel.send(':white_check_mark: | تم تقديم طلبك بنجاح انتظر النتيجة في روم results').then(msg => msg.delete(5000));
                                                
                                                 let subMsg = new Discord.RichEmbed()
                                                 .setAuthor(message.author.tag, message.author.avatarURL)
@@ -133,8 +133,8 @@ client.on('message', async message => {
                                                 subChannel.send(subMsg).then(msgS => {
                                                     msgS.react('✅').then(() => msgS.react('❎'))
                                                    
-                                                    let accept = (reaction, user) => reaction.emoji.name === '✅'  && user.id === ('459806154961453066');
-                                                    let noAccept = (reaction, user) => reaction.emoji.name === '❎' && user.id === ('459806154961453066');
+                                                    let accept = (reaction, user) => reaction.emoji.name === '✅'  && user.id === '459806154961453066'
+                                                    let noAccept = (reaction, user) => reaction.emoji.name === '❎' && user.id === '459806154961453066'
                                                    
                                                     let acceptRe = msgS.createReactionCollector(accept);
                                                     let noAcceptRe = msgS.createReactionCollector(noAccept);
@@ -142,7 +142,7 @@ client.on('message', async message => {
                                                     acceptRe.on('collect', r => {
                                                         msgS.delete();
                                                         message.author.send(`:white_check_mark: | تم قبولك بالسيرفر **${message.guild.name}**`);
-                                                        message.guild.member(message.author).addRoles([message.guild.roles.find(r => r.name === 'Support Team'), message.guild.roles.find(r => r.name === 'Support Team')]);
+                                                        message.guild.member(message.author).addRole(modRole.id);
                                                         message.guild.channels.find(r => r.name === 'results').send(`:white_check_mark: | تم قبولك [ <@${message.author.id}> ]`);
                                                     }).catch();
                                                     noAcceptRe.on('collect', r => {
