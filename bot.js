@@ -36,14 +36,14 @@ client.user.setGame(`Soooon`,"http://twitch.tv/S-F")
 
 
 
-const hero = new Discord.Client({disableEveryone: true, maxMessagesCache: 1});
+const client = new Discord.Client({disableEveryone: true, maxMessagesCache: 1});
 const config = require('./Configuration.json');
 const tpoints = JSON.parse(fs.readFileSync('./Text.json', 'UTF8'));
 const vpoints = JSON.parse(fs.readFileSync('./Voice.json', 'UTF8'));
-hero.config = config;
-hero.login(hero.config.token);
-hero.on('ready',async () => {
-  hero.users.forEach(m => {
+client.config = config;
+client.login(client.config.token);
+client.on('ready',async () => {
+  client.users.forEach(m => {
     if(m.bot) return;
     if(!tpoints[m.id]) tpoints[m.id] = {points: 0, id: m.id};
     fs.writeFileSync("./Text.json", JSON.stringify(tpoints, null, 2));
@@ -53,7 +53,7 @@ hero.on('ready',async () => {
   });
 });
  
-hero.on('message',async message => {
+client.on('message',async message => {
   if(message.author.bot || message.channel.type === 'dm') return;
   let args = message.content.split(' ');
   let member = message.member;
@@ -64,7 +64,7 @@ hero.on('message',async message => {
   let rPoints = Math.floor(Math.random() * 4) + 1;// Random Points
   tpoints[author.id].points += rPoints;
   fs.writeFileSync("./Text.json", JSON.stringify(tpoints, null, 2));
-  if(args[0] === `${hero.config.prefix}top`) {
+  if(args[0] === `${client.config.prefix}top`) {
     let _voicePointer = 1;
     let _textPointer = 1;
     let _voiceArray = Object.values(vpoints);
@@ -85,7 +85,7 @@ hero.on('message',async message => {
   }
 });
  
-hero.on('voiceStateUpdate', (u, member) => {
+client.on('voiceStateUpdate', (u, member) => {
   let author = member.user.id;
   let guild = member.guild;
   if(member.voiceChannel === null) return;
