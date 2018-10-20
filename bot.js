@@ -54,71 +54,6 @@ client.on("guildMemberAdd", m => {
 
 
 
-const config = require('./Configuration.json');
-const tpoints = JSON.parse(fs.readFileSync('./Text.json', 'UTF8'));
-const vpoints = JSON.parse(fs.readFileSync('./Voice.json', 'UTF8'));
-client.config = config;
-client.login(client.config.token);
-client.on('ready',async () => {
-  client.users.forEach(m => {
-    if(m.bot) return;
-    if(!tpoints[m.id]) tpoints[m.id] = {points: 0, id: m.id};
-    fs.writeFileSync("./Text.json", JSON.stringify(tpoints, null, 2));
- 
-    if(!vpoints[m.id]) vpoints[m.id] = {points: 0, id: m.id};
-    fs.writeFileSync("./Voice.json", JSON.stringify(vpoints, null, 2));
-  });
-});
- 
-client.on('message',async message => {
-  if(message.author.bot || message.channel.type === 'dm') return;
-  let args = message.content.split(' ');
-  let member = message.member;
-  let mention = message.mentions.users.first();
-  let guild = message.guild;
-  let author = message.author;
- 
-  let rPoints = Math.floor(Math.random() * 4) + 1;// Random Points
-  tpoints[author.id].points += rPoints;
-  fs.writeFileSync("./Text.json", JSON.stringify(tpoints, null, 2));
-  if(args[0] === `${client.config.prefix}top`) {
-    let _voicePointer = 1;
-    let _textPointer = 1;
-    let _voiceArray = Object.values(vpoints);
-    let _textArray = Object.values(tpoints);
-    let _topText = _textArray.slice(0, 5).map(r => `**\`.${_textPointer++}\` | <@${r.id}> \`XP: ${r.points}\`**`).sort((a, b) => a > b).join('\n');
-    let _voiceText = _voiceArray.slice(0, 5).map(r => `**\`.${_voicePointer++}\` | <@${r.id}> \`XP: ${r.points}\`**`).sort((a, b) => a > b).join('\n');
- 
-    let topRoyale = new Discord.RichEmbed();
-    topRoyale.setAuthor(message.author.username, message.author.avatarURL);
-    topRoyale.setTitle('# " Top');
-    //topRoyale.setThumbnail(message.guild.iconURL);
-    topRoyale.addField(`**TOP 5 TEXT 💬**`, _topText, true);
-    topRoyale.addField(`**TOP 5 VOICE 🎙**`, _voiceText, true);
-    topRoyale.setFooter(`Developed By: .A7med#3233`, message.guild.iconURL);
-    message.channel.send(topRoyale).catch(e => {
-      if(e) return message.channel.send(`**. Error; \`${e.message}\`**`);
-    });
-  }
-});
- 
-
-
-
-client.on('voiceStateUpdate', (u, member) => {
-  let author = member.user.id;
-  let guild = member.guild;
-  if(member.voiceChannel === null) return;
-  let rPoints = Math.floor(Math.random() * 4) + 1;// Random Points
-  setInterval(() => {
-    if(!member.voiceChannel) return;
-    if(member.selfDeafen) return;
-    vpoints[author].points += rPoints;
-    fs.writeFileSync("./Voice.json", JSON.stringify(vpoints, null, 2));
-  }, 5000); // 5 Secs
-});
-
-
 
 
 
@@ -251,131 +186,6 @@ m.sendMessage(args)
 
 
 
-const id = JSON.parse(fs.readFileSync("./id/mozo.json", "utf8"));
-client.on("message", message => {
-  if (message.author.bot) return;
-fs.writeFile('./id/mozo.json', JSON.stringify(id), (err) => {
-if (err) console.error(err);
-});
-});
-      client.on('message', message => {
-          if(!id[message.author.id]) id[message.author.id] ={
-              textrank: 1,
-              points: 1
-          };
-          if(message.author.bot) return;
-          id[message.author.id].points = Math.floor(id[message.author.id].points+4);
-          if(id[message.author.id].points > 10) {
-              id[message.author.id].points = 10;
-              id[message.author.id].level = Math.floor(id[message.author.id].level+4);
-          }
-          fs.writeFile('./id/mozo.json', JSON.stringify(id), (err) => {
-if (err) console.error(err);
-});
-   
-    client.on("message", message => {
-  if (message.author.bot) return;
-    if(!message.channel.guild) return;
-if (message.content.startsWith(prefix + "rank")) {
-                               let user = message.mentions.users.first();
-         var human = message.mentions.users.first();
-            var author;
-            if(human) {
-                author = human;
-            } else {
-                author = message.author;
-            }
-          var mentionned = message.mentions.members.first();
-             var ah;
-            if(mentionned) {
-                ah = mentionned;
-            } else {
-                ah = message.member;
-            }
-            var ment = message.mentions.users.first();
-            var getvalueof;
-            if(ment) {
-              getvalueof = ment;
-            } else {
-              getvalueof = message.author;
-            }
-   var mentionned = message.mentions.users.first();
- 
-    var client;
-      if(mentionned){
-          var client = mentionned;
-      } else {
-          var client = message.author;
- 
-      }
-if (!id[getvalueof.id]) id[getvalueof.id] = {textrank: 0,points: 1};
-            let Image = Canvas.Image,
-            canvas = new Canvas(400, 200),
-            ctx = canvas.getContext('2d');
-            fs.readFile("./id/rank.png", function (err, Background) {
-            if (err) return console.log(err);
-            let id = Canvas.Image;
-            let ground = new Image;
-            ground.src = Background;
-            ctx.drawImage(ground, 0, 0, 400, 200);
- 
-});
- 
- 
- 
-                let url = getvalueof.displayAvatarURL.endsWith(".webp") ? getvalueof.displayAvatarURL.slice(5, -20) + ".png" : getvalueof.displayAvatarURL;
-                jimp.read(url, (err, ava) => {
-                    if (err) return console.log(err);
-                    ava.getBuffer(jimp.MIME_PNG, (err, buf) => {
-                        if (err) return console.log(err);
- 
-                        // N A M E  |  S H A D O W
-                        ctx.font = 'bold 18px Arial';
-                        ctx.fontSize = '18px';
-                        ctx.fillStyle = "#000000";
-                        ctx.textAlign = "center";
-                        ctx.fillText(`${getvalueof.username}`, 253, 79);
- 
-                        // N A M E
-                        ctx.font = 'bold 18px Arial';
-                        ctx.fontSize = '18px';
-                        ctx.fillStyle = "#f1f1f1";
-                        ctx.textAlign = "center";
-                        ctx.fillText(`${getvalueof.username}`, 253, 77);
- 
- 
-                        // T E X T  R A N K
-                        ctx.font = "bold 12px Arial";
-                        ctx.fontSize = '12px';
-                        ctx.fillStyle = "#f1f1f1";
-                        ctx.textAlign = "center";
-                        ctx.fillText(`${id[getvalueof.id].textrank}`, 252, 124);
- 
-                        // P O I N T S
-                        ctx.font = "bold 12px Arial";
-                        ctx.fontSize = '12px';
-                        ctx.fillStyle = "#f1f1f1";
-                        ctx.textAlign = "center";
-                        ctx.fillText(`${id[getvalueof.id].points}`, 253, 171);
- 
- 
-                        let Avatar = Canvas.Image;
-                        let ava = new Avatar;
- 
-ava.src = buf;
-                        ctx.beginPath();
-                        ctx.arc(75, 100, 780, 0, Math.PI*2, true);
-                        ctx.closePath();
-                        ctx.clip();
-                        ctx.drawImage(ava, 26, 69, 93, 93);
-                       
-message.channel.sendFile(canvas.toBuffer());
- 
-});
-});
-}
-});
-});
 
 
 
@@ -480,7 +290,7 @@ channel.guild.owner.send(`<@!${channelremover.id}>
 
 
 client.on('message', message => {
-    let log = message.guild.channels.find('name', 'log');
+    let log = message.guild.channels.find('name', 'warns');
     let reason = message.content.split(" ").slice(2).join(' ');
     let p = message.mentions.members.first();
     if(message.content.startsWith(prefix + "warn")){
@@ -2592,7 +2402,6 @@ client.on("message", message => {
 ===================== **اوامر عامة** =====================
 S!id ➾ معلومات عن حسابك
 S!profile ➾ عرض البروفايل الخاص بك
-S!rank ➾ عرض الرانك الخاص بك
 S!ping ➾ سرعة اتصال البوت
 S!avatar ➾ يظهر صورة بروفابلك
 S!server ➾ معلومات عن السيرفر
@@ -2631,7 +2440,6 @@ S!uptime ➾ لمعرفة مدة عمل البوت
 ==================== **General commands** =====================
 S!id ➾ Your informations
 S!profile ➾ Your profile
-S!rank ➾ show your rank
 S!ping ➾ Speed of bot connection
 S!avatar ➾ Your profile avatar
 S!server ➾ Server informations
