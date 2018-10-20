@@ -36,7 +36,6 @@ client.user.setGame(`Soooon`,"http://twitch.tv/S-F")
 
 
 
-const client = new Discord.Client({disableEveryone: true, maxMessagesCache: 1});
 const config = require('./Configuration.json');
 const tpoints = JSON.parse(fs.readFileSync('./Text.json', 'UTF8'));
 const vpoints = JSON.parse(fs.readFileSync('./Voice.json', 'UTF8'));
