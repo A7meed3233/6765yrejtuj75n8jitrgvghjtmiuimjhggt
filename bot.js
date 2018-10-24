@@ -34,6 +34,28 @@ client.user.setGame(`S!help | S!invite`,"http://twitch.tv/S-F")
 });
 
 
+
+client.on('message', message => {
+              if (!message.channel.guild) return;
+      if(message.content =='S!members')
+      var IzRo = new Discord.RichEmbed() 
+      .setThumbnail(message.author.avatarURL)
+      .setFooter(message.author.username, message.author.avatarURL) 
+      .setTitle('ًںŒ·| Members info')  
+      .addBlankField(true)
+      .addField('ًں“—| Online',  
+      `${message.guild.members.filter(m=>m.presence.status == 'online').size}`)  
+      .addField('ًں“•| DND',`${message.guild.members.filter(m=>m.presence.status == 'dnd').size}`) 
+      .addField('ًں“™| Idle',`${message.guild.members.filter(m=>m.presence.status == 'idle').size}`) 
+      .addField('ًں““| Offline',`${message.guild.members.filter(m=>m.presence.status == 'offline').size}`) 
+      .addField('â‍،| Server Members',`${message.guild.memberCount}`) 
+      message.channel.send(IzRo);
+    
+    });
+
+
+
+
 client.on("guildMemberAdd", m => {
         let room = m.guild.channels.find(a => a.name === 'chat'); //
     if (datediff(parseDate(moment(m.user.createdTimestamp).format('l')), parseDate(moment().format('l'))) < 8) {
@@ -178,30 +200,6 @@ channel.guild.owner.send(`<@!${channelremover.id}>
 
 
 
-
-client.on('message', message => {
-    let log = message.guild.channels.find('name', 'warnings');
-    let reason = message.content.split(" ").slice(2).join(' ');
-    let p = message.mentions.members.first();
-    if(message.content.startsWith(prefix + "warn")){
-        if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply(`**❌ | This Command is Just for Adminstration**`);
-            message.delete();
-        if(!p) return message.reply(`Mention a User!`);
-        if(reason.length < 1) return message.reply(`Set a reason!`)
-        var embed = new Discord.RichEmbed()
-        .setTitle(`New Warning!`)
-        .addField(`For`, `<@${p.user.id}>`)
-        .addField(`By`, `<@${message.author.id}>`)
-        .addField(`Reason`, reason)
-        .addField(`In Chat`, `<#${message.channel.id}>`)
-        .setColor("WHITE")
-        .setTimestamp()
-        .setFooter(" ")
-            message.channel.send(`${p} ` + reason)
-            message.delete();
-        log.send({embed})
-    }
-});
         
             
  
