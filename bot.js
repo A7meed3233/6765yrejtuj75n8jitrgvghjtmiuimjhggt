@@ -2604,6 +2604,11 @@ client.on('message', message => {
 
 
 
+
+
+
+
+
 const db = require('quick.db');
 const giphy = require('giphy-api')();    
 const googl = require('goo.gl');  
