@@ -2609,7 +2609,6 @@ const giphy = require('giphy-api')();
 const googl = require('goo.gl');  
 const translate = require('google-translate-api');   
 const getYoutubeID = require('get-youtube-id'); 
-const moment = require("moment");  
 const { Client, Util } = require('discord.js');  
 const UserBlocked = new Set(); 
 const math = require('math-expression-evaluator'); 
