@@ -257,14 +257,14 @@ client.on('message', message => {
       var IzRo = new Discord.RichEmbed() 
       .setThumbnail(message.author.avatarURL)
       .setFooter(message.author.username, message.author.avatarURL) 
-      .setTitle('ًںŒ·| Members info')  
+      .setTitle('| Members info')  
       .addBlankField(true)
-      .addField('ًں“—| Online',  
+      .addField('| Online',  
       `${message.guild.members.filter(m=>m.presence.status == 'online').size}`)  
-      .addField('ًں“•| DND',`${message.guild.members.filter(m=>m.presence.status == 'dnd').size}`) 
-      .addField('ًں“™| Idle',`${message.guild.members.filter(m=>m.presence.status == 'idle').size}`) 
-      .addField('ًں““| Offline',`${message.guild.members.filter(m=>m.presence.status == 'offline').size}`) 
-      .addField('â‍،| Server Members',`${message.guild.memberCount}`) 
+      .addField('| DND',`${message.guild.members.filter(m=>m.presence.status == 'dnd').size}`) 
+      .addField('| Idle',`${message.guild.members.filter(m=>m.presence.status == 'idle').size}`) 
+      .addField('| Offline',`${message.guild.members.filter(m=>m.presence.status == 'offline').size}`) 
+      .addField('| Server Members',`${message.guild.memberCount}`) 
       message.channel.send(IzRo);
     
     });
@@ -2581,6 +2581,7 @@ S!uptime ➾ To know the duration of the bot
 S!suggest ➾ لارسال اقتراح لازم تسوي روم باسم suggetions
 S!report ➾ لارسال تبليغ عن شخص لازم تسوي روم باسم reports
 S!bc ➾ لارسال رساله لجميع الاعضاء
+S!warn ➾ لاعطاء تحذير لشخص
 S!rolebc ➾ لارسال رسالة لكل اللي معهم الرتبة اللي تمنشنها
 S!ban [@mention or id] [reason] ➾  لحظر شخص من السيرفر
 S!unban [@mention or id] ➾  لفك الحظر عن الشخص المبند
@@ -2619,6 +2620,7 @@ const embed = new Discord.RichEmbed()
 S!suggest ➾ To Send An Suggestion You Must Make "suggestions" Channel
 S!report ➾ To Report Any Person You Must Make "reports" Channel
 S!bc ➾ for massage send message to server members
+S!warn ➾ to give warn to a member
 S!rolebc ➾ To send a message to all those with whom the rank is granted
 S!ban [@mention] [reason] ➾ to ban someone from the server
 S!unban ➾ To unblock the person banded
@@ -2738,12 +2740,19 @@ client.on('message', message => {
 
 
 
-const db = require('quick.db');   
+const Discord = require('discord.js');
+const db = require('quick.db');
+const client = new Discord.Client();   
 const giphy = require('giphy-api')();    
 const googl = require('goo.gl');  
+const translate = require('google-translate-api');   
+const fs = require("fs"); 
 const getYoutubeID = require('get-youtube-id'); 
+const moment = require("moment");  
 const { Client, Util } = require('discord.js');  
 const UserBlocked = new Set(); 
+const jimp = require('jimp');   
+const math = require('math-expression-evaluator'); 
 const stripIndents = require('common-tags').stripIndents;
 const figlet = require('figlet');
 const google = require('google-it'); 
@@ -2757,12 +2766,12 @@ const sql = require("sqlite");
  const dateFormat = require('dateformat'); 
  const pretty = require('pretty-ms') 
 
+//سنحتاج كل هده التعريفات الان و لاحقا//
 
+const prefix = "!"
 client.on('message', async msg => { 
 	if (msg.author.bot) return undefined;
 	if (!msg.content.startsWith(prefix)) return undefined;
-	  if(!message.channel.guild) return message.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
- 
 	const args = msg.content.split(' ');
 	const searchString = args.slice(1).join(' ');
 	const url = args[1] ? args[1].replace(/<(.+)>/g, '$1') : '';
@@ -2806,7 +2815,7 @@ client.on('message', async msg => {
 			        .setDescription(`**الرجآء من حضرتك إختيآر رقم المقطع** :
 ${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
 
-					.setFooter("Slash Bot")
+					.setFooter("Speed Bot")
 					msg.channel.sendEmbed(embed1).then(message =>{message.delete(20000)})
 					
 					try {
@@ -2945,7 +2954,6 @@ function play(guild, song) {
 
 	serverQueue.textChannel.send(`بدء تشغيل : **${song.title}**`);
 }
-
 
 
 
