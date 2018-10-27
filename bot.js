@@ -186,7 +186,6 @@ m.sendMessage(args)
 
 
 
-client.on('ready', () => {setInterval(function(){ client.guilds.get("460362825496395776").roles.find("name", 'rainbow').edit({color : "RANDOM"})},1000)})
 
 
 
