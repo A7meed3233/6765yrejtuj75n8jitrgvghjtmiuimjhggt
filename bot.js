@@ -33,6 +33,9 @@ client.user.setGame(`S!help | S!invite`,"http://twitch.tv/S-F")
   console.log('')
 });
 
+
+
+
 client.on('ready',async () => client.user.setActivity(`${client.guilds.size} Servers!`, { type: "WATCHING" }));
 
 client.on('message', message => {
