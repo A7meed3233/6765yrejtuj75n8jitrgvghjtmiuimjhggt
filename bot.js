@@ -9,7 +9,7 @@ const prefix = 'S!'
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
-client.user.setGame(`S!help | S!invite`,"http://twitch.tv/S-F")
+client.user.setGame(`S!help | S!invite``${client.guilds.size} Servers !`,"http://twitch.tv/S-F")
   console.log('')
   console.log('')
   console.log('╔[═════════════════════════════════════════════════════════════════]╗')
@@ -33,10 +33,29 @@ client.user.setGame(`S!help | S!invite`,"http://twitch.tv/S-F")
   console.log('')
 });
 
+       const devs = ['459806154961453066'];
+   client.on('message', message => {
+        var prefix = "prefix";
+        if (message.author.bot) return;
+        if (!message.content.startsWith(prefix)) return;
+
+        let command = message.content.split(" ")[0];
+        command = command.slice(prefix.length);
+
+
+      let args = message.content.split(" ").slice(1);
+      let x = args.join(" ")
+        if(message.content.startsWith(prefix + 'say')) {
+            if (!devs.includes(message.author.id)) return;
+            message.channel.send(''+x);
+                message.delete(999)
+        }
+
+
+      });
 
 
 
-client.on('ready',async () => client.user.setActivity(`${client.guilds.size} Servers!`, { type: "WATCHING" }));
 
 client.on('message', message => {
      if(!message.channel.guild) return;
