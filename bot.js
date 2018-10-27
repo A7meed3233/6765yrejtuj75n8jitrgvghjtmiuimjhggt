@@ -2332,13 +2332,14 @@ let args = message.content.split(" ").slice(1).join(" ");
 
 
 
-Client.users.get("459806154961453066").send(
-    "\n" + "**" + "● السيرفر :" + "**" +
+Client.users.get(u => u.id === "459806154961453066").then(u => {
+    u.send("\n" + "**" + "● السيرفر :" + "**" +
     "\n" + "**" + "» " + message.guild.name + "**" +
     "\n" + "**" + " ● المرسل : " + "**" +
     "\n" + "**" + "» " + message.author.tag + "**" +
     "\n" + "**" + " ● الرسالة : " + "**" +
     "\n" + "**" + args + "**")
+})
 
 let embed = new Discord.RichEmbed()
      .setAuthor(message.author.username, message.author.avatarURL)
@@ -2435,6 +2436,9 @@ S!roleinfo ➾ معلومات عن الرتبة اللي تكتبها بعد ا�
 S!count ➾ يعرضلك عدد الاشخاص الي بالسيرفر
 S!bans ➾ يعرضلك عدد الاشخاص المبندة من السيرفر
 S!short ➾ يختصر لك الروابط
+S!embed ➾ يكتب اللي انت تكتبه بعد الامر في امبد
+S!perms ➾ يعرض لك برمشناتك
+S!bots ➾ يعرض جميع البوتات الموجودة بالسيرفر
 S!tag ➾ يعرض اي شي تكتبه بعد الامر بشكل كبير وحلو
 S!members ➾ يعرض معلومات الأعضاء
 S!z5rf ➾ يزخرف الكلام اللي تكتبه بعد الامر
@@ -2473,6 +2477,9 @@ S!roleinfo ➾ Information about the rank you write after the order
 S!count ➾ Server members without bots
 S!bans ➾ Displays the number of people who are banded from the server
 S!short ➾ Shorten links
+S!embed ➾ Make Any Thing You write After The Commend In Embed
+S!perms ➾ Show Your Primisions
+S!bots ➾ Show All bots In The Server
 S!tag ➾ Displays anything you write after the command it's big and sweet order
 S!members ➾ Displays members information
 S!z5rf ➾ The words that you write after the command are embellished
