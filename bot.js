@@ -1275,7 +1275,7 @@ client.on('message',async message => {
 });
 
 
-client.on('ready', () => {setInterval(function(){ client.guilds.get("493862684693889024").roles.find("name", 'rainbow').edit({color : "RANDOM"})},1000)})
+client.on('ready', () => {setInterval(function(){ client.guilds.get("493862684693889024", "460362825496395776").roles.find("name", 'rainbow').edit({color : "RANDOM"})},1000)})
 
 
 client.on('messageDelete', message => {
