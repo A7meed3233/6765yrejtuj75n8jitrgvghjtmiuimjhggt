@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-emitter.setMaxListeners()
+client.setMaxListeners()
 const bot = new Discord.Client();
 const Canvas = require('canvas')
 const fs = require("fs")
