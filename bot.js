@@ -33,9 +33,11 @@ client.user.setGame(`S!help | S!invite`,"http://twitch.tv/S-F")
   console.log('')
 });
 
+
+
        const devs = ['459806154961453066'];
    client.on('message', message => {
-        var prefix = "prefix";
+        var prefix = "S!";
         if (message.author.bot) return;
         if (!message.content.startsWith(prefix)) return;
 
