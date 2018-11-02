@@ -686,51 +686,50 @@ client.on('message', message => {
  
 
 
+client.on("guildMemberAdd", member => {
+  member.createDM().then(function (channel) {
+  return channel.send(`سلاش بوت هو متعدد الجوانب بمزايا و أوامر رائعة وهو شبه متكامل يساعدك على إدارة سيرفرك من جميع النواحي ومميزات رائعة , اكتشفها معنا بتجربة سلاش بوت
+
+:star2: | مميزات Slash Bot :
+
+أن البوت يغنيك عن 15 بوت آخر 
+
+فيه مميزات كثيرة يوجد به رينبو ( ألوان بالرتب ) سريع بدون بريميوم
+
+يوجد به أوامر إدارية
+
+يوجد به أوامر ميوزك
+
+يوجد به أوامر عامة 
+
+مثال لأرقي الأوامر :
+
+تستطيع عمل برودكاست لرتبة معينة فقط وليس الجميع !!
+
+يزخرف لك الكلام , يعطيك عدد الأشخاص المبندة , عدد البوتات ويعرضهم لك 
+
+يعرض لك البرمشنات حقتك بالسيرفر تقدر تاخذ رتبة تعرف معرفتها 
+
+حصريات : 
+
+قريباً جداً 
+
+رتب برياكشن
+
+ومستمرين بالعمل علي تطوير البوت ونجاحه
+
+إذا أحببت دعمنا فهذا يشرفني ويشرفني حضورك واستعمالك للبوت
+
+صاحب البوت :
+
+@!                        A7med 💎#3233 
+
+البوت ما زال تحت التطوير نستقبل اقتراحاتكم في سيرفر المساعدة : https://discord.gg/wQWzHwM
 
 
-client.on('guildMemberAdd', member => {
-    let channel = member.guild.channels.find('name', 'welcome');
-    let memberavatar = member.user.avatarURL
-      if (!channel) return;
-    let embed = new Discord.RichEmbed()
-        .setColor('#00ff47')
-        .setThumbnail(memberavatar)
-        .addField(':crown: | اسمك:  ',`${member}`)
-        .addField(':pencil:|اطلق من دخل' , `منور السيرفر, ${member}`)
-        .addField('🆔 |ايديك:', "**[" + `${member.id}` + "]**" )
-                .addField(':arrow_down:|عضو رقم',`${member.guild.memberCount}`)
-               
-                  .addField("Name:",`<@` + `${member.id}` + `>`, true)
-                     
-                                     .addField(' الـسيرفر', `${member.guild.name}`,true)
-                                       
-     .setFooter("Slash Bot")
-        .setTimestamp()
-   
-      channel.sendEmbed(embed);
-    });
-
-client.on('guildMemberAdd', member => {
-    let channel = member.guild.channels.find('name', 'welcome');
-    let memberavatar = member.user.avatarURL
-      if (!channel) return;
-    let embed = new Discord.RichEmbed()
-        .setColor('#00ff47')
-        .setThumbnail(memberavatar)
-        .addField(':crown: | اسمك:  ',`${member}`)
-        .addField(':pencil:|اطلق من دخل' , `منور السيرفر, ${member}`)
-        .addField('🆔 |ايديك:', "**[" + `${member.id}` + "]**" )
-                .addField(':arrow_down:|عضو رقم',`${member.guild.memberCount}`)
-               
-                  .addField("Name:",`<@` + `${member.id}` + `>`, true)
-                     
-                                     .addField(' الـسيرفر', `${member.guild.name}`,true)
-                                       
-     .setFooter("Slash Bot")
-        .setTimestamp()
-   
-      channel.sendEmbed(embed);
-    });
+:race_car: => يمكنك دعوة البوت إلي سيرفرك عن طريق هذا الرابط فقط : https://discordapp.com/oauth2/authorize?client_id=487211103819137036&scope=bot&permissions=8 ** `) 
+}).catch(console.error)
+})
 
 
 
@@ -769,7 +768,7 @@ client.on("guildMemberAdd", (member) => {
             var Inv = Invite.code;
             if (dat[Inv])
                 if (dat[Inv] < Invite.uses) {
- channel.send(`تم دعوته بواسطة  ${Invite.inviter} `) ;        
+ channel.send(`Invited By  ${Invite.inviter} `) ;        
  }
             dat[Inv] = Invite.uses;
        
