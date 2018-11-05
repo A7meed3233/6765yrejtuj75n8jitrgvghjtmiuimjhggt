@@ -748,7 +748,7 @@ client.on("guildMemberAdd", member => {
 
 @!                        A7med 💎#3233 
 
-البوت ما زال تحت التطوير نستقبل اقتراحاتكم في سيرفر المساعدة : https://discord.gg/wQWzHwM
+البوت ما زال تحت التطوير نستقبل اقتراحاتكم في سيرفر المساعدة : https://discord.gg/HPDkwwD
 
 
 :race_car: => يمكنك دعوة البوت إلي سيرفرك عن طريق هذا الرابط فقط : https://discordapp.com/oauth2/authorize?client_id=487211103819137036&scope=bot&permissions=8 ** `) 
@@ -2699,7 +2699,7 @@ client.on('message', message => {
   if(message.content === 'S!support') {
   const embed = new Discord.RichEmbed()
   .setTitle('Click here')
-  .setURL('https://discord.gg/wQWzHwM')
+  .setURL('https://discord.gg/HPDkwwD')
   .setColor('RANDOM')
   message.channel.send({embed: embed});
   }
