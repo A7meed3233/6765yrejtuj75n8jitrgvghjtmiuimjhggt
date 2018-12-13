@@ -37,6 +37,10 @@ client.user.setGame(`S!help | S!invite`,"http://twitch.tv/S-F")
 
 
 
+
+
+
+
 client.on('message', message => {
     if(message.content.startsWith(prefix + 'new')) {
         let args = message.content.split(' ').slice(1).join(' ');
