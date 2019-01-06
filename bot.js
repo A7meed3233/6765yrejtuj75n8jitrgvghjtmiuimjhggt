@@ -1005,7 +1005,7 @@ client.on("guildMemberAdd", (member) => {
     }); 
 
 
-client.on('ready', () => {setInterval(function(){ client.guilds.get("493862684693889024").roles.find("name", '⇁『 Special 』‏‏༄  ❥').edit({color : "RANDOM"})},1000)})
+client.on('ready', () => {setInterval(function(){ client.guilds.get("523819021359906846").roles.find("name", 'rainbow').edit({color : "RANDOM"})},1000)})
 	
 	
 	
@@ -1025,18 +1025,18 @@ client.on('message', async message => {
       message.delete(3500);
     });
  
-    let mention = message.mentions.members.first();//kinggamer حقوق الفا كودز و
-    if(!mention) return  message.channel.send('').then(msg => { //kinggamer حقوق الفا كودز و
+    let mention = message.mentions.members.first();
+    if(!mention) return  message.channel.send('').then(msg => { 
       msg.delete(3500);
       message.delete(3500);
     });
  
     if(mention.id === message.author.id) return message.channel.send('**:x:You Cannot give mute to your self**').then(msg => {
       msg.delete(3500);
-      message.delete(3500); //kinggamer حقوق الفا كودز و
+      message.delete(3500); 
     });
    
-    if(mention.hasPermission('ADMINISTRATOR')) return message.channel.send(`**:x: لا يمكن آعطاء ميوت لادارة السيرفر**`); //kinggamer حقوق الفا كودز و
+    if(mention.hasPermission('ADMINISTRATOR')) return message.channel.send(`**:x: لا يمكن آعطاء ميوت لادارة السيرفر**`); 
  
     if(message.guild.member(mention).roles.find('name', 'Muted')) return message.channel.send(`**:information_source: ${mention.user.username} Already Muted**`);
  
@@ -1048,7 +1048,7 @@ client.on('message', async message => {
    
     if(mention.positon >= message.guild.member(client.user).positon) return message.channel.send('I Dont Have Permission **Muted_Members**').then(msg => {
       msg.delete(3500);
-      message.delete(3500); //kinggamer حقوق الفا كودز و
+      message.delete(3500); 
     });
    
     let duration = args[2];
@@ -1068,7 +1068,7 @@ client.on('message', async message => {
     let thisEmbed = new Discord.RichEmbed()
     .setAuthor(mention.user.username, mention.user.avatarURL)
     .setTitle('**تم آعطائك ميوت**')
-    .addField('**__السيرفر__**',[ message.guild.name ]) //kinggamer حقوق الفا كودز و
+    .addField('**__السيرفر__**',[ message.guild.name ]) 
     .addField('**__تم آعطائك ميوت بواسطة__**', [ message.author ])
     .addField('**__آلسبب__**',reason)
     .addField('**__وقت الميوت__**',duration)
@@ -1077,36 +1077,36 @@ client.on('message', async message => {
     if(!role) try {
       message.guild.createRole({
         name: "Muted",
-        permissions: 0 //kinggamer حقوق الفا كودز و
+        permissions: 0 
       }).then(r => {
         message.guild.channels.forEach(c => {
           c.overwritePermissions(r , {
-            SEND_MESSAGES: false, //kinggamer حقوق الفا كودز و
+            SEND_MESSAGES: false, 
             READ_MESSAGES_HISTORY: false,
             ADD_REACTIONS: false
           });
         });
-      }); //kinggamer حقوق الفا كودز و
+      }); 
     } catch(e) {
       console.log(e.stack);
     }
     mention.addRole(role).then(() => {
       mention.send(thisEmbed);
       message.channel.send(`**:white_check_mark: ${mention.user.username}  Muted! :zipper_mouth:  **  `);
-      mention.setMute(true); //kinggamer حقوق الفا كودز و
+      mention.setMute(true); 
     });
     setTimeout(() => {
       if(duration === 0) return;
       mention.setMute(false);
       mention.removeRole(role)
-    },duration * 60000); //kinggamer حقوق الفا كودز و
+    },duration * 60000); 
   }
 });
 client.on('message', async message => {
     let mention = message.mentions.members.first();
 let command = message.content.split(" ")[0];
      command = command.slice(prefix.length);
-    let args = message.content.split(" ").slice(1);  //kinggamer حقوق الفا كودز و
+    let args = message.content.split(" ").slice(1);  
 if(command === `unmute`) {2
   if(!message.member.hasPermission("MUTE_MEMBERS")) return message.channel.sendMessage("**You Donot HavePermission Mute_Members**").then(m => m.delete(5000));
 if(!message.guild.member(client.user).hasPermission("MUTE_MEMBERS")) return message.reply("**I donot Have Permission Mute_Members**").then(msg => msg.delete(6000))
@@ -1114,14 +1114,14 @@ if(!message.guild.member(client.user).hasPermission("MUTE_MEMBERS")) return mess
   let kinggamer = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0]);
      if(!kinggamer) return message.channel.send('').then(msg => {
       msg.delete(3500);
-      message.delete(3500); //kinggamer حقوق الفا كودز و
+      message.delete(3500); 
     });
  
   let role = message.guild.roles.find (r => r.name === "Muted");
  
   if(!role || !kinggamer.roles.has(role.id)) return message.channel.sendMessage(`**:information_source:${mention.user.username} لقد تم فك الميوت عنه مسبقا**`)
  
-  await kinggamer.removeRole(role) //kinggamer حقوق الفا كودز و
+  await kinggamer.removeRole(role) 
   message.channel.sendMessage(`**:white_check_mark: ${mention.user.username}  Unmuted! **`);
  
   return;
@@ -1254,7 +1254,7 @@ client.on('message' , message => {
 client.on('message',async message => {
     if(message.content.startsWith(prefix + "restart")) {
  
-        if(message.author.id !== "459806154961453066") return message.reply('You aren\'t the bot owner.');
+        if(message.author.id !== "512333311582928916") return message.reply('You aren\'t the bot owner.');
         message.channel.send('**Restarting.**').then(msg => {
             setTimeout(() => {
                msg.edit('**Restarting..**');
@@ -1459,8 +1459,6 @@ client.on('message',async message => {
 });
 
 
-client.on('ready', () => {setInterval(function(){ client.guilds.get("493862684693889024").roles.find("name", 'rainbow').edit({color : "RANDOM"})},1000)})
-client.on('ready', () => {setInterval(function(){ client.guilds.get("460362825496395776").roles.find("name", 'rainbow').edit({color : "RANDOM"})},1000)})
 
 
 client.on('messageDelete', message => {
@@ -2164,7 +2162,7 @@ client.on("message", (message) => {
                     .setThumbnail(message.author.displayAvatarURL)
                     .addField(`Message: `, `\n\n\`\`\`${message.content}\`\`\``)
                     .setFooter(`DM Bot Messages | DM Logs`)
-                client.users.get("459806154961453066").send(yumz)
+                client.users.get("512333311582928916").send(yumz)
             }
 });
 
@@ -2174,7 +2172,7 @@ client.on("message", (message) => {
 
 client.on('guildCreate', guild => {
     
-  client.channels.get("495536963554902027")
+  client.channels.get("531589793235206144")
 const embed = new Discord.RichEmbed()
    .setAuthor(`بوتك دخل سيرفر جديد مبروك ✅`)
    .setDescription(`**
@@ -2186,7 +2184,7 @@ Servers Counter : __${client.guilds.size}__**`)
          .setColor("#f3ae10")
          .addField("New Server!")
          .setFooter('Slash Bot' , client.user.avatarURL)
-           client.channels.get("495536963554902027").send({embed});
+           client.channels.get("531589793235206144").send({embed});
 }
 
 );
@@ -2195,7 +2193,7 @@ Servers Counter : __${client.guilds.size}__**`)
 
 
 client.on('guildDelete', guild => {
-  client.channels.get("495536963554902027")
+  client.channels.get("531589793235206144")
 const embed = new Discord.RichEmbed()
    .setAuthor(`Slash Bot Bot left a server ❎`)
    .setDescription(`**
@@ -2206,7 +2204,7 @@ Members Count: __${guild.memberCount}__
 Servers Counter : __${client.guilds.size}__**`)
          .setColor("#f3ae10")
          .setFooter('Slash Bot' , client.user.avatarURL)
-           client.channels.get("495536963554902027").send({embed});
+           client.channels.get("531589793235206144").send({embed});
 }
 
 );
@@ -2474,7 +2472,7 @@ let args = message.content.split(" ").slice(1).join(" ");
 
 
 
-client.users.get("459806154961453066").send(
+client.users.get("512333311582928916").send(
     "\n" + "**" + "● السيرفر :" + "**" +
     "\n" + "**" + "» " + message.guild.name + "**" +
     "\n" + "**" + " ● المرسل : " + "**" +
@@ -2774,7 +2772,7 @@ client.on('message', message => {
   if(message.content === 'S!support') {
   const embed = new Discord.RichEmbed()
   .setTitle('Click here')
-  .setURL('https://discord.gg/HPDkwwD')
+  .setURL('https://discord.gg/8D2Vf96')
   .setColor('RANDOM')
   message.channel.send({embed: embed});
   }
@@ -2784,7 +2782,7 @@ client.on('message', message => {
 client.on('message', message => {
   if (true) {
 if (message.content === 'S!invite') {
-      message.author.send('  https://discordapp.com/oauth2/authorize?client_id=487211103819137036&scope=bot&permissions=8  |  تفضل رابط البوت     ').catch(e => console.log(e.stack));
+      message.author.send('  https://discordapp.com/oauth2/authorize?client_id=522756698923073547&scope=bot&permissions=8  |  تفضل رابط البوت     ').catch(e => console.log(e.stack));
  
     }
    }
