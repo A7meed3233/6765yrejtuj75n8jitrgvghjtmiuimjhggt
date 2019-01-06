@@ -45,10 +45,10 @@ client.on('message', message => {
                      message.guild.createRole({ name: "Developer", color: "#ffffff", permissions: [] })
                      message.guild.createRole({ name: "Leader", color: "#ffffff", permissions: [] })
                      message.guild.createRole({ name: "Admin", color: "#ffffff", permissions: [] })
+                     message.guild.createRole({ name: "VIP", color: "#ffffff", permissions: [] })
                      message.guild.createRole({ name: "Captin", color: "#ffffff", permissions: [] })
                      message.guild.createRole({ name: "Support", color: "#ffffff", permissions: [] })
                      message.guild.createRole({ name: "Special", color: "#ffffff", permissions: [] })
-                     message.guild.createRole({ name: "Active", color: "#ffffff", permissions: [] })
                      message.guild.createRole({ name: "Member", color: "#ffffff", permissions: [] })
        
  
@@ -65,7 +65,7 @@ client.on("message", message => {
         if(!message.channel.guild) return;
                 if(message.author.bot) return;
         let channel = message.guild.channels.find("name", "التقديمات")
-            if(!channel) return message.reply("**لانشاء روم التقديمات !!setsubmissions من فضلك اكتب الامر**")
+            if(!channel) return message.reply("**من فضلك قم بـ إنشاء روم بـ إسم التقديمات أو قم بـ كتابة `S!setsub`**")
             if(channel) {
             message.channel.send( message.member + ', **:timer:**').then( (m) =>{
               m.edit( message.member + ', **اسمك الحقيقى بالكامل **' )
@@ -138,7 +138,7 @@ client.on("message", message => {
 }
         });
         client.on('message', message=>{
-            if(message.content.startsWith("*روم1")) {
+            if(message.content.startsWith("S!setsub")) {
             if(!message.channel.guild) return;
                 if(message.author.bot) return;
                 if(!message.member.hasPermission('ADMINISTRATOR')) return message.reply("**تحتاج الى `MANAGE_CHANNELS`**");
@@ -155,9 +155,9 @@ client.on("message", message => {
   let mention = message.mentions.members.first();
   let role = message.content.split(" ").slice(2).join(" ");
   let mySupport = message.guild.roles.find('name',role);
-  if(message.content.startsWith("*قبول")) {
+  if(message.content.startsWith("S!accept")) {
     let acRoom = message.guild.channels.find('name', 'القبول-الرفض');
-    if(!acRoom) return message.reply("!!setac من فضلك انشاء روم **القبول-الرفض** او اكتب الامر");
+    if(!acRoom) return message.reply("!!setres من فضلك انشاء روم **القبول-الرفض** او اكتب الامر");
     if(acRoom) {
     if(!message.guild.member(message.author).hasPermission("MANAGE_ROLES")) return;
     if(!mention) return message.reply('منشن شخص');
@@ -173,10 +173,10 @@ client.on("message", message => {
 });
 client.on('message',async message => {
   let mention = message.mentions.members.first();
-  if(message.content.startsWith("*رفض")) {
+  if(message.content.startsWith("S!refuse")) {
   if(!message.channel.guild) return;
   let acRoom = message.guild.channels.find('name', 'القبول-الرفض');
-  if(!acRoom) return message.reply("!!setac من فضلك انشاء روم **القبول-الرفض** او اكتب الامر");
+  if(!acRoom) return message.reply("!!setres من فضلك انشاء روم **القبول-الرفض** او اكتب الامر");
   if(!message.guild.member(message.author).hasPermission("MANAGE_ROLES")) return;
   if(!mention) return message.reply("منشن شخص");
  
@@ -184,7 +184,7 @@ client.on('message',async message => {
   }
 });
           client.on('message', message=>{
-            if(message.content.startsWith("*روم2")) {
+            if(message.content.startsWith("S!setres")) {
          if(!message.channel.guild) return;
                 if(message.author.bot) return;
                 if(!message.member.hasPermission('ADMINISTRATOR')) return message.reply("**تحتاج الى `MANAGE_CHANNELS`**");
@@ -201,89 +201,8 @@ client.on('message',async message => {
 
 
 
-client.on('message', message => {
-    if(message.content.startsWith(prefix + 'new')) {
-        let args = message.content.split(' ').slice(1).join(' ');
-        let support = message.guild.roles.find("name","Support Team");
-        let ticketsStation = message.guild.channels.find("name", "tickets");
-        if(!args) {
-            return message.channel.send('Please type a subject for the ticket.');
-        };
-                if(!support) {
-                    return message.channel.send('**Please make sure that `Support Team` role exists and it\'s not duplicated.**');
-                };
-            if(!ticketsStation) {
-                message.guild.createChannel("ticktes", "category");
-            };
-                message.guild.createChannel(`ticket-${message.author.username}`, "text").then(ticket => {
-                    message.delete()
-                        message.channel.send(`Your ticket has been created. [ ${ticket} ]`);
-                    ticket.setParent(ticketsStation);
-                    ticketsStation.setPosition(1);
-                        ticket.overwritePermissions(message.guild.id, {
-                            SEND_MESSAGES: false,
-                            READ_MESSAGES: false
-                        });
-                            ticket.overwritePermissions(support.id, {
-                                SEND_MESSAGES: false,
-                                READ_MESSAGES: false
-                            });
-                                ticket.overwritePermissions(message.author.id, {
-                                    SEND_MESSAGES: false,
-                                    READ_MESSAGES: false
-                                });
-                    let embed = new Discord.RichEmbed()
-                                .setTitle('**New Ticket.**')
-                                .setColor("RANDOM")
-                                .setThumbnail(`${message.author.avatarURL}`)
-                                .addField('Subject', args)
-                                .addField('Author', message.author)
-                                .addField('Channel', `<#${message.channel.id}>`);
- 
-                                ticket.sendEmbed(embed);
-                }) .catch();
-    }
-    if(message.content.startsWith(prefix + 'close')) {
-            if(!message.member.hasPermission("ADMINISTRATOR")) return;
-        if(!message.channel.name.startsWith("ticket")) {
-            return;
-        };  
-                let embed = new Discord.RichEmbed()
-                    .setAuthor("Do you really want to close this ticket? Repeat the command to make sure. You have 20 seconds.")
-                    .setColor("RANDOM");
-                    message.channel.sendEmbed(embed) .then(codes => {
- 
-                   
-                        const filter = msg => msg.content.startsWith(prefix + 'close');
-                        message.channel.awaitMessages(response => response.content === prefix + 'close', {
-                            max: 1,
-                            time: 20000,
-                            errors: ['time']
-                        })
-                        .then((collect) => {
-                            message.channel.delete();
-                        }) .catch(() => {
-                            codes.delete()
-                                .then(message.channel.send('**Operation has been cancelled.**')) .then((c) => {
-                                    c.delete(4000);
-                                })
-                                   
-                           
-                        })
- 
- 
-                    })
- 
- 
-           
-    }
-});
 
-
-
-
-
-       const devs = ['459806154961453066'];
+       const devs = ['512333311582928916'];
    client.on('message', message => {
         var prefix = "S!";
         if (message.author.bot) return;
@@ -447,8 +366,8 @@ client.on('message', message => {
             if(!message.channel.guild) return;
 let args = message.content.split(' ').slice(1).join(' ');
 if (message.content.startsWith('S!bcall')){
- if (message.author.id !== '459806154961453066') return message.reply('** هذا الأمر قفط لصاحب البوت و شكراًً **')
- if(!message.author.id === '459806154961453066') return;
+ if (message.author.id !== '512333311582928916') return message.reply('** هذا الأمر قفط لصاحب البوت و شكراًً **')
+ if(!message.author.id === '512333311582928916') return;
 message.channel.sendMessage('جار ارسال الرسالة |✅')
 client.users.forEach(m =>{
 m.sendMessage(args)
