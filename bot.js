@@ -35,8 +35,170 @@ client.user.setGame(`S!help | S!invite`,"http://twitch.tv/S-F")
 });
 
 
+client.on('message', message => {
+    if (message.content === "S!createroles") {
+    if(!message.channel.guild) return message.channel.send('**This Command Only For Servers !**')
+            if (!message.member.hasPermission('MANAGE_ROLES')) return message.channel.send(`**${message.author.username} You Dont Have** ``MANAGE_ROLES`` **Premission**`);
+ 
+                     message.guild.createRole({ name: "Owner", color: "#ffffff", permissions: [] })
+                     message.guild.createRole({ name: "Co-Owner", color: "#ffffff", permissions: [] })
+                     message.guild.createRole({ name: "Leader", color: "#ffffff", permissions: [] })
+                     message.guild.createRole({ name: "Co-Leader", color: "#ffffff", permissions: [] })
+                     message.guild.createRole({ name: "King", color: "#ffffff", permissions: [] })
+                     message.guild.createRole({ name: "Qween", color: "#ffffff", permissions: [] })
+                     message.guild.createRole({ name: "HighNiss", color: "#ffffff", permissions: [] })
+                     message.guild.createRole({ name: "Pros", color: "#ffffff", permissions: [] })
+                     message.guild.createRole({ name: "VIP+", color: "#ffffff", permissions: [] })
+                     message.guild.createRole({ name: "VIP", color: "#ffffff", permissions: [] })
+                     message.guild.createRole({ name: "Actve", color: "#ffffff", permissions: [] })
+                     message.guild.createRole({ name: "Members", color: "#ffffff", permissions: [] })
+       
+ 
+message.channel.sendMessage('**الرجاء الانتظار ريث ما يتم صناعه الرتب **')
+}
+});
 
 
+
+
+
+client.on("message", message => {
+            if(message.content.startsWith("*تقديم")) {
+        if(!message.channel.guild) return;
+                if(message.author.bot) return;
+        let channel = message.guild.channels.find("name", "التقديمات")
+            if(!channel) return message.reply("**لانشاء روم التقديمات !!setsubmissions من فضلك اكتب الامر**")
+            if(channel) {
+            message.channel.send( message.member + ', **:timer:**').then( (m) =>{
+              m.edit( message.member + ', **اسمك الحقيقى بالكامل **' )
+              m.channel.awaitMessages( m1 => m1.author == message.author,{ maxMatches: 1, time: 60*1000 } ).then ( (m1) => {
+                  m1 = m1.first();
+                  var name = m1.content;
+                  m1.delete();
+                  m.edit(message.member + ', **:timer:**').then( (m) =>{
+                      m.edit( message.member + ', **عندك كام سنة **' )
+                      setTimeout(() => {
+                        m.delete()
+                      }, 10000);
+                      m.channel.awaitMessages( m2 => m2.author == message.author,{ maxMatches: 1, time: 60*1000 } ).then ( (m2) => {
+                          m2 = m2.first();
+                          var age = m2.content;
+                          m2.delete()
+                          message.channel.send( message.member + ', **:timer:**').then( (m) =>{
+                            m.edit( message.member + ', **هل ستتفاعل فى الرومات الصوتيه و الكتابية ؟ 🎙**' )
+                            setTimeout(() => {
+                              m.delete()
+                            }, 10000);
+                            m.channel.awaitMessages( m1 => m1.author == message.author,{ maxMatches: 1, time: 60*1000 } ).then ( (m3) => {
+                                m3 = m3.first();
+                                var ask = m3.content;
+                                m3.delete();
+                                message.channel.send( message.member + ', **:timer:**').then( (m) =>{
+                                  m.edit( message.member + ', **هل ستحترم القوانين ؟ 📑**' )
+                                  setTimeout(() => {
+                                    m.delete()
+                                  }, 10000);
+                                  m.channel.awaitMessages( m1 => m1.author == message.author,{ maxMatches: 1, time: 60*1000 } ).then ( (m4) => {
+                                      m4 = m4.first();
+                                      var ask2 = m4.content;
+                                      m4.delete();
+                                      message.channel.send( message.member + ', **:timer:**').then( (m) =>{
+                                        m.edit( message.member + ', **لماذا يجب علينا ان نقبلك ؟ اعطنا سبباً وجيهاً **' )
+                                        m.channel.awaitMessages( m1 => m1.author == message.author,{ maxMatches: 1, time: 60*1000 } ).then ( (m5) => {
+                                            m5 = m5.first();
+                                            var ask3 = m5.content;
+                                            m5.delete();
+                      m.edit(message.member + ', **....جارى جمع البيانات**').then( (mtime)=>{
+                        setTimeout(() => {
+                          let embed = new Discord.RichEmbed()
+                        .setColor('RANDOM')
+                        .setTitle(`**تقديم ادارة** [__**${message.guild.name}**__]`)
+                        .addField('**`الاسم`**', `${name}` , true)
+                        .addField('**`العمر`**', `${age}` , true)
+                        .addField('**`هل سيتفاعل ؟`**',`${ask}`)
+                        .addField('**`هل سيحترم القوانين ؟`**',`${ask2}`)
+                        .addField('**`لماذا يجب علينا قبوله ؟`**',`${ask3}`)
+                        .setFooter(message.author.username,'https://images-ext-2.discordapp.net/external/JpyzxW2wMRG2874gSTdNTpC_q9AHl8x8V4SMmtRtlVk/https/orcid.org/sites/default/files/files/ID_symbol_B-W_128x128.gif')
+                        channel.send(embed)
+                        }, 2500);
+                        setTimeout(() => {
+                          mtime.delete()
+                        }, 3000);
+ 
+                  })
+                })
+                })
+              })
+            })
+          })
+        })
+        })
+              })
+          })
+        })
+    }
+}
+        });
+        client.on('message', message=>{
+            if(message.content.startsWith("*روم1")) {
+            if(!message.channel.guild) return;
+                if(message.author.bot) return;
+                if(!message.member.hasPermission('ADMINISTRATOR')) return message.reply("**تحتاج الى `MANAGE_CHANNELS`**");
+                message.guild.createChannel("التقديمات", "text").then(c =>{
+                    c.overwritePermissions(message.guild.id, {
+                        SEND_MESSAGES: false
+ 
+                          })
+                })
+    message.channel.send("** تم انشاء روم التقديمات بنجاح**")
+            }
+            })
+    client.on('message',async message => {
+  let mention = message.mentions.members.first();
+  let role = message.content.split(" ").slice(2).join(" ");
+  let mySupport = message.guild.roles.find('name',role);
+  if(message.content.startsWith("*قبول")) {
+    let acRoom = message.guild.channels.find('name', 'القبول-الرفض');
+    if(!acRoom) return message.reply("!!setac من فضلك انشاء روم **القبول-الرفض** او اكتب الامر");
+    if(acRoom) {
+    if(!message.guild.member(message.author).hasPermission("MANAGE_ROLES")) return;
+    if(!mention) return message.reply('منشن شخص');
+    if(!role) return message.reply('ادخل اسم رتبة');
+    if(!mySupport) return message.reply('هذه الرتبة غير موجودة');
+    if(mention.roles.has(mySupport)) return message.reply('هذا الشخص معه الرتبة مسبقا');
+ 
+    mention.addRole(mySupport).then(() => {
+      acRoom.send(`**[ ${mySupport} ] واعطائك رتبة ${mention} تم بنجاح قبولك**`);
+    });
+  }
+}
+});
+client.on('message',async message => {
+  let mention = message.mentions.members.first();
+  if(message.content.startsWith("*رفض")) {
+  if(!message.channel.guild) return;
+  let acRoom = message.guild.channels.find('name', 'القبول-الرفض');
+  if(!acRoom) return message.reply("!!setac من فضلك انشاء روم **القبول-الرفض** او اكتب الامر");
+  if(!message.guild.member(message.author).hasPermission("MANAGE_ROLES")) return;
+  if(!mention) return message.reply("منشن شخص");
+ 
+  acRoom.send(`**${mention} تم رفضك للاسف**`)
+  }
+});
+          client.on('message', message=>{
+            if(message.content.startsWith("*روم2")) {
+         if(!message.channel.guild) return;
+                if(message.author.bot) return;
+                if(!message.member.hasPermission('ADMINISTRATOR')) return message.reply("**تحتاج الى `MANAGE_CHANNELS`**");
+                message.guild.createChannel("القبول-الرفض", "text").then(c =>{
+                    c.overwritePermissions(message.guild.id, {
+                        SEND_MESSAGES: false
+ 
+                          })
+                })
+    message.channel.send("** تم انشاء روم القبول والرفض بنجاح**")
+            }
+})
 
 
 
@@ -117,340 +279,6 @@ client.on('message', message => {
  
            
     }
-});
-
-
-
-
-
-
-
-
-client.on('message', message => {
- 
-    if(message.author.bot) return;
-    if(message.channel.type === 'dm') return;
- 
-    var command = message.content.toLowerCase().split(" ")[0]; // حقوق الفا كوودز Alpha Codes.
-    var args = message.content.toLowerCase().split(" ");
-    var userM = message.guild.member(message.mentions.users.first() || message.guild.members.find(m => m.id === args[1]));
-    var prefix = 'S!'; // هنا تقدر تغير البرفكس <==================
- 
-    if(command == prefix + 'role') {
-        if(!message.member.hasPermission('MANAGE_ROLES')) return message.channel.send(':no_entry: | You dont have **MANAGE_ROLES** Permission!');
-        if(!message.guild.member(client.user).hasPermission('MANAGE_ROLES')) return message.channel.send(':no_entry: | I dont have **MANAGE_ROLES** Permission!');
-        if(!message.guild.member(client.user).hasPermission('EMBED_LINKS')) return message.channel.send(':no_entry: | I dont have **EMBED_LINKS** Permission!');
- 
-        let roleCommand = new Discord.RichEmbed()
-        .setTitle(':white_check_mark: Role Command.')
-        .setColor('GREEN')
-        .setDescription(`**\n${prefix}role <SOMEONE> <ROLE>**\n➥ \`\`For give or delete from some one the role.\`\`\n\n**${prefix}role humans add <ROLE>**\n➥ \`\`For give the humans role.\`\`\n\n**${prefix}role humans remove <ROLE>**\n➥ \`\`For delete from the humans role.\`\`\n\n**${prefix}role bots add <ROLE>**\n➥ \`\`For give the bots role.\`\`\n\n**${prefix}role bots remove <ROLE>**\n➥ \`\`For delete from the bots role.\`\`\n\n**${prefix}role all add <ROLE>**\n➥ \`\`For give all role.\`\`\n\n**${prefix}role all remove <ROLE>**\n➥ \`\`For remove from all role.\`\``)
-        .setTimestamp()
-        .setFooter(message.author.tag, message.author.avatarURL)
- 
-        if(!args[1]) return message.channel.send(roleCommand);
-        if(!userM && args[1] !== 'humans' && args[1] !== 'bots' && args[1] !== 'all') return message.channel.send(roleCommand);
- 
-        if(userM) {
-            var argsRole = message.content.toLowerCase().split(' ').slice(2);
-        }else if(args[1] === 'humans' || args[1] === 'bots' || args[1] === 'all') {
-            var argsRole = message.content.toLowerCase().split(' ').slice(3); // حقوق الفا كوودز Alpha Codes.
-        }
- 
-        var getRole = message.mentions.roles.first() || message.guild.roles.find(r => r.id === argsRole) || message.guild.roles.find(r => r.name.toLowerCase().includes(argsRole));
- 
-        if(userM) {
-            if(!getRole) return message.channel.send(':no_entry: | I couldn\'t find the role!');
-            if(getRole.name === '@everyone') return message.channel.send(':no_entry: | I couldn\'t find the role!');
-            if(getRole.position >= message.guild.member(client.user).highestRole.position) return message.channel.send(`:no_entry: | I can\'t \`\`GIVE\`\` Or \`\`DELETE\`\` Any user have or not have **${getRole.name}** role beacuse this role highest from my role!`);
- 
-            if(!message.guild.member(userM.user).roles.has(getRole.id)) {
-                message.guild.member(userM.user).addRole(getRole.id);
-                message.channel.send(`:white_check_mark: | Successfully \`\`GIVE\`\` The role **${getRole.name}** To user **${userM.user.tag}**`);
-            }else if(message.guild.member(userM.user).roles.has(getRole.id)) {
-                message.guild.member(userM.user).removeRole(getRole.id);
-                message.channel.send(`:white_check_mark: | Successfully \`\`DELETE\`\` The role **${getRole.name}** From user **${userM.user.tag}**`);
-            }
-        }else if(args[1] === 'humans') {
-            let notArgs = new Discord.RichEmbed()
-            .setTitle(':white_check_mark: Role Command.')
-            .setColor('GREEN')
-            .setDescription(`**\n${prefix}role humans add <ROLE>**\n➥ \`\`For give the humans the role.\`\`\n\n**${prefix}role humans remove <ROLE>**\n➥ \`\`For delete the role from all humans.\`\``)
-            .setTimestamp()
-            .setFooter(message.author.tag, message.author.avatarURL)
- 
-            if(!args[2]) return message.channel.send(notArgs);
-            if(!args[3]) return message.channel.send(notArgs); // حقوق الفا كوودز Alpha Codes.
-            if(!getRole) return message.channel.send(':no_entry: | I couldn\'t find the role!');
-            if(getRole.name === '@everyone') return message.channel.send(':no_entry: | I couldn\'t find the role!');
- 
-            if(args[2] === 'add') {
-                if(getRole.position >= message.guild.member(client.user).highestRole.position) return message.channel.send(`:no_entry: | I can\'t \`\`GIVE\`\` Any User the role with name **${getRole.name}** beacuse the role highest then my role!`);
-                if(message.guild.members.filter(m => !message.guild.member(m).roles.has(getRole.id) && !m.user.bot).size == 0) return message.channel.send(`:no_entry: | I can\'t find any user not have **${getRole.name}** role!`);
- 
-                let humansSure = new Discord.RichEmbed()
-                .setTitle(`:red_circle: Are you sure to give **${message.guild.members.filter(m => !message.guild.member(m).roles.has(getRole.id) && !m.user.bot).size}** Humans the role **${getRole.name}**`)
-                .setColor('RED')
-                .setDescription('**\nYou have 1 min to choose reaction you want.**\n\n✅ = Sure, give him the role.\n\n❎ = No no, cancel.')
-                .setTimestamp()
-                .setFooter(message.author.tag, message.author.avatarURL) // حقوق الفا كوودز Alpha Codes.
- 
-                message.channel.send(humansSure).then(msg => {
-                    msg.react('✅').then(() => msg.react('❎')) // حقوق الفا كوودز Alpha Codes.
- 
-                    let giveHim = (reaction, user) => reaction.emoji.name === '✅'  && user.id === message.author.id;
-                    let dontGiveHim = (reaction, user) => reaction.emoji.name === '❎' && user.id === message.author.id;
-                    let give = msg.createReactionCollector(giveHim, { time: 60000 });
-                    let dontGive = msg.createReactionCollector(dontGiveHim, { time: 60000 });
- 
-                    give.on('collect', r => {
-                        msg.delete();
-                        message.channel.send(`:timer: | Now you must wait some time to give **${message.guild.members.filter(m => !message.guild.member(m).roles.has(getRole.id) && !m.user.bot).size}** Humans the role **${getRole.name}** ...`).then(message1 => {
-                            message.guild.members.filter(m => !message.guild.member(m).roles.has(getRole.id) && !m.user.bot).forEach(m => {
-                                message.guild.member(m).addRole(getRole.id);
-                                setTimeout(() => {
-                                    message1.edit(`:white_check_mark: | <@${message.author.id}> Successfully give all **Humans** The role **${getRole.name}** .`);
-                                }, 10000)
-                            });
-                        });
-                    });
-                    dontGive.on('collect', r => { // حقوق الفا كوودز Alpha Codes.
-                        msg.delete();
-                        message.channel.send(':negative_squared_cross_mark: | The command has been canceld.').then(msg => msg.delete(5000));
-                    });
-                })
-            }else if(args[2] === 'remove') {
-                if(getRole.position >= message.guild.member(client.user).highestRole.position) return message.channel.send(`:no_entry: | I can\'t \`\`REMOVE\`\` The role with name **${getRole.name}** From any User beacuse the role highest then my role!`);
-                if(message.guild.members.filter(m => message.guild.member(m).roles.has(getRole.id) && !m.user.bot).size == 0) return message.channel.send(`:no_entry: | I can\'t find any user have **${getRole.name}** role!`);
- 
-                let humansSure = new Discord.RichEmbed()
-                .setTitle(`:red_circle: Are you sure to remove **${getRole.name}** from **${message.guild.members.filter(m => message.guild.member(m).roles.has(getRole.id) && !m.user.bot).size}** Humans?`)
-                .setColor('RED')
-                .setDescription('**\nYou have 1 min to choose reaction you want.**\n\n✅ = Sure, remove the role from him.\n\n❎ = No no, cancel.')
-                .setTimestamp()
-                .setFooter(message.author.tag, message.author.avatarURL)
- 
-                message.channel.send(humansSure).then(msg => {
-                    msg.react('✅').then(() => msg.react('❎')) // حقوق الفا كوودز Alpha Codes.
- 
-                    let removeRole = (reaction, user) => reaction.emoji.name === '✅'  && user.id === message.author.id;
-                    let dontRemoveRole = (reaction, user) => reaction.emoji.name === '❎' && user.id === message.author.id;
-                    let remove = msg.createReactionCollector(removeRole, { time: 60000 });
-                    let dontRemove = msg.createReactionCollector(dontRemoveRole, { time: 60000 });
- 
-                    remove.on('collect', r => {
-                        msg.delete();
-                        message.channel.send(`:timer: | Now you must wait some time to delete from **${message.guild.members.filter(m => message.guild.member(m).roles.has(getRole.id) && !m.user.bot).size}** Humans the role **${getRole.name}**...`).then(message1 => {
-                            message.guild.members.filter(m => message.guild.member(m).roles.has(getRole.id) && !m.user.bot).forEach(m => {
-                                message.guild.member(m).removeRole(getRole.id);
-                                setTimeout(() => {
-                                    message1.edit(`:white_check_mark: | <@${message.author.id}> Successfully remove the role **${getRole.name}** From all **Humans** .`);
-                                }, 10000)
-                            });
-                        });
-                    }); // حقوق الفا كوودز Alpha Codes.
-                    dontRemove.on('collect', r => {
-                        msg.delete();
-                        message.channel.send(':negative_squared_cross_mark: | The command has been canceld.').then(msg => msg.delete(5000));
-                    });
-                })
-            } // حقوق الفا كوودز Alpha Codes.
-        }else if(args[1] === 'bots') {
-        let notArgs = new Discord.RichEmbed()
-            .setTitle(':white_check_mark: Role Command.')
-            .setColor('GREEN')
-            .setDescription(`**\n${prefix}role bots add <ROLE>**\n➥ \`\`For give the bots the role.\`\`\n\n**${prefix}role bots remove <ROLE>**\n➥ \`\`For delete the role from all bots.\`\``)
-            .setTimestamp()
-            .setFooter(message.author.tag, message.author.avatarURL) // حقوق الفا كوودز Alpha Codes.
- 
-            if(!args[2]) return message.channel.send(notArgs);
-            if(!args[3]) return message.channel.send(notArgs);
-            if(!getRole) return message.channel.send(':no_entry: | I couldn\'t find the role!');
-            if(getRole.name === '@everyone') return message.channel.send(':no_entry: | I couldn\'t find the role!');
- 
-            if(args[2] === 'add') {
-                if(getRole.position >= message.guild.member(client.user).highestRole.position) return message.channel.send(`:no_entry: | I can\'t \`\`GIVE\`\` Any Bot the role with name **${getRole.name}** beacuse the role highest then my role!`);
-                if(message.guild.members.filter(b => !message.guild.member(b).roles.has(getRole.id) && b.user.bot).size == 0) return message.channel.send(`:no_entry: | I can\'t find any bot not have **${getRole.name}** role!`);
- 
-                let botsSure = new Discord.RichEmbed()
-                .setTitle(`:red_circle: Are you sure to give **${message.guild.members.filter(b => !message.guild.member(b).roles.has(getRole.id) && b.user.bot).size}** Bots the role **${getRole.name}**`)
-                .setColor('RED')
-                .setDescription('**\nYou have 1 min to choose reaction you want.**\n\n✅ = Sure, give him the role.\n\n❎ = No no, cancel.')
-                .setTimestamp()
-                .setFooter(message.author.tag, message.author.avatarURL)
- 
-                message.channel.send(botsSure).then(msg => {
-                    msg.react('✅').then(() => msg.react('❎')) // حقوق الفا كوودز Alpha Codes.
- 
-                    let giveHim = (reaction, user) => reaction.emoji.name === '✅'  && user.id === message.author.id;
-                    let dontGiveHim = (reaction, user) => reaction.emoji.name === '❎' && user.id === message.author.id;
-                    let give = msg.createReactionCollector(giveHim, { time: 60000 });
-                    let dontGive = msg.createReactionCollector(dontGiveHim, { time: 60000 });
- 
-                    give.on('collect', r => {
-                        msg.delete();
-                        message.channel.send(`:timer: | Now you must wait some time to give **${message.guild.members.filter(b => !message.guild.member(b).roles.has(getRole.id) && b.user.bot).size}** Bots the role **${getRole.name}**...`).then(message1 => {
-                            message.guild.members.filter(b => !message.guild.member(b).roles.has(getRole.id) && b.user.bot).forEach(b => {
-                                message.guild.member(b).addRole(getRole.id);
-                                setTimeout(() => {
-                                    message1.edit(`:white_check_mark: | <@${message.author.id}> Successfully give all **Bots** The role **${getRole.name}** .`);
-                                }, 10000)
-                            });
-                        });
-                    });
-                    dontGive.on('collect', r => {
-                        msg.delete();
-                        message.channel.send(':negative_squared_cross_mark: | The command has been canceld.').then(msg => msg.delete(5000));
-                    });
-                })
-            }else if(args[2] === 'remove') { // حقوق الفا كوودز Alpha Codes.
-                if(getRole.position >= message.guild.member(client.user).highestRole.position) return message.channel.send(`:no_entry: | I can\'t \`\`REMOVE\`\` The role with name **${getRole.name}** From any Bot beacuse the role highest then my role!`);
-                if(message.guild.members.filter(b => message.guild.member(b).roles.has(getRole.id) && b.user.bot).size == 0) return message.channel.send(`:no_entry: | I can\'t find any bot have **${getRole.name}** role!`);
- 
-                let botsSure = new Discord.RichEmbed()
-                .setTitle(`:red_circle: Are you sure to remove **${getRole.name}** from **${message.guild.members.filter(m => message.guild.member(m).roles.has(getRole.id) && m.user.bot).size}** Bots?`)
-                .setColor('RED')
-                .setDescription('**\nYou have 1 min to choose reaction you want.**\n\n✅ = Sure, remove the role from him.\n\n❎ = No no, cancel.')
-                .setTimestamp()
-                .setFooter(message.author.tag, message.author.avatarURL)
- 
-                message.channel.send(botsSure).then(msg => {
-                    msg.react('✅').then(() => msg.react('❎'))
- 
-                    let removeRole = (reaction, user) => reaction.emoji.name === '✅'  && user.id === message.author.id;
-                    let dontRemoveRole = (reaction, user) => reaction.emoji.name === '❎' && user.id === message.author.id;
-                    let remove = msg.createReactionCollector(removeRole, { time: 60000 });
-                    let dontRemove = msg.createReactionCollector(dontRemoveRole, { time: 60000 });
- 
-                    remove.on('collect', r => {
-                        msg.delete();
-                        message.channel.send(`:timer: | Now you must wait some time to delete from **${message.guild.members.filter(b => message.guild.member(b).roles.has(getRole.id) && b.user.bot).size}** Bots the role **${getRole.name}**...`).then(message1 => {
-                            message.guild.members.filter(b => message.guild.member(b).roles.has(getRole.id) && b.user.bot).forEach(b => {
-                                message.guild.member(b).removeRole(getRole.id);
-                                setTimeout(() => {
-                                    message1.edit(`:white_check_mark: | <@${message.author.id}> Successfully remove the role **${getRole.name}** From all **Bots** .`);
-                                }, 10000)
-                            });
-                        });
-                    });
-                    dontRemove.on('collect', r => { // حقوق الفا كوودز Alpha Codes.
-                        msg.delete();
-                        message.channel.send(':negative_squared_cross_mark: | The command has been canceld.').then(msg => msg.delete(5000));
-                    });
-                })
-            }
-        }else if(args[1] === 'all') { // حقوق الفا كوودز Alpha Codes.
-            let notArgs = new Discord.RichEmbed()
-            .setTitle(':white_check_mark: Role Command.')
-            .setColor('GREEN')
-            .setDescription(`**\n${prefix}role all add <ROLE>**\n➥ \`\`For give all the role.\`\`\n\n**${prefix}role all remove <ROLE>**\n➥ \`\`For delete the role from all.\`\``)
-            .setTimestamp()
-            .setFooter(message.author.tag, message.author.avatarURL)
- 
-            if(!args[2]) return message.channel.send(notArgs);
-            if(!args[3]) return message.channel.send(notArgs);
-            if(!getRole) return message.channel.send(':no_entry: | I couldn\'t find the role!');
-            if(getRole.name === '@everyone') return message.channel.send(':no_entry: | I couldn\'t find the role!');
- 
-            if(args[2] === 'add') {
-                if(getRole.position >= message.guild.member(client.user).highestRole.position) return message.channel.send(`:no_entry: | I can\'t \`\`GIVE\`\` Any User the role with name **${getRole.name}** beacuse the role highest then my role!`); // حقوق الفا كوودز Alpha Codes.
-                if(message.guild.members.filter(m => !message.guild.member(m).roles.has(getRole.id)).size == 0) return message.channel.send(`:no_entry: | I can\'t find any user not have **${getRole.name}** role!`);
- 
-                let allSure = new Discord.RichEmbed()
-                .setTitle(`:red_circle: Are you sure to give **${message.guild.members.filter(m => !message.guild.member(m).roles.has(getRole.id)).size}** The role **${getRole.name}** ?`)
-                .setColor('RED')
-                .setDescription('**\nYou have 1 min to choose reaction you want.**\n\n✅ = Sure, give all the role.\n\n❎ = No no, cancel.')
-                .setTimestamp()
-                .setFooter(message.author.tag, message.author.avatarURL)
- 
-                message.channel.send(allSure).then(msg => {
-                    msg.react('✅').then(() => msg.react('❎'))
- 
-                    let giveAll = (reaction, user) => reaction.emoji.name === '✅'  && user.id === message.author.id;
-                    let dontGiveAll = (reaction, user) => reaction.emoji.name === '❎' && user.id === message.author.id;
-                    let give = msg.createReactionCollector(giveAll, { time: 60000 });
-                    let dontGive = msg.createReactionCollector(dontGiveAll, { time: 60000 });
- 
-                    give.on('collect', r => {
-                        msg.delete();
-                        message.channel.send(`:timer: | Now you must wait some time to give **${message.guild.members.filter(m => !message.guild.member(m).roles.has(getRole.id)).size}** The role **${getRole.name}** ...`).then(message1 => {
-                            message.guild.members.filter(m => !message.guild.member(m).roles.has(getRole.id)).forEach(m => {
-                                message.guild.member(m).addRole(getRole.id);
-                                setTimeout(() => {
-                                    message1.edit(`:white_check_mark: | <@${message.author.id}> Successfully give **All** The role **${getRole.name}** .`);
-                                }, 10000) // حقوق الفا كوودز Alpha Codes.
-                            });
-                        });
-                    });
-                    dontGive.on('collect', r => {
-                        msg.delete();
-                        message.channel.send(':negative_squared_cross_mark: | The command has been canceld.').then(msg => msg.delete(5000));
-                    });
-                })
-            }else if(args[2] === 'remove') {
-                if(getRole.position >= message.guild.member(client.user).highestRole.position) return message.channel.send(`:no_entry: | I can\'t \`\`REMOVE\`\` The role with name **${getRole.name}** From any User beacuse the role highest then my role!`);
-                if(message.guild.members.filter(m => message.guild.member(m).roles.has(getRole.id)).size == 0) return message.channel.send(`:no_entry: | I can\'t find any user have **${getRole.name}** role!`);
- 
-                let allSure = new Discord.RichEmbed() // حقوق الفا كوودز Alpha Codes.
-                .setTitle(`:red_circle: Are you sure to remove **${getRole.name}** from **${message.guild.members.filter(m => message.guild.member(m).roles.has(getRole.id)).size}** ?`)
-                .setColor('RED')
-                .setDescription('**\nYou have 1 min to choose reaction you want.**\n\n✅ = Sure, remove the role from him.\n\n❎ = No no, cancel.')
-                .setTimestamp()
-                .setFooter(message.author.tag, message.author.avatarURL)
- 
-                message.channel.send(allSure).then(msg => {
-                    msg.react('✅').then(() => msg.react('❎'))
- 
-                    let removeRole = (reaction, user) => reaction.emoji.name === '✅'  && user.id === message.author.id;
-                    let dontRemoveRole = (reaction, user) => reaction.emoji.name === '❎' && user.id === message.author.id; // حقوق الفا كوودز Alpha Codes.
-                    let remove = msg.createReactionCollector(removeRole, { time: 60000 });
-                    let dontRemove = msg.createReactionCollector(dontRemoveRole, { time: 60000 });
- 
-                    remove.on('collect', r => {
-                        msg.delete();
-                        message.channel.send(`:timer: | Now you must wait some time to delete from **${message.guild.members.filter(m => message.guild.member(m).roles.has(getRole.id)).size}** The role **${getRole.name}** ...`).then(message1 => {
-                            message.guild.members.filter(m => message.guild.member(m).roles.has(getRole.id)).forEach(m => {
-                                message.guild.member(m).removeRole(getRole.id);
-                                setTimeout(() => {
-                                    message1.edit(`:white_check_mark: | <@${message.author.id}> Successfully remove the role **${getRole.name}** From **All** .`);
-                                }, 10000)
-                            });
-                        });
-                    });
-                    dontRemove.on('collect', r => { // حقوق الفا كوودز Alpha Codes.
-                        msg.delete();
-                        message.channel.send(':negative_squared_cross_mark: | The command has been canceld.').then(msg => msg.delete(5000));
-                    }); // حقوق الفا كوودز Alpha Codes.
-                })
-            } // حقوق الفا كوودز Alpha Codes.
-        }
-    }
-});
-
-
-
-client.on('message', msg => {
-  if (msg.author.bot) return;
-  if (!msg.content.startsWith(prefix)) return;
-  let command = msg.content.split(" ")[0];
-  command = command.slice(prefix.length);
-  let args = msg.content.split(" ").slice(1);
- 
-    if(command === "clear") {
-        const emoji = client.emojis.find("name", "wastebasket")
-    let textxt = args.slice(0).join("");
-    if(msg.member.hasPermission("MANAGE_MESSAGES")) {
-    if (textxt == "") {
-        msg.delete().then
-    msg.channel.send("***```ضع عدد الرسائل التي تريد مسحها 👌```***").then(m => m.delete(3000));
-} else {
-    msg.delete().then
-    msg.delete().then
-    msg.channel.bulkDelete(textxt);
-        msg.channel.send("```php\nعدد الرسائل التي تم مسحها: " + textxt + "\n```").then(m => m.delete(3000));
-        }    
-    }
-}
 });
 
 
@@ -592,7 +420,7 @@ client.on('message', message => {
 
 
 client.on("guildMemberAdd", m => {
-        let room = m.guild.channels.find(a => a.name === 'chat'); //
+        let room = m.guild.channels.find(a => a.name === 'welcome'); //
     if (datediff(parseDate(moment(m.user.createdTimestamp).format('l')), parseDate(moment().format('l'))) < 8) {
         m.ban() .then((
             room.send(`**:no_entry: | ${m} Has been banned for: \`fake\`**`)
@@ -851,51 +679,6 @@ client.on('message', ( message ) => {
 })
 
 
-
-
-
-
-
-client.on('message', message => {
-    var prefix = "S!";         
-   if(!message.channel.guild) return;
-if(message.content.startsWith(prefix + 'clear')) {            
-if(!message.channel.guild) return message.channel.send('**This Command is Just For Servers**').then(m => m.delete(5000));         
-if(!message.member.hasPermission('MANAGE_MESSAGES')) return      message.channel.send('**You Do not have permission** `MANAGE_MESSAGES`' );
-let args = message.content.split(" ").join(" ").slice(2 + prefix.length);      
-let request = `Requested By ${message.author.username}`;
-message.channel.send(`**Are You sure you want to clear the chat?**`).then(msg => {
-msg.react('✅')
-.then(() => msg.react('❌'))
-.then(() =>msg.react('✅'))   
- 
-let reaction1Filter = (reaction, user) => reaction.emoji.name === '✅' && user.id === message.author.id;
-let reaction2Filter = (reaction, user) => reaction.emoji.name === '❌' && user.id === message.author.id;
- 
-let reaction1 = msg.createReactionCollector(reaction1Filter, { time: 12000 });
-let reaction2 = msg.createReactionCollector(reaction2Filter, { time: 12000 });
-reaction1.on("collect", r => {
-message.channel.send(`Chat will delete`).then(m => m.delete(5000));
-var msg;
-        msg = parseInt();
- 
-      message.channel.fetchMessages({limit: msg}).then(messages => message.channel.bulkDelete(messages)).catch(console.error);
-      message.channel.sendMessage("", {embed: {
-        title: "`` Chat Deleted ``",
-        color: 0x06DF00,
-        footer: {          
- 
-        }           
-      }}).then(msg => {msg.delete(3000)});
- 
-})     
-reaction2.on("collect", r => {   
-message.channel.send(`**Chat deletion cancelled**`).then(m => m.delete(5000));
-msg.delete();
-})
-})
-}
-});   
 
 
 
@@ -1477,23 +1260,11 @@ if (command == "z5rf") {
 });
 
 
-client.on('message', message =>{
-  if(message.content.startsWith('S!join')){
-	    if(!message.channel.guild) return message.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
- 
-    const voiceChannel = message.member.voiceChannel
-    voiceChannel.join();
-    message.channel.send("تم الأتصال بالروم الصوتي")
-}})
-
-
 
 
 client.on('message', message => {
 if(!message.channel.guild) return;
 if(message.content.startsWith(prefix + 'move')) {
-	  if(!message.channel.guild) return message.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
- 
  if (message.member.hasPermission("MOVE_MEMBERS")) {
  if (message.mentions.users.size === 0) {
  return message.channel.send("``لاستخدام الأمر اكتب هذه الأمر : " +prefix+ "move [USER]``")
@@ -1501,15 +1272,15 @@ if(message.content.startsWith(prefix + 'move')) {
 if (message.member.voiceChannel != null) {
  if (message.mentions.members.first().voiceChannel != null) {
  var authorchannel = message.member.voiceChannelID;
- var usermentioned = message.mentions.members.first().id;
+     var usermentioned = message.mentions.members.first().id;
 var embed = new Discord.RichEmbed()
  .setTitle("Succes!")
  .setColor("#000000")
- .setDescription(`لقد قمت بسحب <@${usermentioned}> الى الروم الصوتي الخاص بك? `)
+ .setDescription(`لقد قمت بسحب <@${usermentioned}> الى الروم الصوتي الخاص بك✅ `)
 var embed = new Discord.RichEmbed()
 .setTitle(`You are Moved in ${message.guild.name}`)
  .setColor("RANDOM")
-.setDescription(`**<@${message.author.id}> Moved You To His Channel!**`)
+.setDescription(`**<@${message.author.id}> Moved You To His Channel!\nServer --> ${message.guild.name}**`)
  message.guild.members.get(usermentioned).setVoiceChannel(authorchannel).then(m => message.channel.send(embed))
 message.guild.members.get(usermentioned).send(embed)
 } else {
@@ -1519,7 +1290,7 @@ message.channel.send("``لا تستطيع سحب "+ message.mentions.members.fir
  message.channel.send("**``يجب ان تكون في روم صوتي لكي تقوم بسحب العضو أليك``**")
 }
 } else {
-message.react("?")
+message.react("❌")
  }}});
 
 
