@@ -547,15 +547,10 @@ client.on('messageReactionRemove', (reaction, user) => {
 
 
 
-
-
-
-
-
 client.on('message', ( message ) => {
   if(message.author.bot) return;
 
-  if(message.channel.id !== '502140003850125322') return;
+  if(message.channel.id !== '531572317051158538') return;
 
   let types = [
     'jpg',
@@ -838,12 +833,12 @@ client.on("guildMemberAdd", member => {
 
 صاحب البوت :
 
-@!                        A7med 💎#3233 
+@!                        A7med 💎 
 
-البوت ما زال تحت التطوير نستقبل اقتراحاتكم في سيرفر المساعدة : https://discord.gg/HPDkwwD
+البوت ما زال تحت التطوير نستقبل اقتراحاتكم في سيرفر المساعدة : https://discord.gg/8D2Vf96
 
 
-:race_car: => يمكنك دعوة البوت إلي سيرفرك عن طريق هذا الرابط فقط : https://discordapp.com/oauth2/authorize?client_id=487211103819137036&scope=bot&permissions=8 ** `) 
+:race_car: => يمكنك دعوة البوت إلي سيرفرك عن طريق هذا الرابط فقط : https://discordapp.com/oauth2/authorize?client_id=522756698923073547&scope=bot&permissions=8 ** `) 
 }).catch(console.error)
 })
 
@@ -855,7 +850,7 @@ client.on("guildMemberAdd", member => {
 client.on("ready", () => {
     var guild;
     while (!guild)
-        guild = client.guilds.get("493862684693889024");
+        guild = client.guilds.get("523819021359906846");
     guild.fetchInvites().then((data) => {
         data.forEach((Invite, key, map) => {
             var Inv = Invite.code;
@@ -867,7 +862,7 @@ client.on("ready", () => {
  
  
 client.on("guildMemberAdd", (member) => {
-    let channel = member.guild.channels.get("495536448880115712");
+    let channel = member.guild.channels.get("531571140175462400");
     if (!channel) {
         console.log("!the channel id it's not correct");
         return;
@@ -878,7 +873,7 @@ client.on("guildMemberAdd", (member) => {
     console.log('-');
     var guild;
     while (!guild)
-        guild = client.guilds.get("493862684693889024");
+        guild = client.guilds.get("523819021359906846");
     guild.fetchInvites().then((data) => {
         data.forEach((Invite, key, map) => {
             var Inv = Invite.code;
