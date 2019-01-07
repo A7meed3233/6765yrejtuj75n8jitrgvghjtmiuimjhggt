@@ -59,6 +59,8 @@ message.channel.sendMessage('**الرجاء الانتظار ريث ما يتم 
 
 
 
+
+
 client.on("message", message => {
             if(message.content.startsWith("S!تقديم")) {
         if(!message.channel.guild) return;
