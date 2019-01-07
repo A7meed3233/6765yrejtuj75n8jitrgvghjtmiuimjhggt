@@ -35,28 +35,6 @@ client.user.setGame(`S!help | S!invite`,"http://twitch.tv/S-F")
 });
 
 
-client.on('message', message => {
-    if (message.content === "S!createroles") {
-    if(!message.channel.guild) return message.channel.send('**This Command Only For Servers !**')
-            if (!message.member.hasPermission('MANAGE_ROLES')) return message.channel.send(`**${message.author.username} You Dont Have** ``MANAGE_ROLES`` **Premission**`);
- 
-                     message.guild.createRole({ name: "Founder", color: "#ffffff", permissions: [] })
-                     message.guild.createRole({ name: "Owner", color: "#ffffff", permissions: [] })
-                     message.guild.createRole({ name: "Developer", color: "#ffffff", permissions: [] })
-                     message.guild.createRole({ name: "Leader", color: "#ffffff", permissions: [] })
-                     message.guild.createRole({ name: "Admin", color: "#ffffff", permissions: [] })
-                     message.guild.createRole({ name: "VIP", color: "#ffffff", permissions: [] })
-                     message.guild.createRole({ name: "Captin", color: "#ffffff", permissions: [] })
-                     message.guild.createRole({ name: "Support", color: "#ffffff", permissions: [] })
-                     message.guild.createRole({ name: "Special", color: "#ffffff", permissions: [] })
-                     message.guild.createRole({ name: "Member", color: "#ffffff", permissions: [] })
-       
- 
-message.channel.sendMessage('**الرجاء الانتظار ريث ما يتم صناعه الرتب **')
-}
-});
-
-
 
 
 
