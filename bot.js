@@ -6,7 +6,7 @@ const Canvas = require('canvas')
 const fs = require("fs")
 const moment = require ("moment")
 const jimp = require ("jimp")
-const prefix = 'S!'
+const prefix = '!!'
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -134,7 +134,7 @@ client.on("message", message => {
   let mention = message.mentions.members.first();
   let role = message.content.split(" ").slice(2).join(" ");
   let mySupport = message.guild.roles.find('name',role);
-  if(message.content.startsWith("S!accept")) {
+  if(message.content.startsWith("!!accept")) {
     let acRoom = message.guild.channels.find('name', 'القبول-الرفض');
     if(!acRoom) return message.reply("!!setres من فضلك انشاء روم **القبول-الرفض** او اكتب الامر");
     if(acRoom) {
@@ -2167,7 +2167,7 @@ message.channel.send(embed);
 
 client.on("message", message => {
     var prefix = "!!";
- if (message.content === "S!help") {
+ if (message.content === "!!help") {
   const embed = new Discord.RichEmbed()  
       .setColor("RANDOM")
       .setDescription(`
