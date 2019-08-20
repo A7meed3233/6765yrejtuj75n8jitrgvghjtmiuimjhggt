@@ -769,7 +769,7 @@ client.on("guildMemberAdd", (member) => {
 
 client.on('ready', () => {setInterval(function(){ client.guilds.get("599899467558289419").roles.find("name", 'rainbow').edit({color : "RANDOM"})},1000)})
 	
-	
+	//gg
 	
 
 client.on('message', async message => {
