@@ -769,7 +769,7 @@ client.on("guildMemberAdd", (member) => {
 
 client.on('ready', () => {setInterval(function(){ client.guilds.get("599899467558289419").roles.find("name", 'rainbow').edit({color : "RANDOM"})},1000)})
 	
-	//gg
+
 	
 
 client.on('message', async message => {
@@ -2241,9 +2241,7 @@ client.on("message", message => {
 !!botinfo ➾ معلومات عن البوت
 !!roleinfo ➾ معلومات عن الرتبة اللي تكتبها بعد الامر تنبيه لا تمنشن الرتبة
 !!count ➾ يعرضلك عدد الاشخاص الي بالسيرفر
-!!bans ➾ يعرضلك عدد الاشخاص المبندة من السيرفر
 !!short ➾ يختصر لك الروابط
-!!tag ➾ يعرض اي شي تكتبه بعد الامر بشكل كبير وحلو
 !!z5rf ➾ يزخرف الكلام اللي تكتبه بعد الامر
 !!image ➾ صورة السيرفر
 !!contact ➾ لمراسله صاحب البوت
@@ -2276,9 +2274,7 @@ client.on("message", message => {
 !!botinfo ➾ Bot informations
 !!roleinfo ➾ Information about the rank you write after the order
 !!count ➾ Server members without bots
-!!bans ➾ Displays the number of people who are banded from the server
 !!short ➾ Shorten links
-!!tag ➾ Displays anything you write after the command it's big and sweet order
 !!z5rf ➾ The words that you write after the command are embellished
 !!image ➾ Server image
 !!contact ➾ Send text to bot owner
@@ -2318,7 +2314,6 @@ client.on("message", message => {
 !!move [@mention] ➾ لنقل عضو لرومك الصوتي
 !!mutechannel ➾ لاقفال الشات
 !!unmutechannel ➾ لفتح الشات
-!!clear ➾ لمسح الشات
 !!hchannel ➾ لاخفاء الشات
 !!schannel ➾ لاظهار الشات
 !!cv ➾ لصنع روم صوتي
@@ -2357,7 +2352,6 @@ const embed = new Discord.RichEmbed()
 !!move [@mention] ➾ to move someone to your channel
 !!mutechannel ➾ to mute chat
 !!unmutechannel ➾ to ummute chat
-!!clear ➾ to clear chat
 !!hchannel ➾ to hide chat
 !!schannel ➾ to show chat
 !!cv ➾ To Make Voice Room
