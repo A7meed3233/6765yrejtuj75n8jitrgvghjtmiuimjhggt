@@ -767,8 +767,16 @@ client.on("guildMemberAdd", (member) => {
     }); 
 
 
-client.on('ready', () => {setInterval(function(){ client.guilds.get("599899467558289419").roles.find("name", 'rainbow').edit({color : "RANDOM"})},1000)})
-	
+client.on('ready', () => {// افنت التشغيل 
+  setInterval(function(){
+      client.guilds.forEach(g => { // فور ايرج تدخل للسيرفرات كلها
+                  var role = g.roles.find('name', 'rainbow');//Rainbow  اسم الرتبة عشان يسوي ريمبو غيرها اذا تبي
+                  if (role) {
+                      role.edit({color : "RANDOM"});
+                  };
+      });
+  }, 60000);// وقت الريمبو لا تغيرة لانه الوقت المسموح للتغيير
+})	
 
 	
 
